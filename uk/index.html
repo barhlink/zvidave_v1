@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zvídavě – hry a výukové materiály</title>
+<meta name="description" content="Interaktivní výukové hry pro děti prvního stupně. Matematika, informatika, přírodověda. Zdarma, v prohlížeči, bez registrace.">
+<link rel="stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+
+<!-- ══════════════ NAV ══════════════ -->
+<nav>
+  <a href="#" class="nav-logo">
+    <span class="nl-main">Zvídavě</span><span class="nl-dot">.</span><span class="nl-cz">cz</span>
+  </a>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="#o-projektu" data-i18n="nav_about">O projektu</a></li>
+    <li><a href="#hry" data-i18n="nav_games">Hry</a></li>
+    <li><a href="#kontakt" data-i18n="nav_contact">Kontakt</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-switcher">
+      <button class="lang-current" id="lang-current" onclick="toggleLangDropdown()">CZ ▾</button>
+      <div class="lang-dropdown" id="lang-dropdown">
+        <button class="lang-btn" data-lang="cs" onclick="setLang('cs')">CZ</button>
+        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+        <button class="lang-btn" data-lang="uk" onclick="setLang('uk')">UK</button>
+      </div>
+    </div>
+    <button class="hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ══════════════ HERO ══════════════ -->
+<section class="hero" id="uvod">
+  <div class="hero-text">
+    <p class="hero-eyebrow" data-i18n="hero_eyebrow">✦ výukové hry pro zvídavé děti</p>
+    <h1 class="hero-title" data-i18n="hero_title">Učení,<br>které <em>baví</em></h1>
+    <p class="hero-sub" data-i18n="hero_sub">Interaktivní hry a cvičení pro žáky prvního stupně. Matematika, informatika a přírodověda — v podobě, na kterou se děti těší.</p>
+    <div class="hero-ctas">
+      <a href="#hry" class="hero-cta" data-i18n="hero_cta">Prozkoumat hry</a>
+      <a href="#o-projektu" class="hero-cta-ghost" data-i18n="hero_cta2">Více o projektu</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-visual">
+      <div class="hero-card">
+        <div class="hero-emoji-row">🧮 💡 🌱</div>
+        <div class="hero-card-bars">
+          <div class="hero-bar medium"></div>
+          <div class="hero-bar short"></div>
+          <div class="hero-bar medium"></div>
+        </div>
+      </div>
+      <div class="hero-badge-float top-right">
+        <span>✨</span>
+        <span data-i18n="hero_badge1">Zdarma</span>
+      </div>
+      <div class="hero-badge-float bottom-left">
+        <span>🎮</span>
+        <span data-i18n="hero_badge2">Hraj a uč se</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ O PROJEKTU ══════════════ -->
+<section class="about" id="o-projektu">
+  <div class="about-text">
+    <div class="section-divider"></div>
+    <h2><span data-i18n="about_title">Proč</span> <span>Zvídavě</span>?</h2>
+    <p data-i18n="about_p1">Jsem učitelka programování, matematiky a 3D tisku na základní škole. Tuto stránku jsem vytvořila, protože chci, aby výuka bavila — jak děti, tak učitele.</p>
+    <p data-i18n="about_p2">Každá hra vznikla přímo ve třídě, testovaná s dětmi. Jsou zdarma, fungují v prohlížeči a nevyžadují přihlášení.</p>
+    <p data-i18n="about_p3">Vychází z přístupu konstruktivismu a Hejného metody — děti si poznatky <em>samy</em> objevují, ne jen opakují.</p>
+  </div>
+  <div class="about-stats">
+    <div class="stat-box">
+      <div class="stat-icon blue">🎓</div>
+      <div class="stat-num" data-i18n="stat1_num">1.<span>–</span>5. ročník</div>
+      <div class="stat-label" data-i18n="stat1_label">ZŠ</div>
+      <div class="stat-sublabel" data-i18n="stat1_sub">Pro děti 6–12 let</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-icon gold">💛</div>
+      <div class="stat-num gold" data-i18n="stat2_num">Zdarma</div>
+      <div class="stat-label" data-i18n="stat2_label">Bez poplatků</div>
+      <div class="stat-sublabel" data-i18n="stat2_sub">Navždy a pro všechny</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-icon blue">🌐</div>
+      <div class="stat-num" data-i18n="stat3_num">V prohlížeči</div>
+      <div class="stat-label" data-i18n="stat3_label">Bez instalace</div>
+      <div class="stat-sublabel" data-i18n="stat3_sub">Funguje na tabletu i PC</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-icon gold">✅</div>
+      <div class="stat-num gold" data-i18n="stat4_num">Ověřeno</div>
+      <div class="stat-label" data-i18n="stat4_label">S dětmi ve třídě</div>
+      <div class="stat-sublabel" data-i18n="stat4_sub">Konstruktivismus &amp; Hejný</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════ GALERIE HER ══════════════ -->
+<section class="gallery" id="hry">
+  <div class="gallery-header">
+    <div class="section-divider"></div>
+    <h2><span data-i18n="gallery_title">Naše</span> <span data-i18n="gallery_title2">hry</span></h2>
+    <p data-i18n="gallery_sub">Klikni na hru a rovnou hraj — žádná registrace, žádné stahování.</p>
+  </div>
+
+  <div class="games-grid">
+
+    <!-- Hra 1 - placeholder -->
+    <div class="game-card">
+      <div class="game-thumb" style="background: linear-gradient(135deg,#e8f7fb,#c8ecf6);">
+        🎲
+        <div class="coming-badge" data-i18n="badge_soon">Připravujeme</div>
+      </div>
+      <div class="game-body">
+        <div class="game-tag" data-i18n="g1_tag">Nová hra</div>
+        <div class="game-title" data-i18n="g1_title">Hra 1</div>
+        <div class="game-desc" data-i18n="g1_desc">Brzy se zde objeví nová interaktivní hra. Sledujte nás!</div>
+        <div class="game-footer">
+          <span class="game-age" data-i18n="g1_age">ZŠ</span>
+          <span class="game-play muted" data-i18n="coming_soon">Brzy</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hra 2 - placeholder -->
+    <div class="game-card">
+      <div class="game-thumb" style="background: linear-gradient(135deg,#edf5e8,#d0ebc4);">
+        🧩
+        <div class="coming-badge" data-i18n="badge_soon">Připravujeme</div>
+      </div>
+      <div class="game-body">
+        <div class="game-tag" data-i18n="g2_tag">Nová hra</div>
+        <div class="game-title" data-i18n="g2_title">Hra 2</div>
+        <div class="game-desc" data-i18n="g2_desc">Brzy se zde objeví nová interaktivní hra. Sledujte nás!</div>
+        <div class="game-footer">
+          <span class="game-age" data-i18n="g2_age">ZŠ</span>
+          <span class="game-play muted" data-i18n="coming_soon">Brzy</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hra 3 - placeholder -->
+    <div class="game-card">
+      <div class="game-thumb" style="background: linear-gradient(135deg,#fbf3e8,#f5dfb8);">
+        🎨
+        <div class="coming-badge" data-i18n="badge_soon">Připravujeme</div>
+      </div>
+      <div class="game-body">
+        <div class="game-tag" data-i18n="g3_tag">Nová hra</div>
+        <div class="game-title" data-i18n="g3_title">Hra 3</div>
+        <div class="game-desc" data-i18n="g3_desc">Brzy se zde objeví nová interaktivní hra. Sledujte nás!</div>
+        <div class="game-footer">
+          <span class="game-age" data-i18n="g3_age">ZŠ</span>
+          <span class="game-play muted" data-i18n="coming_soon">Brzy</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- + Brzy přibude -->
+    <div class="game-card empty">
+      <div class="empty-inner">
+        <div class="plus">+</div>
+        <p data-i18n="more_soon">Brzy přibudou další</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════ FEEDBACK ══════════════ -->
+<section class="feedback" id="kontakt">
+  <div class="feedback-inner">
+    <div class="section-divider"></div>
+    <h2 data-i18n="feedback_title">Zpětná vazba</h2>
+    <p data-i18n="feedback_text">Každý názor je pro mě cenný — ať už jste učitel, rodič nebo dítě, které si hru vyzkoušelo. Moc si vaší zpětné vazby vážím a pomáhá mi hry zlepšovat.</p>
+    <a href="mailto:info@zvidave.cz" class="feedback-btn">
+      <span data-i18n="feedback_btn">Napsat zprávu</span>&nbsp;<span style="font-size:1.3em;line-height:1;">✉</span>
+    </a>
+    <p class="feedback-note" data-i18n="feedback_note">Odpovídám co nejdříve.</p>
+  </div>
+</section>
+
+<!-- ══════════════ FOOTER ══════════════ -->
+<footer>
+  <div class="footer-logo-text">
+    <span class="fl-main">Zvídavě</span><span class="fl-dot">.</span><span class="fl-cz">cz</span>
+  </div>
+  <p class="footer-copy" data-i18n="footer_copy">© 2025 Zvídavě · Vše zdarma · Vyrobeno s ❤ pro zvídavé děti</p>
+</footer>
+
+<script src="/assets/js/main.js"></script>
+</body>
+</html>
