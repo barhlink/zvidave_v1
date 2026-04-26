@@ -416,18 +416,20 @@ nav {
 /* ─── FOOTER ─── */
 footer {
   background: var(--navy);
-  padding: 84px 80px;
+  padding: 64px 80px;
   display: flex; align-items: center; justify-content: space-between;
-  gap: 24px;
+  gap: 32px;
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
-.footer-logo-text { display: flex; align-items: baseline; }
-.fl-main { font: 500 36px/1 'Cormorant Garamond', serif; font-style: italic; color: white; }
-.fl-dot  { font: 500 36px/1 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); margin-left: 1px; }
-.fl-cz   { font: 300 36px/1 'Cormorant Garamond', serif; font-style: italic; color: white; opacity: 0.32; margin-left: -1px; }
+.footer-logo-text { display: flex; align-items: baseline; gap: 0; }
+.fl-main { font: 500 42px/1 'Cormorant Garamond', serif; font-style: italic; color: white; }
+.fl-dot  { font: 500 42px/1 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); margin-left: 1px; }
+.fl-cz   { font: 300 42px/1 'Cormorant Garamond', serif; font-style: italic; color: white; opacity: 0.32; margin-left: -1px; }
 .footer-copy {
-  font-size: 0.78rem;
-  color: rgba(255,255,255,0.35);
-  letter-spacing: 0.06em;
+  font-size: 0.85rem;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.04em;
+  line-height: 1.7;
 }
 
 /* ─── HAMBURGER ─── */

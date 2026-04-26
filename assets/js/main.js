@@ -30,7 +30,7 @@
       feedback_title: "Zpětná vazba", feedback_btn: "Napsat zprávu",
       feedback_text: "Každý názor je pro mě cenný — ať už jste učitel, rodič nebo dítě, které si hru vyzkoušelo. Moc si vaší zpětné vazby vážím a pomáhá mi hry zlepšovat.",
       feedback_note: "Odpovídám co nejdříve.",
-      footer_copy: "© 2025 Zvídavě · Vše zdarma · Vyrobeno s ❤ pro zvídavé děti"
+      footer_copy: "© 2026 Zvídavě · Vše zdarma · Vyrobeno s ❤ pro zvídavé děti"
     },
     en: {
       nav_about: "About", nav_games: "Games", nav_contact: "Contact",
@@ -57,7 +57,7 @@
       feedback_title: "Feedback", feedback_btn: "Send a message",
       feedback_text: "Every opinion matters to me — whether you are a teacher, a parent or a child who tried a game. Your feedback helps me improve.",
       feedback_note: "I reply as soon as I can.",
-      footer_copy: "© 2025 Zvídavě · Free forever · Made with ❤ for curious kids"
+      footer_copy: "© 2026 Zvídavě · Free forever · Made with ❤ for curious kids"
     },
     fr: {
       nav_about: "À propos", nav_games: "Jeux", nav_contact: "Contact",
@@ -84,7 +84,7 @@
       feedback_title: "Retour d'expérience", feedback_btn: "Envoyer un message",
       feedback_text: "Chaque avis compte pour moi — que vous soyez enseignant, parent ou enfant ayant essayé un jeu. Vos retours m'aident à améliorer les jeux.",
       feedback_note: "Je réponds dès que possible.",
-      footer_copy: "© 2025 Zvídavě · Gratuit pour toujours · Fait avec ❤ pour les enfants curieux"
+      footer_copy: "© 2026 Zvídavě · Gratuit pour toujours · Fait avec ❤ pour les enfants curieux"
     },
     uk: {
       nav_about: "Про проект", nav_games: "Ігри", nav_contact: "Контакт",
@@ -111,7 +111,7 @@
       feedback_title: "Зворотній зв'язок", feedback_btn: "Надіслати повідомлення",
       feedback_text: "Кожна думка важлива для мене — незалежно від того, чи ви вчитель, батько або дитина, яка спробувала гру. Ваш відгук допомагає мені вдосконалювати ігри.",
       feedback_note: "Відповідаю якнайшвидше.",
-      footer_copy: "© 2025 Zvídavě · Безкоштовно · Зроблено з ❤ для допитливих дітей"
+      footer_copy: "© 2026 Zvídavě · Безкоштовно · Зроблено з ❤ для допитливих дітей"
     }
   };
 
