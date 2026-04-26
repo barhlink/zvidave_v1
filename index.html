@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zvídavě</title>
+  <script>
+    (function () {
+      var supported = ['cs', 'en', 'uk', 'fr'];
+      var lang = (navigator.language || navigator.userLanguage || 'cs').split('-')[0].toLowerCase();
+      var target = supported.indexOf(lang) !== -1 ? lang : 'cs';
+      window.location.replace('/' + target + '/');
+    })();
+  </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=/cs/">
+  </noscript>
+</head>
+<body>
+  <p><a href="/cs/">Pokračujte na českou verzi</a></p>
+</body>
+</html>
