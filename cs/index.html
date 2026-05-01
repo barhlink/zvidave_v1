@@ -1,186 +1,365 @@
 <!DOCTYPE html>
 <html lang="cs">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zvídavě – hry a výukové materiály</title>
-<meta name="description" content="Interaktivní výukové hry pro děti prvního stupně. Matematika, informatika, přírodověda. Zdarma, v prohlížeči, bez registrace.">
-<link rel="stylesheet" href="/assets/css/main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zvídavě – hry a výukové materiály</title>
+  <meta name="description" content="Interaktivní výukové hry pro děti prvního stupně. Matematika, informatika, přírodověda. Zdarma, v prohlížeči, bez registrace.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600;1,9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/bold.css">
 </head>
 <body>
+<div class="bv-root">
 
-<!-- ══════════════ NAV ══════════════ -->
-<nav>
-  <a href="#" class="nav-logo">
-    <span class="nl-main">Zvídavě</span><span class="nl-dot">.</span><span class="nl-cz">cz</span>
-  </a>
-  <ul class="nav-links" id="nav-links">
-    <li><a href="#o-projektu" data-i18n="nav_about">O projektu</a></li>
-    <li><a href="#hry" data-i18n="nav_games">Hry</a></li>
-    <li><a href="#kontakt" data-i18n="nav_contact">Kontakt</a></li>
-  </ul>
-  <div class="nav-right">
-    <div class="lang-switcher">
-      <button class="lang-current" id="lang-current" onclick="toggleLangDropdown()">CZ ▾</button>
-      <div class="lang-dropdown" id="lang-dropdown">
-        <button class="lang-btn" data-lang="cs" onclick="setLang('cs')">CZ</button>
-        <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
-        <button class="lang-btn" data-lang="uk" onclick="setLang('uk')">UK</button>
+  <!-- NAV -->
+  <header class="bv-nav">
+    <div class="bv-nav-inner">
+      <a href="#" class="bv-logo">
+        <span class="bv-logo-text"><em>Zvídavě</em><span class="bv-logo-tld">.cz</span></span>
+      </a>
+      <nav class="bv-nav-links" id="nav-links">
+        <a href="#o-projektu" data-i18n="nav_about">O PROJEKTU</a>
+        <a href="#hry" data-i18n="nav_games">HRY</a>
+        <a href="#kontakt" data-i18n="nav_contact">KONTAKT</a>
+      </nav>
+      <div class="bv-nav-right">
+        <div class="bv-lang">
+          <button class="lang-btn active" data-lang="cs" onclick="setLang('cs')">CZ</button>
+          <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
+          <button class="lang-btn" data-lang="uk" onclick="setLang('uk')">UK</button>
+        </div>
+        <button class="bv-hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
-    <button class="hamburger" id="hamburger" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</nav>
+  </header>
 
-<!-- ══════════════ HERO ══════════════ -->
-<section class="hero" id="uvod">
-  <div class="hero-text">
-    <p class="hero-eyebrow" data-i18n="hero_eyebrow">✦ výukové hry pro zvídavé děti</p>
-    <h1 class="hero-title" data-i18n="hero_title">Učení,<br>které <em>baví</em></h1>
-    <p class="hero-sub" data-i18n="hero_sub">Interaktivní hry a cvičení pro žáky prvního stupně. Matematika, informatika a přírodověda — v podobě, na kterou se děti těší.</p>
-    <div class="hero-ctas">
-      <a href="#hry" class="hero-cta" data-i18n="hero_cta">Prozkoumat hry</a>
-      <a href="#o-projektu" class="hero-cta-ghost" data-i18n="hero_cta2">Více o projektu</a>
-    </div>
-  </div>
-  <div class="hero-image">
-    <img src="/assets/img/hero-fox.png" alt="Zvídavě liška" class="hero-fox">
-  </div>
-</section>
+  <!-- HERO -->
+  <section class="bv-hero" id="uvod">
+    <div class="bv-hero-blob bv-blob-1" aria-hidden="true"></div>
+    <div class="bv-hero-blob bv-blob-2" aria-hidden="true"></div>
+    <svg class="bv-hero-grid-svg" aria-hidden="true" width="100%" height="100%" preserveAspectRatio="none">
+      <pattern id="bvgrid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+        <circle cx="1" cy="1" r="1" fill="#1A2444" opacity="0.06"></circle>
+      </pattern>
+      <rect width="100%" height="100%" fill="url(#bvgrid)"></rect>
+    </svg>
 
-<!-- ══════════════ O PROJEKTU ══════════════ -->
-<section class="about" id="o-projektu">
-  <div class="about-text">
-    <div class="section-divider"></div>
-    <h2><span data-i18n="about_title">Proč</span> <span>Zvídavě</span>?</h2>
-    <p data-i18n="about_p1">Jsem učitelka programování, matematiky a 3D tisku na základní škole. Tuto stránku jsem vytvořila, protože chci, aby výuka bavila — jak děti, tak učitele.</p>
-    <p data-i18n="about_p2">Každá hra vznikla přímo ve třídě, testovaná s dětmi. Jsou zdarma, fungují v prohlížeči a nevyžadují přihlášení.</p>
-    <p data-i18n="about_p3">Vychází z přístupu konstruktivismu a Hejného metody — děti si poznatky <em>samy</em> objevují, ne jen opakují.</p>
-  </div>
-  <div class="about-stats">
-    <div class="stat-box">
-      <div class="stat-icon blue">🎓</div>
-      <div class="stat-num" data-i18n="stat1_num">1.<span>–</span>5. ročník</div>
-      <div class="stat-label" data-i18n="stat1_label">ZŠ</div>
-      <div class="stat-sublabel" data-i18n="stat1_sub">Pro děti 6–12 let</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-icon gold">💛</div>
-      <div class="stat-num gold" data-i18n="stat2_num">Zdarma</div>
-      <div class="stat-label" data-i18n="stat2_label">Bez poplatků</div>
-      <div class="stat-sublabel" data-i18n="stat2_sub">Navždy a pro všechny</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-icon blue">🌐</div>
-      <div class="stat-num" data-i18n="stat3_num">V prohlížeči</div>
-      <div class="stat-label" data-i18n="stat3_label">Bez instalace</div>
-      <div class="stat-sublabel" data-i18n="stat3_sub">Funguje na tabletu i PC</div>
-    </div>
-    <div class="stat-box">
-      <div class="stat-icon gold">✅</div>
-      <div class="stat-num gold" data-i18n="stat4_num">Ověřeno</div>
-      <div class="stat-label" data-i18n="stat4_label">S dětmi ve třídě</div>
-      <div class="stat-sublabel" data-i18n="stat4_sub">Konstruktivismus &amp; Hejný</div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════ GALERIE HER ══════════════ -->
-<section class="gallery" id="hry">
-  <div class="gallery-header">
-    <div class="section-divider"></div>
-    <h2><span data-i18n="gallery_title">Naše</span> <span data-i18n="gallery_title2">hry</span></h2>
-    <p data-i18n="gallery_sub">Klikni na hru a rovnou hraj — žádná registrace, žádné stahování.</p>
-  </div>
-
-  <div class="games-grid">
-
-    <!-- Hra 1 - placeholder -->
-    <div class="game-card">
-      <div class="game-thumb" style="background: linear-gradient(135deg,#e8f7fb,#c8ecf6);">
-        🎲
-        <div class="coming-badge" data-i18n="badge_soon">Připravujeme</div>
+    <div class="bv-hero-inner">
+      <div class="bv-hero-left">
+        <div class="bv-eyebrow">
+          <span class="bv-eyebrow-diamond" aria-hidden="true">◆</span>
+          VÝUKOVÉ HRY PRO ZVÍDAVÉ DĚTI
+        </div>
+        <h1 class="bv-h1">
+          <span class="bv-h1-line">
+            Učení
+            <span class="bv-h1-mark" aria-hidden="true">
+              <svg viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M2 14 Q 30 4 50 12 T 98 8" stroke="#5BB1D9" stroke-width="3" fill="none" stroke-linecap="round"></path></svg>
+            </span>
+          </span>
+          <span class="bv-h1-line">
+            které <em>baví</em>
+            <span class="bv-h1-sparkle" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="36" height="36"><path d="M12 2 L13.5 9 L20 10.5 L13.5 12 L12 19 L10.5 12 L4 10.5 L10.5 9 Z" fill="#5BB1D9"></path></svg>
+            </span>
+          </span>
+        </h1>
+        <p class="bv-lede" data-i18n="hero_sub">Interaktivní hry a cvičení pro žáky prvního stupně. Matematika a informatika — v podobě, na kterou se děti těší.</p>
+        <div class="bv-cta-row">
+          <a href="#hry" class="bv-btn bv-btn-primary" data-i18n="hero_cta">PROZKOUMAT HRY</a>
+          <a href="#o-projektu" class="bv-btn bv-btn-ghost" data-i18n="hero_cta2">VÍCE O PROJEKTU</a>
+        </div>
+        <div class="bv-trust">
+          <div class="bv-trust-stars" aria-label="5 hvězd">★★★★★</div>
+        </div>
       </div>
-      <div class="game-body">
-        <div class="game-tag" data-i18n="g1_tag">Nová hra</div>
-        <div class="game-title" data-i18n="g1_title">Hra 1</div>
-        <div class="game-desc" data-i18n="g1_desc">Brzy se zde objeví nová interaktivní hra. Sledujte nás!</div>
-        <div class="game-footer">
-          <span class="game-age" data-i18n="g1_age">ZŠ</span>
-          <span class="game-play muted" data-i18n="coming_soon">Brzy</span>
+
+      <div class="bv-hero-right">
+        <div class="bv-stack">
+
+          <!-- Fox mascot card -->
+          <div class="bv-mascot-card">
+            <div class="bv-mascot-bg" aria-hidden="true">
+              <svg width="100%" height="100%" viewBox="0 0 200 200" preserveAspectRatio="none">
+                <circle cx="100" cy="100" r="90" fill="#5BB1D9" opacity="0.08"></circle>
+                <circle cx="100" cy="100" r="70" fill="#5BB1D9" opacity="0.06"></circle>
+              </svg>
+            </div>
+            <img src="/assets/img/hero-fox.png" alt="Zvídavá liška" class="bv-mascot-img">
+          </div>
+
+          <!-- Mini-game floater (Najdi součet) -->
+          <div class="bv-game-floater">
+            <div class="mini-game">
+              <div class="mg-head">
+                <span class="mg-label">MINI HRA · 1. STUPEN</span>
+                <span class="mg-streak">
+                  <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1 L7.5 4.5 L11 5 L8.5 7.5 L9 11 L6 9 L3 11 L3.5 7.5 L1 5 L4.5 4.5 Z" fill="#5BB1D9"/></svg>
+                  <span id="mg-streak">0</span> v řadě
+                </span>
+              </div>
+              <p class="mg-prompt">Najdi čísla, jejichž součet je <strong id="mg-target">10</strong></p>
+              <div class="mg-numbers" id="mg-numbers"></div>
+              <div class="mg-footer">
+                <div class="mg-sum">Tvůj součet: <strong id="mg-sum-val">0</strong><span id="mg-hint"></span></div>
+                <button class="mg-skip" id="mg-skip">Další ↻</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="bv-stat-chip bv-stat-1" aria-hidden="true">
+            <span class="bv-stat-lbl">nové hry</span>
+            <span class="bv-stat-num">každý měsíc</span>
+          </div>
+          <div class="bv-stat-chip bv-stat-2" aria-hidden="true">
+            <span class="bv-stat-glyph">✓</span>
+            <span class="bv-stat-lbl">bez registrace</span>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- Hra 2 - placeholder -->
-    <div class="game-card">
-      <div class="game-thumb" style="background: linear-gradient(135deg,#edf5e8,#d0ebc4);">
-        🧩
-        <div class="coming-badge" data-i18n="badge_soon">Připravujeme</div>
+  <!-- MARQUEE -->
+  <div class="bv-marquee" aria-hidden="true">
+    <div class="bv-marquee-track">
+      <div class="bv-marquee-set">
+        <span>+ Matematika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Informatika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span>
       </div>
-      <div class="game-body">
-        <div class="game-tag" data-i18n="g2_tag">Nová hra</div>
-        <div class="game-title" data-i18n="g2_title">Hra 2</div>
-        <div class="game-desc" data-i18n="g2_desc">Brzy se zde objeví nová interaktivní hra. Sledujte nás!</div>
-        <div class="game-footer">
-          <span class="game-age" data-i18n="g2_age">ZŠ</span>
-          <span class="game-play muted" data-i18n="coming_soon">Brzy</span>
+      <div class="bv-marquee-set">
+        <span>+ Matematika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Informatika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <section class="bv-how" id="o-projektu">
+    <div class="bv-section-head">
+      <span class="bv-section-eyebrow"><span class="bv-eyebrow-bar"></span>JAK TO FUNGUJE</span>
+      <h2 class="bv-h2">Tři kroky, žádné <em>překážky</em></h2>
+    </div>
+    <div class="bv-steps">
+      <div class="bv-step" style="--step-color:#5BB1D9">
+        <div class="bv-step-num"><span>01</span></div>
+        <div class="bv-step-illust" aria-hidden="true">
+          <svg viewBox="0 0 80 80" width="64" height="64">
+            <rect x="8" y="20" width="64" height="6" rx="3" fill="#5BB1D9"></rect>
+            <rect x="16" y="36" width="48" height="6" rx="3" fill="#5BB1D9" opacity="0.5"></rect>
+            <rect x="24" y="52" width="32" height="6" rx="3" fill="#5BB1D9" opacity="0.3"></rect>
+            <circle cx="20" cy="23" r="6" fill="white" stroke="#5BB1D9" stroke-width="2"></circle>
+            <circle cx="50" cy="39" r="6" fill="white" stroke="#5BB1D9" stroke-width="2" opacity="0.5"></circle>
+            <circle cx="36" cy="55" r="6" fill="white" stroke="#5BB1D9" stroke-width="2" opacity="0.3"></circle>
+          </svg>
+        </div>
+        <h3>Vyber předmět</h3>
+        <p>Filtry podle ročníku, předmětu a tématu. Najdeš za 30 vteřin to, co potřebuješ.</p>
+      </div>
+      <div class="bv-step" style="--step-color:#C9A961">
+        <div class="bv-step-num"><span>02</span></div>
+        <div class="bv-step-illust" aria-hidden="true">
+          <svg viewBox="0 0 80 80" width="64" height="64">
+            <path d="M22 28 L40 40 M58 28 L40 40 M40 40 L40 56" stroke="#C9A961" stroke-width="2.5" fill="none" stroke-linecap="round"></path>
+            <circle cx="22" cy="28" r="9" fill="#C9A961" opacity="0.4"></circle>
+            <circle cx="58" cy="28" r="9" fill="#C9A961" opacity="0.7"></circle>
+            <circle cx="40" cy="40" r="9" fill="#C9A961"></circle>
+            <circle cx="40" cy="60" r="9" fill="#C9A961" opacity="0.5"></circle>
+          </svg>
+        </div>
+        <h3>Sdílej se třídou</h3>
+        <p>Pošli odkaz dětem nebo promítni hru přímo na interaktivní tabuli. Funguje i offline po prvním načtení.</p>
+      </div>
+      <div class="bv-step" style="--step-color:#7DA87A">
+        <div class="bv-step-num"><span>03</span></div>
+        <div class="bv-step-illust" aria-hidden="true">
+          <svg viewBox="0 0 80 80" width="64" height="64">
+            <circle cx="40" cy="40" r="32" fill="#7DA87A"></circle>
+            <path d="M32 26 L56 40 L32 54 Z" fill="white"></path>
+          </svg>
+        </div>
+        <h3>Pusť se do hry</h3>
+        <p>Bez registrace, bez stahování, bez reklam. Spustíš v prohlížeči.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GAMES -->
+  <section class="bv-games" id="hry">
+    <div class="bv-games-head">
+      <div>
+        <span class="bv-section-eyebrow"><span class="bv-eyebrow-bar"></span>KATALOG</span>
+        <h2 class="bv-h2"><em>Hry</em> testované<br>ve třídě</h2>
+      </div>
+      <p class="bv-games-lede">Každá hra projde testováním ve třídě. Žádné reklamy, žádné mikrotransakce — jen čisté učení.</p>
+    </div>
+
+    <div class="bv-filters">
+      <button class="bv-filter active" data-filter="all">Vše</button>
+      <button class="bv-filter" data-filter="Matematika">Matematika</button>
+      <button class="bv-filter" data-filter="Informatika">Informatika</button>
+      <button class="bv-filter" data-filter="Přírodověda">Přírodověda</button>
+    </div>
+
+    <div class="bv-game-grid" id="game-grid">
+
+      <article class="bv-game-card" style="--card-color:#3B82C4" data-subject="Informatika">
+        <div class="bv-game-cover">
+          <div class="bv-game-shapes" aria-hidden="true">
+            <span class="bv-game-shape bv-shape-0">◐</span>
+            <span class="bv-game-shape bv-shape-1">◐</span>
+            <span class="bv-game-shape bv-shape-2">◐</span>
+          </div>
+          <span class="bv-game-glyph" aria-hidden="true">◐</span>
+          <span class="bv-game-grade">3.–5. tř.</span>
+        </div>
+        <div class="bv-game-meta">
+          <div class="bv-game-row">
+            <span class="bv-game-subj">Informatika</span>
+            <span class="bv-game-time">⏱ 15 min</span>
+          </div>
+          <h3>Vrstvička</h3>
+          <div class="bv-game-play">Hrát teď <span>→</span></div>
+        </div>
+      </article>
+
+      <article class="bv-game-card" style="--card-color:#5BB1D9" data-subject="Matematika">
+        <div class="bv-game-cover">
+          <div class="bv-game-shapes" aria-hidden="true">
+            <span class="bv-game-shape bv-shape-0">½</span>
+            <span class="bv-game-shape bv-shape-1">½</span>
+            <span class="bv-game-shape bv-shape-2">½</span>
+          </div>
+          <span class="bv-game-glyph" aria-hidden="true">½</span>
+          <span class="bv-game-grade">5. tř.</span>
+        </div>
+        <div class="bv-game-meta">
+          <div class="bv-game-row">
+            <span class="bv-game-subj">Matematika</span>
+            <span class="bv-game-time">⏱ 30 min</span>
+          </div>
+          <h3>Zlomková zoo 1</h3>
+          <div class="bv-game-play">Hrát teď <span>→</span></div>
+        </div>
+      </article>
+
+      <article class="bv-game-card" style="--card-color:#5BB1D9" data-subject="Matematika">
+        <div class="bv-game-cover">
+          <div class="bv-game-shapes" aria-hidden="true">
+            <span class="bv-game-shape bv-shape-0">⅓</span>
+            <span class="bv-game-shape bv-shape-1">⅓</span>
+            <span class="bv-game-shape bv-shape-2">⅓</span>
+          </div>
+          <span class="bv-game-glyph" aria-hidden="true">⅓</span>
+          <span class="bv-game-grade">5. tř.</span>
+        </div>
+        <div class="bv-game-meta">
+          <div class="bv-game-row">
+            <span class="bv-game-subj">Matematika</span>
+            <span class="bv-game-time">⏱ 30 min</span>
+          </div>
+          <h3>Zlomková zoo 2</h3>
+          <div class="bv-game-play">Hrát teď <span>→</span></div>
+        </div>
+      </article>
+
+      <article class="bv-game-card bv-game-soon" style="--card-color:#5BB1D9" data-subject="soon">
+        <div class="bv-game-cover">
+          <div class="bv-game-shapes" aria-hidden="true">
+            <span class="bv-game-shape bv-shape-0">+</span>
+            <span class="bv-game-shape bv-shape-1">+</span>
+            <span class="bv-game-shape bv-shape-2">+</span>
+          </div>
+          <span class="bv-game-glyph" aria-hidden="true">+</span>
+          <span class="bv-game-soon-badge" data-i18n="badge_soon">JIŽ BRZY</span>
+        </div>
+        <div class="bv-game-meta">
+          <h3>Připravujeme</h3>
+          <div class="bv-game-soon-note">Nová hra ve výrobě.</div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- TEACHERS -->
+  <section class="bv-teachers" id="ucitele">
+    <div class="bv-teachers-grid">
+      <div class="bv-teachers-text">
+        <span class="bv-section-eyebrow"><span class="bv-eyebrow-bar"></span>PRO UČITELE</span>
+        <h2 class="bv-h2">Hotový materiál do <em>hodiny</em></h2>
+        <p>Každá hra obsahuje stručný metodický list — co procvičuje, jak ji zařadit do výuky, návrhy zadání pro různé úrovně.</p>
+        <ul class="bv-checklist">
+          <li><span class="bv-check">✓</span> Bez registrace pro děti</li>
+          <li><span class="bv-check">✓</span> Funguje na školních tabletech</li>
+          <li><span class="bv-check">✓</span> RVP-kompatibilní zadání</li>
+          <li><span class="bv-check">✓</span> Tisknutelné pracovní listy</li>
+        </ul>
+        <a href="#" class="bv-btn bv-btn-primary">
+          <span>Stáhnout metodiku</span>
+          <span class="bv-btn-arrow">↓</span>
+        </a>
+      </div>
+      <div class="bv-teachers-art">
+        <div class="bv-mock-stack">
+          <div class="bv-mock-sheet bv-mock-back">
+            <div class="bv-mock-bar bv-mock-bar-lg"></div>
+            <div class="bv-mock-bar"></div>
+            <div class="bv-mock-bar bv-mock-bar-md"></div>
+          </div>
+          <div class="bv-mock-sheet bv-mock-front">
+            <div class="bv-mock-tag">METODICKÝ LIST</div>
+            <div class="bv-mock-title">Násobilka v lese</div>
+            <div class="bv-mock-sub">2.–3. třída · 10 min</div>
+            <div class="bv-mock-grid">
+              <div class="bv-mock-cell"><span>1×1</span><strong>1</strong></div>
+              <div class="bv-mock-cell"><span>2×2</span><strong>4</strong></div>
+              <div class="bv-mock-cell"><span>3×3</span><strong>9</strong></div>
+              <div class="bv-mock-cell"><span>4×4</span><strong>16</strong></div>
+              <div class="bv-mock-cell"><span>5×5</span><strong>25</strong></div>
+              <div class="bv-mock-cell"><span>6×6</span><strong>36</strong></div>
+            </div>
+            <div class="bv-mock-foot">
+              <div class="bv-mock-progress"><div style="width:68%"></div></div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+  </section>
 
-    <!-- Hra 3 - placeholder -->
-    <div class="game-card">
-      <div class="game-thumb" style="background: linear-gradient(135deg,#fbf3e8,#f5dfb8);">
-        🎨
-        <div class="coming-badge" data-i18n="badge_soon">Připravujeme</div>
-      </div>
-      <div class="game-body">
-        <div class="game-tag" data-i18n="g3_tag">Nová hra</div>
-        <div class="game-title" data-i18n="g3_title">Hra 3</div>
-        <div class="game-desc" data-i18n="g3_desc">Brzy se zde objeví nová interaktivní hra. Sledujte nás!</div>
-        <div class="game-footer">
-          <span class="game-age" data-i18n="g3_age">ZŠ</span>
-          <span class="game-play muted" data-i18n="coming_soon">Brzy</span>
-        </div>
-      </div>
+  <!-- FOOTER -->
+  <footer class="bv-footer" id="kontakt">
+    <div class="bv-footer-inner">
+      <span class="bv-footer-rule"></span>
+      <h2 class="bv-footer-h" data-i18n="feedback_title">Zpětná vazba</h2>
+      <p class="bv-footer-lede" data-i18n="feedback_text">Každý názor je pro mě cenný — ať už jste učitel, rodič nebo dítě, které si hru vyzkoušelo. Moc si vaší zpětné vazby vážím a pomáhá mi hry zlepšovat.</p>
+      <a href="mailto:barborah@skolavela.cz" class="bv-footer-btn">
+        <span data-i18n="feedback_btn">NAPSAT ZPRÁVU</span>
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+          <path d="M3 7l9 6 9-6"></path>
+        </svg>
+      </a>
+      <p class="bv-footer-note" data-i18n="feedback_note">Odpovídám co nejdříve.</p>
     </div>
-
-    <!-- + Brzy přibude -->
-    <div class="game-card empty">
-      <div class="empty-inner">
-        <div class="plus">+</div>
-        <p data-i18n="more_soon">Brzy přibudou další</p>
-      </div>
+    <div class="bv-footer-bar">
+      <span class="bv-footer-logo"><em>Zvídavě</em><span>.cz</span></span>
+      <span class="bv-footer-meta" data-i18n="footer_copy">© 2026 Zvídavě · Vše zdarma · Vyrobeno s <span class="bv-heart">♥</span> pro zvídavé děti</span>
     </div>
+  </footer>
 
-  </div>
-</section>
-
-<!-- ══════════════ FEEDBACK ══════════════ -->
-<section class="feedback" id="kontakt">
-  <div class="feedback-inner">
-    <div class="section-divider"></div>
-    <h2 data-i18n="feedback_title">Zpětná vazba</h2>
-    <p data-i18n="feedback_text">Každý názor je pro mě cenný — ať už jste učitel, rodič nebo dítě, které si hru vyzkoušelo. Moc si vaší zpětné vazby vážím a pomáhá mi hry zlepšovat.</p>
-    <a href="mailto:barborah@skolavela.cz" class="feedback-btn">
-      <span data-i18n="feedback_btn">Napsat zprávu</span>&nbsp;<span style="font-size:1.3em;line-height:1;">✉</span>
-    </a>
-    <p class="feedback-note" data-i18n="feedback_note">Odpovídám co nejdříve.</p>
-  </div>
-</section>
-
-<!-- ══════════════ FOOTER ══════════════ -->
-<footer>
-  <div class="footer-logo-text">
-    <span class="fl-main">Zvídavě</span><span class="fl-dot">.</span><span class="fl-cz">cz</span>
-  </div>
-  <p class="footer-copy" data-i18n="footer_copy">© 2026 Zvídavě · Vše zdarma · Vyrobeno s ❤ pro zvídavé děti</p>
-</footer>
-
+</div>
 <script src="/assets/js/main.js"></script>
+<script src="/assets/js/bold.js"></script>
 </body>
 </html>
