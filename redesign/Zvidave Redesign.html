@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <title>Zvídavé.cz — redesign</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="styles.css" />
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <style>
+    html, body, #root { height: 100%; }
+    body { background: #ECE6D8; margin: 0; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="text/babel" src="design-canvas.jsx"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="mascot.jsx"></script>
+  <script type="text/babel" src="mini-game.jsx"></script>
+  <script type="text/babel" src="conservative.jsx"></script>
+  <script type="text/babel" src="bold.jsx"></script>
+
+  <script type="text/babel" data-presets="env,react">
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "accent": "#5BB1D9",
+      "dark": false,
+      "playful": 0.5
+    }/*EDITMODE-END*/;
+
+    const ACCENTS = [
+      { label: "Modrá", value: "#5BB1D9" },
+      { label: "Tyrkysová", value: "#1FA89C" },
+      { label: "Liška", value: "#E8633A" },
+      { label: "Fialová", value: "#7B6FCB" },
+      { label: "Zelená", value: "#3A8F5C" },
+    ];
+
+    const App = () => {
+      const [tweaks, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+      return (
+        <>
+          <DesignCanvas title="Zvídavé.cz · redesign" subtitle="2 varianty pro porovnání · klikni na artboard pro fullscreen">
+            <DCSection id="variants" title="Varianty redesignu">
+              <DCArtboard id="conservative" label="Varianta A · Konzervativní (klid, sofistikovanost)" width={1440} height={3700}>
+                <ConservativeVariant accent={tweaks.accent} dark={tweaks.dark} playful={tweaks.playful} />
+              </DCArtboard>
+              <DCArtboard id="bold" label="Varianta B · Odvážná (energie, hravost, geometrie)" width={1440} height={4225}>
+                <BoldVariant accent={tweaks.accent} dark={tweaks.dark} playful={tweaks.playful} />
+              </DCArtboard>
+            </DCSection>
+          </DesignCanvas>
+
+          <TweaksPanel title="Tweaks">
+            <TweakSection title="Vzhled">
+              <TweakToggle
+                label="Tmavý režim"
+                value={tweaks.dark}
+                onChange={(v) => setTweak("dark", v)}
+              />
+              <TweakSelect
+                label="Akcentní barva"
+                value={tweaks.accent}
+                options={ACCENTS}
+                onChange={(v) => setTweak("accent", v)}
+              />
+              <TweakSlider
+                label="Hravost"
+                min={0}
+                max={1}
+                step={0.05}
+                value={tweaks.playful}
+                onChange={(v) => setTweak("playful", v)}
+                format={(v) => `${Math.round(v * 100)}%`}
+              />
+            </TweakSection>
+            <TweakSection title="Tip">
+              <div style={{ fontSize: 12, color: "#9aa0b3", lineHeight: 1.5 }}>
+                Klikni na kterýkoli artboard pro fullscreen. Šipkami ←/→ přepínáš.
+              </div>
+            </TweakSection>
+          </TweaksPanel>
+        </>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>
