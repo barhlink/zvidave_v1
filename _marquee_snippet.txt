@@ -1,0 +1,53 @@
+  <!-- MARQUEE -->
+  <div class="bv-marquee" aria-hidden="true">
+    <div class="bv-marquee-track">
+      <div class="bv-marquee-set">
+        <span>+ Matematika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Informatika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span>
+      </div>
+      <div class="bv-marquee-set">
+        <span>+ Matematika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Informatika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span>
+      </div>
+      <div class="bv-marquee-set">
+        <span>+ Matematika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Informatika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span>
+      </div>
+      <div class="bv-marquee-set">
+        <span>+ Matematika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Informatika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span>
+      </div>
+      <div class="bv-marquee-set">
+        <span>+ Matematika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Informatika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span>
+      </div>
+      <div class="bv-marquee-set">
+        <span>+ Matematika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Informatika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span>
+      </div>
+      <div class="bv-marquee-set">
+        <span>+ Matematika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Informatika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span>
+      </div>
+      <div class="bv-marquee-set">
+        <span>+ Matematika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Informatika</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span>
+        <span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span>
+      </div>
+    </div>
+  </div>
