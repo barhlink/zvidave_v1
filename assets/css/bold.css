@@ -322,7 +322,8 @@ body {
 
 /* ── MARQUEE ── */
 .bv-marquee { background: var(--ink); color: var(--bg); padding: 18px 0; overflow: hidden; }
-.bv-marquee-track { display: flex; animation: bvMarquee 25s linear infinite; white-space: nowrap; }
+/* 8 setů × 25s/2 = 100s → stejná vnímaná rychlost jako původní 2 sety × 25s */
+.bv-marquee-track { display: flex; animation: bvMarquee 100s linear infinite; white-space: nowrap; }
 .bv-marquee-set {
   display: flex;
   gap: 32px;
@@ -331,6 +332,7 @@ body {
   font-size: 20px;
   font-weight: 500;
   font-style: italic;
+  flex-shrink: 0;
 }
 .bv-marquee-dot { color: var(--accent); }
 @keyframes bvMarquee { to { transform: translateX(-50%); } }
