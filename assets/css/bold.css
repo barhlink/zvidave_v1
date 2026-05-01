@@ -59,6 +59,8 @@ body {
 @keyframes mgPop { 0%,100% { transform: scale(0.95); } 50% { transform: scale(1.08); } }
 .mg-footer { display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; color: var(--muted); }
 .mg-sum strong { color: var(--text); font-family: 'Fraunces', serif; font-size: 14px; margin-left: 2px; }
+.mg-hint { margin-left: 2px; }
+.mg-hint.mg-ok { color: #7DA87A; font-weight: 600; }
 .mg-skip { background: none; border: none; font-size: 11px; color: var(--muted); cursor: pointer; padding: 4px 8px; border-radius: 6px; font-family: inherit; }
 .mg-skip:hover { color: var(--accent); background: rgba(0,0,0,0.04); }
 
@@ -549,7 +551,17 @@ body {
 /* ── RESPONSIVE ── */
 @media (max-width: 1024px) {
   .bv-hero-inner { grid-template-columns: 1fr; }
-  .bv-hero-right { display: none; }
+  /* hero-right zůstane viditelný — schovají se jen deko prvky, mini-hra se ukáže */
+  .bv-hero-right { height: auto; }
+  .bv-stack { position: static; height: auto; display: flex; justify-content: center; }
+  .bv-mascot-card { display: none; }
+  .bv-stat-chip { display: none; }
+  .bv-game-floater {
+    position: static;
+    animation: none;
+    filter: drop-shadow(0 8px 16px rgba(0,0,0,0.10));
+    margin: 24px auto 0;
+  }
   .bv-game-grid { grid-template-columns: repeat(2, 1fr); }
   .bv-steps { grid-template-columns: 1fr; }
   .bv-games-head { grid-template-columns: 1fr; gap: 16px; }
@@ -575,4 +587,5 @@ body {
   .bv-game-grid { grid-template-columns: 1fr; }
   .bv-nav-inner { padding: 16px 24px; }
   .bv-footer-bar { flex-direction: column; align-items: flex-start; }
+  .bv-checklist { grid-template-columns: 1fr; }
 }
