@@ -130,6 +130,40 @@
 
     render();
 
+    /* ── Marquee: rAF animace (bez CSS reset-blikání) ── */
+    (function () {
+      var track = document.querySelector('.bv-marquee-track');
+      if (!track) return;
+      var sets = track.querySelectorAll('.bv-marquee-set');
+      if (!sets.length) return;
+
+      var speed = 0.8; // px/frame (desktop)
+      if (window.innerWidth <= 768) speed = 1.4;
+
+      var x = 0;
+      var halfW = null;
+
+      function getHalfW() {
+        // Track má 8 kopií, animujeme přes první 4 (= 50 % šířky)
+        var total = track.scrollWidth;
+        return total / 2;
+      }
+
+      function tick() {
+        if (halfW === null) halfW = getHalfW();
+        x += speed;
+        if (x >= halfW) x -= halfW; // reset ve stejném snímku — žádný mezistav
+        track.style.transform = 'translate3d(-' + x + 'px, 0, 0)';
+        requestAnimationFrame(tick);
+      }
+
+      // Počkat, až prohlížeč vypočítá layout
+      requestAnimationFrame(function () {
+        halfW = getHalfW();
+        requestAnimationFrame(tick);
+      });
+    }());
+
     /* ── Scroll-in animation ── */
     if ('IntersectionObserver' in window) {
       var observer = new IntersectionObserver(function (entries) {
