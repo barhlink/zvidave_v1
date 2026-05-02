@@ -137,28 +137,36 @@
       var sets = track.querySelectorAll('.bv-marquee-set');
       if (sets.length < 2) return;
 
-      // px/sekundu — konstantní bez ohledu na refresh rate monitoru
-      var speed = window.innerWidth <= 768 ? 55 : 40;
+      // Respektovat prefers-reduced-motion
+      var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReduced) return;
 
+      var speed = 28; // px/s — pomalé, klidné, meditativní
+      var paused = false;
       var x = 0;
       var halfW = 0;
       var lastTs = null;
 
       function measure() {
-        // Přesná šířka jednoho setu (fractional px), × počet setů v první polovině
         halfW = sets[0].getBoundingClientRect().width * (sets.length / 2);
       }
 
       function tick(ts) {
         if (lastTs === null) lastTs = ts;
-        var dt = Math.min(ts - lastTs, 64); // cap 64ms (tab na pozadí apod.)
+        var dt = Math.min(ts - lastTs, 64);
         lastTs = ts;
 
-        x += speed * dt / 1000;
-        if (x >= halfW) x -= halfW; // reset ve stejném snímku = žádný mezistav
-        track.style.transform = 'translate3d(-' + x + 'px, 0, 0)';
+        if (!paused) {
+          x += speed * dt / 1000;
+          if (x >= halfW) x -= halfW;
+          track.style.transform = 'translate3d(-' + x + 'px, 0, 0)';
+        }
         requestAnimationFrame(tick);
       }
+
+      // Pauza při hover
+      track.closest('.bv-marquee').addEventListener('mouseenter', function () { paused = true; });
+      track.closest('.bv-marquee').addEventListener('mouseleave', function () { paused = false; lastTs = null; });
 
       requestAnimationFrame(function () {
         measure();
