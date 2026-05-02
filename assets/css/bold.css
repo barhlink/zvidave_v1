@@ -614,25 +614,30 @@ body {
   .bv-teachers-art { display: none; }
 }
 @media (max-width: 768px) {
-  /* Nav — flex-wrap umožní menu rozvíst pod logem */
-  .bv-nav-inner {
-    padding: 14px 20px;
-    flex-wrap: wrap;
-    gap: 0;
-  }
+  /* Nav: position relative umožní absolutní dropdown */
+  .bv-nav { position: relative; }
+  .bv-nav-inner { padding: 14px 20px; }
   .bv-logo { flex: 1; }
-  /* Skrýt desktop jazyky, zobrazit hamburger */
-  .bv-lang { display: none; }
+  .bv-logo-text { font-size: 24px; }
+  .bv-logo-tld { font-size: 12px; }
+  /* Kompaktní jazyk vedle hamburgeru */
+  .bv-lang { display: flex; }
+  .bv-lang .lang-btn { padding: 2px 6px; font-size: 10px; }
   .bv-hamburger { display: flex; }
-  /* Nav links — schovany, po otevreni se rozvíjí dolů */
+  /* Dropdown — absolutně pod navigací */
   .bv-nav-links {
     display: none;
-    order: 3;
-    flex-basis: 100%;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background: var(--bg);
+    border-bottom: 2px solid var(--ink);
     flex-direction: column;
     gap: 0;
-    border-top: 1px solid var(--border);
     padding: 8px 0 16px;
+    box-shadow: 0 8px 24px rgba(26,36,68,0.12);
   }
   .bv-nav-links.open { display: flex; }
   .bv-nav-links a {
@@ -641,7 +646,6 @@ body {
     letter-spacing: 0.1em;
     border-bottom: 1px solid var(--border);
   }
-  .bv-nav-links a:last-of-type { border-bottom: none; }
   /* Jazyky uvnitř hamburger menu */
   .bv-nav-lang-mobile {
     display: flex;
@@ -671,6 +675,5 @@ body {
   .bv-game-grid { grid-template-columns: 1fr; }
   .bv-footer-bar { flex-direction: column; align-items: flex-start; }
   .bv-checklist { grid-template-columns: 1fr; }
-  /* Marquee: rychlejší na užzćch obrazovkách */
   .bv-marquee-track { animation-duration: 30s; }
 }
