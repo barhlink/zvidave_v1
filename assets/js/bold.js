@@ -19,7 +19,7 @@
       });
     });
 
-    /* ── Mini-game: Najdi soucet (from mini-game.jsx) ── */
+    /* ── Mini-game: Najdi soucet ── */
     var targets = [10, 12, 15, 8, 11, 13];
     var round = 0;
     var picked = [];
@@ -129,22 +129,6 @@
     if (skipBtn) skipBtn.addEventListener('click', nextRound);
 
     render();
-
-    /* ── Hamburger (mobile nav) ── */
-    var hamburger = document.getElementById('hamburger');
-    var navLinks  = document.getElementById('nav-links');
-    if (hamburger && navLinks) {
-      hamburger.addEventListener('click', function () {
-        hamburger.classList.toggle('open');
-        navLinks.classList.toggle('open');
-      });
-      navLinks.querySelectorAll('a').forEach(function (a) {
-        a.addEventListener('click', function () {
-          hamburger.classList.remove('open');
-          navLinks.classList.remove('open');
-        });
-      });
-    }
 
     /* ── Scroll-in animation ── */
     if ('IntersectionObserver' in window) {
