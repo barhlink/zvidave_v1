@@ -96,7 +96,7 @@
       if (sumEl) sumEl.textContent = sum;
       if (!hintEl) return;
       if (sum === target && picked.length >= 2) {
-        hintEl.textContent = ' · funguje!';
+        hintEl.textContent = ' · to sedí!';
         hintEl.className = 'mg-hint mg-ok';
         onSolved();
       } else if (sum > target) {
