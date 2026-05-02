@@ -135,31 +135,33 @@
       var track = document.querySelector('.bv-marquee-track');
       if (!track) return;
       var sets = track.querySelectorAll('.bv-marquee-set');
-      if (!sets.length) return;
+      if (sets.length < 2) return;
 
-      var speed = 0.8; // px/frame (desktop)
-      if (window.innerWidth <= 768) speed = 1.4;
+      // px/sekundu — konstantní bez ohledu na refresh rate monitoru
+      var speed = window.innerWidth <= 768 ? 55 : 40;
 
       var x = 0;
-      var halfW = null;
+      var halfW = 0;
+      var lastTs = null;
 
-      function getHalfW() {
-        // Track má 8 kopií, animujeme přes první 4 (= 50 % šířky)
-        var total = track.scrollWidth;
-        return total / 2;
+      function measure() {
+        // Přesná šířka jednoho setu (fractional px), × počet setů v první polovině
+        halfW = sets[0].getBoundingClientRect().width * (sets.length / 2);
       }
 
-      function tick() {
-        if (halfW === null) halfW = getHalfW();
-        x += speed;
-        if (x >= halfW) x -= halfW; // reset ve stejném snímku — žádný mezistav
+      function tick(ts) {
+        if (lastTs === null) lastTs = ts;
+        var dt = Math.min(ts - lastTs, 64); // cap 64ms (tab na pozadí apod.)
+        lastTs = ts;
+
+        x += speed * dt / 1000;
+        if (x >= halfW) x -= halfW; // reset ve stejném snímku = žádný mezistav
         track.style.transform = 'translate3d(-' + x + 'px, 0, 0)';
         requestAnimationFrame(tick);
       }
 
-      // Počkat, až prohlížeč vypočítá layout
       requestAnimationFrame(function () {
-        halfW = getHalfW();
+        measure();
         requestAnimationFrame(tick);
       });
     }());
