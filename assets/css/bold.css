@@ -336,7 +336,6 @@ body {
 }
 .bv-marquee-track {
   display: flex;
-  animation: bvMarquee 100s linear infinite;
   white-space: nowrap;
   will-change: transform;
   backface-visibility: hidden;
@@ -353,10 +352,6 @@ body {
   flex-shrink: 0;
 }
 .bv-marquee-dot { color: var(--accent); }
-@keyframes bvMarquee {
-  from { transform: translate3d(0, 0, 0); }
-  to   { transform: translate3d(-50%, 0, 0); }
-}
 
 /* ── HOW IT WORKS ── */
 .bv-how { padding: 100px 40px; background: var(--surface); }
@@ -678,5 +673,4 @@ body {
   .bv-game-grid { grid-template-columns: 1fr; }
   .bv-footer-bar { flex-direction: column; align-items: flex-start; }
   .bv-checklist { grid-template-columns: 1fr; }
-  .bv-marquee-track { animation-duration: 30s; }
 }
