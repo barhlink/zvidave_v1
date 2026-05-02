@@ -116,7 +116,7 @@ body {
   letter-spacing: -0.01em;
 }
 .bv-logo-tld { font-size: 16px; font-style: italic; opacity: 0.55; margin-left: 2px; }
-.bv-nav-links { display: flex; gap: 36px; }
+.bv-nav-links { display: flex; gap: 36px; align-items: center; }
 .bv-nav-links a {
   font-size: 12px;
   font-weight: 600;
@@ -151,6 +151,9 @@ body {
   color: var(--accent);
 }
 
+/* Mobilní jazyky uvnitř hamburger menu */
+.bv-nav-lang-mobile { display: none; }
+
 /* Hamburger */
 .bv-hamburger {
   display: none;
@@ -172,6 +175,9 @@ body {
 .bv-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
 .bv-hamburger.open span:nth-child(2) { opacity: 0; }
 .bv-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── Liška jen na mobilu ── */
+.bv-hero-fox-mobile { display: none; }
 
 /* ── HERO ── */
 .bv-hero {
@@ -274,8 +280,6 @@ body {
 .bv-btn-ghost:hover { background: color-mix(in oklab, var(--accent) 10%, transparent); }
 .bv-btn-arrow { transition: transform 0.2s; }
 .bv-btn:hover .bv-btn-arrow { transform: translateX(3px); }
-.bv-trust { display: flex; align-items: center; gap: 16px; }
-.bv-trust-stars { font-size: 18px; color: #C9A961; letter-spacing: 0.05em; }
 
 /* Hero right */
 .bv-hero-right { position: relative; height: 560px; }
@@ -517,7 +521,6 @@ body {
   display: inline-flex; align-items: center; justify-content: center;
   font-size: 12px; font-weight: 700; flex-shrink: 0;
 }
-/* Mock document */
 .bv-mock-stack { position: relative; width: 100%; height: 440px; }
 .bv-mock-sheet { position: absolute; background: var(--surface); border: 2px solid var(--ink); border-radius: 18px; padding: 24px; }
 .bv-mock-back {
@@ -597,6 +600,13 @@ body {
     filter: drop-shadow(0 8px 16px rgba(0,0,0,0.10));
     margin: 24px auto 0;
   }
+  .bv-hero-fox-mobile {
+    display: block;
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    margin: 0 auto 24px;
+  }
   .bv-game-grid { grid-template-columns: repeat(2, 1fr); }
   .bv-steps { grid-template-columns: 1fr; }
   .bv-games-head { grid-template-columns: 1fr; gap: 16px; }
@@ -604,25 +614,63 @@ body {
   .bv-teachers-art { display: none; }
 }
 @media (max-width: 768px) {
-  .bv-nav-links { display: none; }
-  .bv-nav-links.open {
-    display: flex;
-    flex-direction: column;
-    position: fixed;
-    top: 64px; left: 0; right: 0;
-    background: var(--bg);
-    padding: 24px 40px;
-    border-bottom: 1px solid var(--border);
-    z-index: 99;
-    gap: 20px;
+  /* Nav — flex-wrap umožní menu rozvíst pod logem */
+  .bv-nav-inner {
+    padding: 14px 20px;
+    flex-wrap: wrap;
+    gap: 0;
   }
+  .bv-logo { flex: 1; }
+  /* Skrýt desktop jazyky, zobrazit hamburger */
+  .bv-lang { display: none; }
   .bv-hamburger { display: flex; }
+  /* Nav links — schovany, po otevreni se rozvíjí dolů */
+  .bv-nav-links {
+    display: none;
+    order: 3;
+    flex-basis: 100%;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    padding: 8px 0 16px;
+  }
+  .bv-nav-links.open { display: flex; }
+  .bv-nav-links a {
+    padding: 12px 20px;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    border-bottom: 1px solid var(--border);
+  }
+  .bv-nav-links a:last-of-type { border-bottom: none; }
+  /* Jazyky uvnitř hamburger menu */
+  .bv-nav-lang-mobile {
+    display: flex;
+    gap: 8px;
+    padding: 14px 20px 4px;
+  }
+  .bv-nav-lang-mobile .lang-btn {
+    background: none;
+    border: 1.5px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.18s;
+  }
+  .bv-nav-lang-mobile .lang-btn:hover,
+  .bv-nav-lang-mobile .lang-btn.active {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  /* Hero */
   .bv-hero { padding: 40px 24px 60px; }
   .bv-how, .bv-games, .bv-teachers, .bv-footer { padding-left: 24px; padding-right: 24px; }
   .bv-game-grid { grid-template-columns: 1fr; }
-  .bv-nav-inner { padding: 16px 24px; }
   .bv-footer-bar { flex-direction: column; align-items: flex-start; }
   .bv-checklist { grid-template-columns: 1fr; }
-  /* marquee: kratší animace na mobilu = stejná vnímaná rychlost na úzkém viewportu */
+  /* Marquee: rychlejší na užzćch obrazovkách */
   .bv-marquee-track { animation-duration: 30s; }
 }
