@@ -558,10 +558,10 @@ body {
   line-height: 1;
   letter-spacing: -0.02em;
   margin: 0 0 24px;
-  color: #FFFFFF;
+  color: #F0E6CE;
   font-variation-settings: 'opsz' 144;
 }
-.bv-footer-lede { font-size: 14px; line-height: 1.7; color: rgba(240,230,206,0.6); max-width: 480px; margin: 0 auto 32px; }
+.bv-footer-lede { font-size: 14px; line-height: 1.7; color: #F0E6CE; max-width: 480px; margin: 0 auto 32px; }
 .bv-footer-btn {
   display: inline-flex; align-items: center; gap: 12px;
   padding: 15px 30px;
@@ -572,7 +572,7 @@ body {
   transition: transform 0.15s ease;
 }
 .bv-footer-btn:hover { transform: translateY(-2px); }
-.bv-footer-note { font-size: 11px; color: rgba(240,230,206,0.4); margin: 18px 0 0; }
+.bv-footer-note { font-size: 11px; color: #F0E6CE; margin: 18px 0 0; }
 .bv-footer-bar {
   max-width: 1320px;
   margin: 80px auto 0;
@@ -587,8 +587,8 @@ body {
   letter-spacing: -0.01em; color: #F0E6CE;
 }
 .bv-footer-logo em { font-style: italic; color: #F0E6CE; }
-.bv-footer-logo span { font-style: italic; font-size: 26px; color: rgba(240,230,206,0.55); margin-left: 4px; }
-.bv-footer-meta { font-size: 14px; color: rgba(240,230,206,0.7); }
+.bv-footer-logo span { font-style: italic; font-size: 26px; color: #F0E6CE; margin-left: 4px; }
+.bv-footer-meta { font-size: 14px; color: #F0E6CE; }
 .bv-heart { color: #E8633A; font-size: 13px; }
 
 /* ── RESPONSIVE ── */
