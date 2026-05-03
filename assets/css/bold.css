@@ -178,6 +178,7 @@ body {
 
 /* ── Liška jen na mobilu ── */
 .bv-hero-fox-mobile { display: none; }
+@keyframes bvFoxFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
 
 /* ── HERO ── */
 .bv-hero {
@@ -610,6 +611,7 @@ body {
     height: auto;
     object-fit: contain;
     margin: 0 auto 24px;
+    animation: bvFoxFloat 5s ease-in-out infinite;
   }
   .bv-game-grid { grid-template-columns: repeat(2, 1fr); }
   .bv-steps { grid-template-columns: 1fr; }
