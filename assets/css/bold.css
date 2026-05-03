@@ -671,8 +671,11 @@ body {
     color: var(--accent);
   }
   .bv-hero { padding: 40px 24px 60px; }
+  .bv-hero-left { text-align: center; }
+  .bv-eyebrow { justify-content: center; }
+  .bv-h1-line { justify-content: center; }
   .bv-lede { display: none; }
-  .bv-cta-row { flex-direction: column; }
+  .bv-cta-row { flex-direction: column; align-items: center; }
   .bv-cta-row .bv-btn { width: 100%; justify-content: center; }
   .bv-how, .bv-games, .bv-teachers, .bv-footer { padding-left: 24px; padding-right: 24px; }
   .bv-game-grid { grid-template-columns: 1fr; }
