@@ -606,8 +606,8 @@ body {
   }
   .bv-hero-fox-mobile {
     display: block;
-    width: 140px;
-    height: 140px;
+    width: 200px;
+    height: 200px;
     object-fit: contain;
     margin: 0 auto 24px;
   }
