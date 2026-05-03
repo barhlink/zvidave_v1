@@ -679,7 +679,10 @@ body {
   .bv-cta-row { flex-direction: column; align-items: stretch; gap: 10px; margin-bottom: 0; }
   .bv-cta-row .bv-btn { width: 100%; justify-content: center; }
   .bv-hero-fox-mobile { margin-bottom: 20px; }
-  .bv-how, .bv-games, .bv-teachers, .bv-footer { padding-left: 24px; padding-right: 24px; }
+  .bv-how, .bv-games, .bv-teachers { padding: 56px 24px; }
+  .bv-footer { padding: 56px 24px 0; }
+  .bv-section-head { margin-bottom: 36px; }
+  .bv-footer-bar { margin-top: 48px; }
   .bv-game-grid { grid-template-columns: 1fr; }
   .bv-footer-bar { flex-direction: column; align-items: flex-start; }
   .bv-checklist { grid-template-columns: 1fr; }
