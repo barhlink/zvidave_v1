@@ -1205,17 +1205,6 @@ function ConfigPreview({ item, group, config }) {
         <PreviewRow label="Materiál" value={config.material ? `${matFull(config.material)} · ${matLabel(config.material)}` : '—'} dot={config.material ? matColor(config.material) : null} />
         <PreviewRow label="Výplň"    value={config.infill ? infillLabel(config.infill) : '—'} />
         <PreviewRow label="Rychlost" value={config.speed ? speedLabel(config.speed) : '—'} />
-        <div style={{ marginTop: 16, padding: 14, borderRadius: 14, background:'var(--bg-soft)' }}>
-          <div style={{ display:'flex', alignItems:'center', gap: 8, fontSize: 12, color:'var(--ink-3)', fontFamily:'var(--mono)', textTransform:'uppercase', letterSpacing:'.06em' }}>
-            <VrstvickaMini size={20} /> Vrstvička pozoruje
-          </div>
-          <p style={{ marginTop: 8, fontSize: 14, color:'var(--ink-2)' }}>
-            {!config.material ? 'Začni výběrem materiálu — to je úplně první rozhodnutí.' :
-             !config.infill ?   'Materiál máš. Teď zvol, kolik plastu bude uvnitř.' :
-             !config.speed ?    'Skvělé. Zbývá zvolit rychlost.' :
-             'Máš všechno. Pojď zkusit, jestli to vyjde!'}
-          </p>
-        </div>
       </div>
     </div>
   );
@@ -1233,8 +1222,8 @@ function ConfigScreen({ group, item, config, setConfig, onNext, onBack }) {
             <span style={{ fontSize: 12, color:'var(--ink-3)', fontFamily:'var(--mono)' }}>•</span>
             <span style={{ fontSize: 12, color:'var(--ink-3)', fontFamily:'var(--mono)' }}>vyber všechna 3 nastavení</span>
           </div>
-          <h2>Jak to vytiskneš, <span style={{ fontStyle:'italic', color:'var(--coral-ink)' }}>{item.name.toLowerCase()}</span>?</h2>
-          <p style={{ fontSize: 16, color:'var(--ink-2)', marginTop: 10, maxWidth: 560 }}>Vrstvička pozoruje. <strong>{item.desc}</strong></p>
+          <h2>Jak vytisknout <span style={{ fontStyle:'italic', color:'var(--coral-ink)' }}>{item.name}</span>?</h2>
+          <p style={{ fontSize: 16, color:'var(--ink-2)', marginTop: 10, maxWidth: 560 }}><strong>{item.desc}</strong></p>
 
           <div style={{ marginTop: 36 }}>
             <SectionLabel num="1" title="Materiál" sub="Jaký plast zvolíš?" />
@@ -1305,7 +1294,7 @@ function ConfigScreen({ group, item, config, setConfig, onNext, onBack }) {
           <ConfigPreview item={item} group={group} config={config} />
         </aside>
       </div>
-      <style>{`@media (max-width: 920px){ #config-grid { grid-template-columns: 1fr !important; } #config-grid aside { position: static !important; } }`}</style>
+      <style>{`@media (max-width: 920px){ #config-grid { grid-template-columns: 1fr !important; } #config-grid aside { position: static !important; order: -1; } }`}</style>
     </section>
   );
 }
