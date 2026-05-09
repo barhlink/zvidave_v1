@@ -255,8 +255,11 @@
   }
 
   /* ─── Hero — floating chipy a maskot ─── */
+  .hero-mascot-mobile { display: none; }
   @media (max-width: 880px) {
     .hero-chip-float { display: none !important; }
+    .hero-mascot-desktop { display: none !important; }
+    .hero-mascot-mobile { display: block; }
     .hero-mascot-card { padding: 20px !important; }
     .hero-mascot-card svg { max-width: 180px; height: auto; }
   }
@@ -929,6 +932,17 @@ function HeroScreen({ onStart, onDiary, attempts }) {
           <span className="chip chip--coral" style={{ marginBottom: 22 }}>
             ✦ Badatelská dílna 3D tisku
           </span>
+          <div className="hero-mascot-mobile" style={{ margin: '18px 0 22px', textAlign:'center' }}>
+            <div className="hero-mascot-card" style={{ background:'var(--paper)', border:'1px solid var(--line)', borderRadius:'var(--r-2xl)', padding: 36, boxShadow:'var(--shadow-3)', position:'relative', overflow:'hidden', display:'inline-block' }}>
+              <div style={{ position:'absolute', inset: 0, background:'radial-gradient(circle at 30% 20%, var(--coral-soft), transparent 60%), radial-gradient(circle at 80% 90%, var(--sage-soft), transparent 55%)', opacity: .9, pointerEvents:'none' }} />
+              <div style={{ position:'relative', textAlign:'center' }}>
+                <Vrstvicka size={260} tone="green" />
+                <div style={{ marginTop: 14, fontFamily:'var(--mono)', fontSize: 11, letterSpacing:'.08em', textTransform:'uppercase', color:'var(--ink-3)' }}>
+                  AHOJ, JÁ JSEM <span style={{ color:'var(--coral-ink)', fontWeight:700 }}>VRSTVIČKA</span>
+                </div>
+              </div>
+            </div>
+          </div>
           <h1 style={{ marginTop: 14 }}>
             Nauč se nastavit{' '}
             <span style={{ fontStyle:'italic', color:'var(--coral-ink)', fontFamily:'var(--display)' }}>tiskárnu</span>{' '}
@@ -956,7 +970,7 @@ function HeroScreen({ onStart, onDiary, attempts }) {
           </div>
         </div>
 
-        <div className="fade-up fade-up--delay-2" style={{ position:'relative', justifySelf:'center' }}>
+        <div className="fade-up fade-up--delay-2 hero-mascot-desktop" style={{ position:'relative', justifySelf:'center' }}>
           <div className="hero-mascot-card" style={{ background:'var(--paper)', border:'1px solid var(--line)', borderRadius:'var(--r-2xl)', padding: 36, boxShadow:'var(--shadow-3)', position:'relative', overflow:'hidden' }}>
             <div style={{ position:'absolute', inset: 0, background:'radial-gradient(circle at 30% 20%, var(--coral-soft), transparent 60%), radial-gradient(circle at 80% 90%, var(--sage-soft), transparent 55%)', opacity: .9, pointerEvents:'none' }} />
             <div style={{ position:'relative', textAlign:'center' }}>
