@@ -219,6 +219,50 @@
   .dot{ width: 8px; height: 8px; border-radius: 999px; display:inline-block; }
   .visually-hidden{ position:absolute; clip: rect(0 0 0 0); width:1px; height:1px; overflow:hidden; }
   :focus-visible{ outline: 3px solid oklch(0.85 0.13 42 / .55); outline-offset: 2px; border-radius: 4px; }
+
+  /* ─── Hamburger nav ─── */
+  .nav { position: relative; }
+  .nav__hamburger {
+    display: none; flex-direction: column; justify-content: center; gap: 5px;
+    background: none; border: none; cursor: pointer; padding: 8px 6px; border-radius: 8px;
+  }
+  .nav__hamburger span {
+    display: block; width: 22px; height: 2px; background: var(--ink); border-radius: 2px;
+    transition: transform 0.25s, opacity 0.2s;
+  }
+  .nav__hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav__hamburger.open span:nth-child(2) { opacity: 0; }
+  .nav__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  @media (max-width: 640px) {
+    .nav__hamburger { display: flex; }
+    .nav__links {
+      display: none; position: absolute; top: 100%; left: 0; right: 0;
+      flex-direction: column; align-items: stretch; gap: 2px;
+      background: var(--bg); border-bottom: 1px solid var(--line-2);
+      padding: 10px 14px 16px; z-index: 50;
+      box-shadow: 0 8px 24px -8px rgba(31,42,26,.15);
+    }
+    .nav__links.open { display: flex; }
+    .nav__link { text-align: left; border-radius: 10px; padding: 11px 14px; }
+  }
+
+  /* ─── Steps — na mobilu jen čísla ─── */
+  @media (max-width: 600px) {
+    .steps { gap: 3px; padding: 4px; }
+    .step { padding: 5px 8px; gap: 4px; font-size: 10px; letter-spacing: 0; }
+    .step-label { display: none; }
+  }
+
+  /* ─── Hero — floating chipy a maskot ─── */
+  @media (max-width: 880px) {
+    .hero-chip-float { display: none !important; }
+    .hero-mascot-card { padding: 20px !important; }
+    .hero-mascot-card svg { max-width: 180px; height: auto; }
+  }
+  @media (max-width: 640px) {
+    .hero-mascot-card { padding: 16px !important; }
+    .hero-mascot-card svg { max-width: 140px; }
+  }
 </style>
 </head>
 <body>
@@ -912,7 +956,7 @@ function HeroScreen({ onStart, onDiary, attempts }) {
         </div>
 
         <div className="fade-up fade-up--delay-2" style={{ position:'relative', justifySelf:'center' }}>
-          <div style={{ background:'var(--paper)', border:'1px solid var(--line)', borderRadius:'var(--r-2xl)', padding: 36, boxShadow:'var(--shadow-3)', position:'relative', overflow:'hidden' }}>
+          <div className="hero-mascot-card" style={{ background:'var(--paper)', border:'1px solid var(--line)', borderRadius:'var(--r-2xl)', padding: 36, boxShadow:'var(--shadow-3)', position:'relative', overflow:'hidden' }}>
             <div style={{ position:'absolute', inset: 0, background:'radial-gradient(circle at 30% 20%, var(--coral-soft), transparent 60%), radial-gradient(circle at 80% 90%, var(--sage-soft), transparent 55%)', opacity: .9, pointerEvents:'none' }} />
             <div style={{ position:'relative', textAlign:'center' }}>
               <Vrstvicka size={260} tone="green" />
@@ -921,9 +965,9 @@ function HeroScreen({ onStart, onDiary, attempts }) {
               </div>
             </div>
           </div>
-          <span className="chip chip--sage" style={{ position:'absolute', top: -10, left: -14, transform:'rotate(-6deg)' }}>vrstva 1</span>
-          <span className="chip chip--amber" style={{ position:'absolute', bottom: 30, right: -22, transform:'rotate(5deg)' }}>100 % výplň</span>
-          <span className="chip chip--coral" style={{ position:'absolute', top: 80, right: -26, transform:'rotate(8deg)' }}>🐢 pomalu</span>
+          <span className="chip chip--sage hero-chip-float" style={{ position:'absolute', top: -10, left: -14, transform:'rotate(-6deg)' }}>vrstva 1</span>
+          <span className="chip chip--amber hero-chip-float" style={{ position:'absolute', bottom: 30, right: -22, transform:'rotate(5deg)' }}>100 % výplň</span>
+          <span className="chip chip--coral hero-chip-float" style={{ position:'absolute', top: 80, right: -26, transform:'rotate(8deg)' }}>🐢 pomalu</span>
         </div>
       </div>
       <style>{`@media (max-width: 880px) { .hero-grid { grid-template-columns: 1fr !important; } }`}</style>
@@ -954,7 +998,7 @@ function StepHeader({ step }) {
           return (
             <span key={label} className={`step ${active ? 'step--active' : ''} ${done ? 'step--done' : ''}`}>
               <span className="step__num">{done ? '✓' : i + 1}</span>
-              {label}
+              <span className="step-label">{label}</span>
             </span>
           );
         })}
@@ -1564,6 +1608,9 @@ function App() {
     root.style.setProperty('--body',    `'${t.bodyFont}', ui-sans-serif, system-ui, sans-serif`);
   }, [t.palette, t.displayFont, t.bodyFont]);
 
+  const [navOpen, setNavOpen] = useS(false);
+  const closeNav = () => setNavOpen(false);
+
   const [route, setRoute] = useS({ name: 'home' });
   const [group, setGroup]       = useS(null);
   const [item, setItem]         = useS(null);
@@ -1590,21 +1637,24 @@ function App() {
     <>
       <nav className="nav">
         <div className="wrap nav__inner">
-          <a href="#" className="brand" onClick={(e)=>{ e.preventDefault(); setRoute({ name: 'home' }); }}>
+          <a href="#" className="brand" onClick={(e)=>{ e.preventDefault(); setRoute({ name: 'home' }); closeNav(); }}>
             <VrstvickaMini size={32} />
             <span>Vrstvička</span>
             <span style={{ fontFamily:'var(--mono)', fontSize: 11, color:'var(--ink-3)', fontWeight: 500, marginLeft: 6, letterSpacing:'.06em', textTransform:'uppercase' }}>3D tisk</span>
           </a>
-          <div className="nav__links">
-            <button className="nav__link" aria-current={route.name === 'home' ? 'true' : undefined} onClick={() => setRoute({ name: 'home' })}>Úvod</button>
-            <button className="nav__link" aria-current={['picker','config','predict','print','result'].includes(route.name) ? 'true' : undefined} onClick={startExplore}>🔍 Průzkum</button>
-            <button className="nav__link" aria-current={route.name === 'diary' ? 'true' : undefined} onClick={() => setRoute({ name: 'diary' })}>
+          <div className={`nav__links${navOpen ? ' open' : ''}`}>
+            <button className="nav__link" aria-current={route.name === 'home' ? 'true' : undefined} onClick={() => { setRoute({ name: 'home' }); closeNav(); }}>Úvod</button>
+            <button className="nav__link" aria-current={['picker','config','predict','print','result'].includes(route.name) ? 'true' : undefined} onClick={() => { startExplore(); closeNav(); }}>🔍 Průzkum</button>
+            <button className="nav__link" aria-current={route.name === 'diary' ? 'true' : undefined} onClick={() => { setRoute({ name: 'diary' }); closeNav(); }}>
               📓 Deník
               {entries.length > 0 && (
                 <span style={{ marginLeft: 4, background:'var(--coral)', color:'#fff', fontSize: 11, fontWeight: 700, padding:'1px 7px', borderRadius: 999, fontFamily:'var(--mono)' }}>{entries.length}</span>
               )}
             </button>
           </div>
+          <button className={`nav__hamburger${navOpen ? ' open' : ''}`} onClick={() => setNavOpen(n => !n)} aria-label="Navigace" aria-expanded={navOpen}>
+            <span /><span /><span />
+          </button>
         </div>
       </nav>
 
