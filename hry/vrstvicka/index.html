@@ -1,0 +1,1647 @@
+<!doctype html>
+<html lang="cs">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Vrstvička — nauč se nastavit 3D tiskárnu</title>
+<!-- Vrstvička © Zvídavě.cz | CC BY 4.0 https://creativecommons.org/licenses/by/4.0/ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:        #FBF7EC;
+    --bg-soft:   #EEF6DC;
+    --paper:     #FFFDF4;
+    --ink:       #1F2A1A;
+    --ink-2:     #4D5C44;
+    --ink-3:     #7E8C73;
+    --line:      rgba(31,42,26,.10);
+    --line-2:    rgba(31,42,26,.06);
+
+    --coral:     oklch(0.78 0.16 130);
+    --coral-ink: oklch(0.42 0.12 135);
+    --coral-soft:oklch(0.93 0.07 130);
+
+    --sage:      oklch(0.72 0.085 165);
+    --sage-ink:  oklch(0.42 0.08 168);
+    --sage-soft: oklch(0.94 0.035 165);
+
+    --amber:     oklch(0.83 0.115 85);
+    --amber-ink: oklch(0.48 0.10 80);
+    --amber-soft:oklch(0.95 0.045 85);
+
+    --berry:     oklch(0.70 0.13 0);
+    --berry-soft:oklch(0.94 0.04 5);
+
+    --shadow-1: 0 1px 0 rgba(255,255,255,.6) inset, 0 1px 2px rgba(41,34,26,.04);
+    --shadow-2: 0 1px 0 rgba(255,255,255,.7) inset, 0 6px 24px -10px rgba(41,34,26,.18), 0 2px 4px rgba(41,34,26,.05);
+    --shadow-3: 0 1px 0 rgba(255,255,255,.7) inset, 0 24px 60px -28px rgba(41,34,26,.35), 0 4px 12px rgba(41,34,26,.06);
+
+    --r-sm: 10px;
+    --r-md: 16px;
+    --r-lg: 22px;
+    --r-xl: 32px;
+    --r-2xl:44px;
+
+    --display: 'Bricolage Grotesque', ui-serif, Georgia, serif;
+    --body:    'DM Sans', ui-sans-serif, system-ui, sans-serif;
+    --mono:    'JetBrains Mono', ui-monospace, 'SF Mono', monospace;
+  }
+
+  *,*::before,*::after{ box-sizing: border-box; }
+  html,body{ margin:0; padding:0; }
+  body{
+    font-family: var(--body);
+    background: var(--bg);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    font-feature-settings: "ss01","ss02","cv11";
+    line-height: 1.5;
+  }
+  body::before{
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0;
+    background:
+      radial-gradient(1200px 600px at 90% -10%, oklch(0.93 0.04 45 / .55), transparent 60%),
+      radial-gradient(900px 500px at -10% 110%, oklch(0.94 0.025 165 / .45), transparent 60%);
+  }
+  #root{ position:relative; z-index:1; }
+
+  h1,h2,h3,h4{
+    font-family: var(--display);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    margin: 0;
+    text-wrap: balance;
+  }
+  h1{ font-size: clamp(40px, 6vw, 80px); font-weight:700; letter-spacing:-0.035em; }
+  h2{ font-size: clamp(28px, 3.4vw, 44px); }
+  h3{ font-size: clamp(20px, 2vw, 26px); }
+  p{ text-wrap: pretty; margin: 0; }
+
+  ::selection{ background: oklch(0.85 0.13 42 / .55); }
+
+  .btn{
+    --bg: var(--ink);
+    --fg: var(--paper);
+    appearance:none; border:0; cursor:pointer;
+    font-family: var(--body); font-weight:600;
+    background: var(--bg); color: var(--fg);
+    padding: 14px 22px; border-radius: 999px;
+    font-size: 16px; letter-spacing: -0.005em;
+    display:inline-flex; align-items:center; gap:10px;
+    box-shadow: var(--shadow-1);
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .btn:hover{ transform: translateY(-1px); box-shadow: var(--shadow-2); }
+  .btn:active{ transform: translateY(0); }
+  .btn--primary{ --bg: var(--ink); --fg: #FFF8E7; }
+  .btn--coral  { --bg: var(--coral); --fg: #fff; }
+  .btn--ghost  { --bg: transparent; --fg: var(--ink); border: 1px solid var(--line); }
+  .btn--ghost:hover{ background: var(--bg-soft); }
+  .btn--lg{ padding: 18px 28px; font-size: 17px; }
+  .btn--sm{ padding: 9px 14px; font-size: 14px; }
+
+  .card{
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-lg);
+    box-shadow: var(--shadow-1);
+  }
+
+  .chip{
+    display:inline-flex; align-items:center; gap:6px;
+    font-family: var(--mono); font-size: 11px; letter-spacing: .05em; text-transform: uppercase;
+    padding: 5px 10px; border-radius: 999px;
+    background: var(--bg-soft); color: var(--ink-2);
+    border: 1px solid var(--line-2);
+  }
+  .chip--coral{ background: var(--coral-soft); color: var(--coral-ink); }
+  .chip--sage { background: var(--sage-soft);  color: var(--sage-ink); }
+  .chip--amber{ background: var(--amber-soft); color: var(--amber-ink); }
+
+  .wrap{ max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  @media (max-width: 640px){ .wrap{ padding: 0 18px; } }
+
+  .nav{
+    position: sticky; top: 0; z-index: 30;
+    backdrop-filter: blur(14px) saturate(160%);
+    -webkit-backdrop-filter: blur(14px) saturate(160%);
+    background: rgba(251,245,236,.78);
+    border-bottom: 1px solid var(--line-2);
+  }
+  .nav__inner{
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 0;
+  }
+  .brand{
+    display:inline-flex; align-items:center; gap:10px;
+    font-family: var(--display); font-weight: 700; font-size: 22px;
+    letter-spacing: -0.02em; color: var(--ink);
+    text-decoration: none;
+  }
+  .brand:hover{ color: var(--coral-ink); }
+  .nav__links{ display:flex; gap: 4px; align-items:center; }
+  .nav__link{
+    appearance:none; border:0; background:transparent; cursor:pointer;
+    font-family: var(--body); font-weight: 500; font-size: 15px;
+    color: var(--ink-2); padding: 9px 14px; border-radius: 999px;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .nav__link:hover{ background: var(--bg-soft); color: var(--ink); }
+  .nav__link[aria-current="true"]{ background: var(--ink); color: #FFF8E7; }
+  .nav__link[aria-current="true"]:hover{ background: var(--ink); color: #FFF8E7; }
+
+  .steps{
+    display: inline-flex; gap: 6px; padding: 6px;
+    background: var(--bg-soft); border-radius: 999px; border: 1px solid var(--line-2);
+  }
+  .step{
+    font-family: var(--mono); font-size: 11px; letter-spacing: .04em;
+    padding: 6px 11px; border-radius: 999px; color: var(--ink-3);
+    display:inline-flex; align-items:center; gap:6px;
+  }
+  .step--done{ color: var(--sage-ink); }
+  .step--active{ background: var(--paper); color: var(--ink); box-shadow: var(--shadow-1); }
+  .step__num{
+    width:18px; height:18px; border-radius: 999px; background: var(--paper);
+    border:1px solid var(--line); display:inline-flex; align-items:center; justify-content:center;
+    font-size:10px; font-weight:600;
+  }
+  .step--done .step__num{ background: var(--sage-soft); border-color: transparent; color: var(--sage-ink); }
+  .step--active .step__num{ background: var(--ink); color: #FFF8E7; border-color: transparent; }
+
+  .choice{
+    appearance:none; cursor:pointer; text-align:left;
+    background: var(--paper); border: 1.5px solid var(--line);
+    border-radius: var(--r-lg); padding: 18px;
+    display:flex; flex-direction:column; gap:8px;
+    font-family: var(--body); color: var(--ink);
+    transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease, background .15s ease;
+    box-shadow: var(--shadow-1);
+    width: 100%;
+  }
+  .choice:hover{ transform: translateY(-2px); border-color: var(--ink-3); box-shadow: var(--shadow-2); }
+  .choice[aria-pressed="true"]{
+    border-color: var(--ink); background: #FFFCF0;
+    box-shadow: 0 0 0 3px var(--coral-soft), var(--shadow-2);
+  }
+  .choice__hd{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .choice__name{ font-family: var(--display); font-weight:600; font-size: 20px; letter-spacing:-0.01em; }
+  .choice__sub{ color: var(--ink-3); font-size: 13px; font-family: var(--mono); }
+  .choice__desc{ font-size: 13px; color: var(--ink-2); line-height: 1.45; }
+
+  @keyframes fadeUp { 0% { opacity:0; transform: translateY(8px); } 100% { opacity:1; transform:none; } }
+  .fade-up{ opacity: 1; animation: fadeUp .42s cubic-bezier(.2,.7,.2,1) backwards; }
+  .fade-up--delay-1{ animation-delay: .05s; }
+  .fade-up--delay-2{ animation-delay: .12s; }
+  .fade-up--delay-3{ animation-delay: .2s; }
+  @media (prefers-reduced-motion: reduce){ .fade-up{ animation: none; } }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes pulseDot {
+    0%, 100% { transform: scale(1); opacity:.6; }
+    50%      { transform: scale(1.4); opacity:1; }
+  }
+
+  .divider{ height:1px; background: var(--line-2); margin: 24px 0; border:0; }
+  .pad-top{ padding-top: 56px; }
+  @media (max-width:640px){ .pad-top{ padding-top: 28px; } }
+
+  .grid-3{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  .grid-2{ display:grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  @media (max-width: 720px){ .grid-3{ grid-template-columns: 1fr; } .grid-2{ grid-template-columns: 1fr; } }
+
+  .dot{ width: 8px; height: 8px; border-radius: 999px; display:inline-block; }
+  .visually-hidden{ position:absolute; clip: rect(0 0 0 0); width:1px; height:1px; overflow:hidden; }
+  :focus-visible{ outline: 3px solid oklch(0.85 0.13 42 / .55); outline-offset: 2px; border-radius: 4px; }
+</style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+  <!-- tweaks-panel -->
+  <script type="text/babel">
+
+const __TWEAKS_STYLE = `
+  .twk-panel{position:fixed;right:16px;bottom:16px;z-index:2147483646;width:280px;
+    max-height:calc(100vh - 32px);display:flex;flex-direction:column;
+    transform:scale(var(--dc-inv-zoom,1));transform-origin:bottom right;
+    background:rgba(250,249,247,.78);color:#29261b;
+    -webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);
+    border:.5px solid rgba(255,255,255,.6);border-radius:14px;
+    box-shadow:0 1px 0 rgba(255,255,255,.5) inset,0 12px 40px rgba(0,0,0,.18);
+    font:11.5px/1.4 ui-sans-serif,system-ui,-apple-system,sans-serif;overflow:hidden}
+  .twk-hd{display:flex;align-items:center;justify-content:space-between;
+    padding:10px 8px 10px 14px;cursor:move;user-select:none}
+  .twk-hd b{font-size:12px;font-weight:600;letter-spacing:.01em}
+  .twk-x{appearance:none;border:0;background:transparent;color:rgba(41,38,27,.55);
+    width:22px;height:22px;border-radius:6px;cursor:default;font-size:13px;line-height:1}
+  .twk-x:hover{background:rgba(0,0,0,.06);color:#29261b}
+  .twk-body{padding:2px 14px 14px;display:flex;flex-direction:column;gap:10px;
+    overflow-y:auto;overflow-x:hidden;min-height:0;
+    scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+  .twk-row{display:flex;flex-direction:column;gap:5px}
+  .twk-row-h{flex-direction:row;align-items:center;justify-content:space-between;gap:10px}
+  .twk-lbl{display:flex;justify-content:space-between;align-items:baseline;color:rgba(41,38,27,.72)}
+  .twk-lbl>span:first-child{font-weight:500}
+  .twk-val{color:rgba(41,38,27,.5);font-variant-numeric:tabular-nums}
+  .twk-sect{font-size:10px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;
+    color:rgba(41,38,27,.45);padding:10px 0 0}
+  .twk-sect:first-child{padding-top:0}
+  .twk-field{appearance:none;width:100%;height:26px;padding:0 8px;
+    border:.5px solid rgba(0,0,0,.1);border-radius:7px;
+    background:rgba(255,255,255,.6);color:inherit;font:inherit;outline:none}
+  .twk-field:focus{border-color:rgba(0,0,0,.25);background:rgba(255,255,255,.85)}
+  select.twk-field{padding-right:22px;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path fill='rgba(0,0,0,.5)' d='M0 0h10L5 6z'/></svg>");
+    background-repeat:no-repeat;background-position:right 8px center}
+  .twk-slider{appearance:none;-webkit-appearance:none;width:100%;height:4px;margin:6px 0;
+    border-radius:999px;background:rgba(0,0,0,.12);outline:none}
+  .twk-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;
+    width:14px;height:14px;border-radius:50%;background:#fff;
+    border:.5px solid rgba(0,0,0,.12);box-shadow:0 1px 3px rgba(0,0,0,.2);cursor:default}
+  .twk-seg{position:relative;display:flex;padding:2px;border-radius:8px;
+    background:rgba(0,0,0,.06);user-select:none}
+  .twk-seg-thumb{position:absolute;top:2px;bottom:2px;border-radius:6px;
+    background:rgba(255,255,255,.9);box-shadow:0 1px 2px rgba(0,0,0,.12);
+    transition:left .15s cubic-bezier(.3,.7,.4,1),width .15s}
+  .twk-seg button{appearance:none;position:relative;z-index:1;flex:1;border:0;
+    background:transparent;color:inherit;font:inherit;font-weight:500;min-height:22px;
+    border-radius:6px;cursor:default;padding:4px 6px;line-height:1.2;overflow-wrap:anywhere}
+  .twk-toggle{position:relative;width:32px;height:18px;border:0;border-radius:999px;
+    background:rgba(0,0,0,.15);transition:background .15s;cursor:default;padding:0}
+  .twk-toggle[data-on="1"]{background:#34c759}
+  .twk-toggle i{position:absolute;top:2px;left:2px;width:14px;height:14px;border-radius:50%;
+    background:#fff;box-shadow:0 1px 2px rgba(0,0,0,.25);transition:transform .15s}
+  .twk-toggle[data-on="1"] i{transform:translateX(14px)}
+  .twk-chips{display:flex;gap:6px}
+  .twk-chip{position:relative;appearance:none;flex:1;min-width:0;height:46px;
+    padding:0;border:0;border-radius:6px;overflow:hidden;cursor:default;
+    box-shadow:0 0 0 .5px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.06);
+    transition:transform .12s cubic-bezier(.3,.7,.4,1),box-shadow .12s}
+  .twk-chip:hover{transform:translateY(-1px);box-shadow:0 0 0 .5px rgba(0,0,0,.18),0 4px 10px rgba(0,0,0,.12)}
+  .twk-chip[data-on="1"]{box-shadow:0 0 0 1.5px rgba(0,0,0,.85),0 2px 6px rgba(0,0,0,.15)}
+  .twk-chip>span{position:absolute;top:0;bottom:0;right:0;width:34%;
+    display:flex;flex-direction:column;box-shadow:-1px 0 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i{flex:1;box-shadow:0 -1px 0 rgba(0,0,0,.1)}
+  .twk-chip>span>i:first-child{box-shadow:none}
+  .twk-chip svg{position:absolute;top:6px;left:6px;width:13px;height:13px;
+    filter:drop-shadow(0 1px 1px rgba(0,0,0,.3))}
+`;
+
+function useTweaks(defaults) {
+  const [values, setValues] = React.useState(defaults);
+  const setTweak = React.useCallback((keyOrEdits, val) => {
+    const edits = typeof keyOrEdits === 'object' && keyOrEdits !== null
+      ? keyOrEdits : { [keyOrEdits]: val };
+    setValues((prev) => ({ ...prev, ...edits }));
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits }, '*');
+    window.dispatchEvent(new CustomEvent('tweakchange', { detail: edits }));
+  }, []);
+  return [values, setTweak];
+}
+
+function TweaksPanel({ title = 'Tweaks', noDeckControls = false, children }) {
+  const [open, setOpen] = React.useState(false);
+  const dragRef = React.useRef(null);
+  const offsetRef = React.useRef({ x: 16, y: 16 });
+  const PAD = 16;
+
+  const clampToViewport = React.useCallback(() => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const w = panel.offsetWidth, h = panel.offsetHeight;
+    const maxRight = Math.max(PAD, window.innerWidth - w - PAD);
+    const maxBottom = Math.max(PAD, window.innerHeight - h - PAD);
+    offsetRef.current = {
+      x: Math.min(maxRight, Math.max(PAD, offsetRef.current.x)),
+      y: Math.min(maxBottom, Math.max(PAD, offsetRef.current.y)),
+    };
+    panel.style.right = offsetRef.current.x + 'px';
+    panel.style.bottom = offsetRef.current.y + 'px';
+  }, []);
+
+  React.useEffect(() => {
+    if (!open) return;
+    clampToViewport();
+    const ro = new ResizeObserver(clampToViewport);
+    ro.observe(document.documentElement);
+    return () => ro.disconnect();
+  }, [open, clampToViewport]);
+
+  React.useEffect(() => {
+    const onMsg = (e) => {
+      const t = e?.data?.type;
+      if (t === '__activate_edit_mode') setOpen(true);
+      else if (t === '__deactivate_edit_mode') setOpen(false);
+    };
+    window.addEventListener('message', onMsg);
+    window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+    return () => window.removeEventListener('message', onMsg);
+  }, []);
+
+  const dismiss = () => {
+    setOpen(false);
+    window.parent.postMessage({ type: '__edit_mode_dismissed' }, '*');
+  };
+
+  const onDragStart = (e) => {
+    const panel = dragRef.current;
+    if (!panel) return;
+    const r = panel.getBoundingClientRect();
+    const sx = e.clientX, sy = e.clientY;
+    const startRight = window.innerWidth - r.right;
+    const startBottom = window.innerHeight - r.bottom;
+    const move = (ev) => {
+      offsetRef.current = {
+        x: startRight - (ev.clientX - sx),
+        y: startBottom - (ev.clientY - sy),
+      };
+      clampToViewport();
+    };
+    const up = () => {
+      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mouseup', up);
+    };
+    window.addEventListener('mousemove', move);
+    window.addEventListener('mouseup', up);
+  };
+
+  if (!open) return null;
+  return (
+    <>
+      <style>{__TWEAKS_STYLE}</style>
+      <div ref={dragRef} className="twk-panel" data-noncommentable=""
+           style={{ right: offsetRef.current.x, bottom: offsetRef.current.y }}>
+        <div className="twk-hd" onMouseDown={onDragStart}>
+          <b>{title}</b>
+          <button className="twk-x" aria-label="Close tweaks"
+                  onMouseDown={(e) => e.stopPropagation()}
+                  onClick={dismiss}>✕</button>
+        </div>
+        <div className="twk-body">{children}</div>
+      </div>
+    </>
+  );
+}
+
+function TweakSection({ label, children }) {
+  return (
+    <>
+      <div className="twk-sect">{label}</div>
+      {children}
+    </>
+  );
+}
+
+function TweakRow({ label, value, children, inline = false }) {
+  return (
+    <div className={inline ? 'twk-row twk-row-h' : 'twk-row'}>
+      <div className="twk-lbl">
+        <span>{label}</span>
+        {value != null && <span className="twk-val">{value}</span>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+function TweakSlider({ label, value, min = 0, max = 100, step = 1, unit = '', onChange }) {
+  return (
+    <TweakRow label={label} value={`${value}${unit}`}>
+      <input type="range" className="twk-slider" min={min} max={max} step={step}
+             value={value} onChange={(e) => onChange(Number(e.target.value))} />
+    </TweakRow>
+  );
+}
+
+function TweakToggle({ label, value, onChange }) {
+  return (
+    <div className="twk-row twk-row-h">
+      <div className="twk-lbl"><span>{label}</span></div>
+      <button type="button" className="twk-toggle" data-on={value ? '1' : '0'}
+              role="switch" aria-checked={!!value}
+              onClick={() => onChange(!value)}><i /></button>
+    </div>
+  );
+}
+
+function TweakSelect({ label, value, options, onChange }) {
+  return (
+    <TweakRow label={label}>
+      <select className="twk-field" value={value} onChange={(e) => onChange(e.target.value)}>
+        {options.map((o) => {
+          const v = typeof o === 'object' ? o.value : o;
+          const l = typeof o === 'object' ? o.label : o;
+          return <option key={v} value={v}>{l}</option>;
+        })}
+      </select>
+    </TweakRow>
+  );
+}
+
+function TweakRadio({ label, value, options, onChange }) {
+  const trackRef = React.useRef(null);
+  const [dragging, setDragging] = React.useState(false);
+  const valueRef = React.useRef(value);
+  valueRef.current = value;
+
+  const labelLen = (o) => String(typeof o === 'object' ? o.label : o).length;
+  const maxLen = options.reduce((m, o) => Math.max(m, labelLen(o)), 0);
+  const fitsAsSegments = maxLen <= ({ 2: 16, 3: 10 }[options.length] ?? 0);
+  if (!fitsAsSegments) {
+    const resolve = (s) => {
+      const m = options.find((o) => String(typeof o === 'object' ? o.value : o) === s);
+      return m === undefined ? s : typeof m === 'object' ? m.value : m;
+    };
+    return <TweakSelect label={label} value={value} options={options}
+                        onChange={(s) => onChange(resolve(s))} />;
+  }
+  const opts = options.map((o) => (typeof o === 'object' ? o : { value: o, label: o }));
+  const idx = Math.max(0, opts.findIndex((o) => o.value === value));
+  const n = opts.length;
+
+  const segAt = (clientX) => {
+    const r = trackRef.current.getBoundingClientRect();
+    const inner = r.width - 4;
+    const i = Math.floor(((clientX - r.left - 2) / inner) * n);
+    return opts[Math.max(0, Math.min(n - 1, i))].value;
+  };
+
+  const onPointerDown = (e) => {
+    setDragging(true);
+    const v0 = segAt(e.clientX);
+    if (v0 !== valueRef.current) onChange(v0);
+    const move = (ev) => {
+      if (!trackRef.current) return;
+      const v = segAt(ev.clientX);
+      if (v !== valueRef.current) onChange(v);
+    };
+    const up = () => {
+      setDragging(false);
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', up);
+    };
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', up);
+  };
+
+  return (
+    <TweakRow label={label}>
+      <div ref={trackRef} role="radiogroup" onPointerDown={onPointerDown}
+           className={dragging ? 'twk-seg dragging' : 'twk-seg'}>
+        <div className="twk-seg-thumb"
+             style={{ left: `calc(2px + ${idx} * (100% - 4px) / ${n})`,
+                      width: `calc((100% - 4px) / ${n})` }} />
+        {opts.map((o) => (
+          <button key={o.value} type="button" role="radio" aria-checked={o.value === value}>
+            {o.label}
+          </button>
+        ))}
+      </div>
+    </TweakRow>
+  );
+}
+
+function __twkIsLight(hex) {
+  const h = String(hex).replace('#', '');
+  const x = h.length === 3 ? h.replace(/./g, (c) => c + c) : h.padEnd(6, '0');
+  const n = parseInt(x.slice(0, 6), 16);
+  if (Number.isNaN(n)) return true;
+  const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+  return r * 299 + g * 587 + b * 114 > 148000;
+}
+
+const __TwkCheck = ({ light }) => (
+  <svg viewBox="0 0 14 14" aria-hidden="true">
+    <path d="M3 7.2 5.8 10 11 4.2" fill="none" strokeWidth="2.2"
+          strokeLinecap="round" strokeLinejoin="round"
+          stroke={light ? 'rgba(0,0,0,.78)' : '#fff'} />
+  </svg>
+);
+
+function TweakColor({ label, value, options, onChange }) {
+  if (!options || !options.length) {
+    return (
+      <div className="twk-row twk-row-h">
+        <div className="twk-lbl"><span>{label}</span></div>
+        <input type="color" value={value} onChange={(e) => onChange(e.target.value)} />
+      </div>
+    );
+  }
+  const key = (o) => String(JSON.stringify(o)).toLowerCase();
+  const cur = key(value);
+  return (
+    <TweakRow label={label}>
+      <div className="twk-chips" role="radiogroup">
+        {options.map((o, i) => {
+          const colors = Array.isArray(o) ? o : [o];
+          const [hero, ...rest] = colors;
+          const sup = rest.slice(0, 4);
+          const on = key(o) === cur;
+          return (
+            <button key={i} type="button" className="twk-chip" role="radio"
+                    aria-checked={on} data-on={on ? '1' : '0'}
+                    aria-label={colors.join(', ')} title={colors.join(' · ')}
+                    style={{ background: hero }}
+                    onClick={() => onChange(o)}>
+              {sup.length > 0 && (
+                <span>{sup.map((c, j) => <i key={j} style={{ background: c }} />)}</span>
+              )}
+              {on && <__TwkCheck light={__twkIsLight(hero)} />}
+            </button>
+          );
+        })}
+      </div>
+    </TweakRow>
+  );
+}
+
+Object.assign(window, {
+  useTweaks, TweaksPanel, TweakSection, TweakRow,
+  TweakSlider, TweakToggle, TweakRadio, TweakSelect,
+  TweakColor,
+});
+  </script>
+
+  <!-- mascot -->
+  <script type="text/babel">
+
+function Vrstvicka({ size = 220, mood = 'happy', tone = 'green' }) {
+  const tones = {
+    green: ['#D9F2B5','#B6E08A','#86C44E','#52902A'],
+    coral: ['#F4C9AE','#EFA987','#E97A4F','#C75A33'],
+    sage:  ['#CFE3D2','#A9CDB1','#7AA68A','#52866B'],
+    amber: ['#F2DDB0','#E8C57E','#D9A24E','#A87A2C'],
+  };
+  const c = tones[tone] || tones.coral;
+  const blink = mood === 'wink';
+  return (
+    <svg viewBox="0 0 220 240" width={size} height={size * (240/220)} role="img" aria-label="Vrstvička, maskot ve tvaru cibulky">
+      <ellipse cx="110" cy="225" rx="78" ry="6" fill="rgba(41,34,26,.10)" />
+      <g transform="translate(110 30)">
+        <path d="M0 0 C 6 -22 22 -28 30 -22 C 26 -8 12 0 0 0 Z" fill="#52902A" />
+        <path d="M0 0 C -6 -18 -20 -24 -28 -18 C -22 -6 -10 -1 0 0 Z" fill="#3F7720" />
+        <line x1="0" y1="0" x2="0" y2="14" stroke="#3F7720" strokeWidth="3" strokeLinecap="round" />
+      </g>
+      <ellipse cx="110" cy="140" rx="92" ry="92" fill={c[0]} />
+      <ellipse cx="110" cy="148" rx="76" ry="76" fill={c[1]} />
+      <ellipse cx="110" cy="156" rx="58" ry="58" fill={c[2]} />
+      <ellipse cx="110" cy="164" rx="38" ry="38" fill={c[3]} opacity=".18" />
+      <g stroke="rgba(41,34,26,.08)" strokeWidth="1" fill="none">
+        <path d="M22 140 Q 110 160 198 140" />
+        <path d="M30 160 Q 110 178 190 160" />
+        <path d="M40 180 Q 110 195 180 180" />
+      </g>
+      <ellipse cx="76"  cy="150" rx="9" ry="6" fill="#F4A28C" opacity=".55" />
+      <ellipse cx="144" cy="150" rx="9" ry="6" fill="#F4A28C" opacity=".55" />
+      <g fill="#29221A">
+        {blink ? (
+          <>
+            <path d="M93 132 q 6 -6 12 0" stroke="#29221A" strokeWidth="3" fill="none" strokeLinecap="round" />
+            <path d="M115 132 q 6 -6 12 0" stroke="#29221A" strokeWidth="3" fill="none" strokeLinecap="round" />
+          </>
+        ) : (
+          <>
+            <circle cx="99"  cy="135" r="4.2" />
+            <circle cx="121" cy="135" r="4.2" />
+            <circle cx="100.4" cy="133.4" r="1.2" fill="#fff" />
+            <circle cx="122.4" cy="133.4" r="1.2" fill="#fff" />
+          </>
+        )}
+      </g>
+      <path d="M97 150 Q 110 162 123 150" fill="none" stroke="#29221A" strokeWidth="3" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function VrstvickaMini({ size = 28 }) {
+  return (
+    <svg viewBox="0 0 32 36" width={size} height={size * (36/32)} aria-hidden="true">
+      <path d="M16 4 C 19 0 25 0 27 4 C 23 7 19 7 16 6 Z" fill="#52902A" />
+      <ellipse cx="16" cy="22" rx="13" ry="13" fill="#B6E08A" />
+      <ellipse cx="16" cy="24" rx="10" ry="10" fill="#86C44E" />
+      <circle cx="13" cy="20" r="1.4" fill="#29221A" />
+      <circle cx="19" cy="20" r="1.4" fill="#29221A" />
+      <path d="M13 24 Q 16 27 19 24" stroke="#29221A" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+function Printer3D({ progress = 0, material = 'PLA', infill = 'medium', speed = 'slow', running = false, item = null }) {
+  const layerColor = matColor(material);
+  const objBox = { x: 100, y: 90, w: 80, h: 100 };
+  const oscRange = objBox.w * 0.45;
+  const nozzleX = (objBox.x + objBox.w/2) + Math.sin(progress * Math.PI * (speed === 'fast' ? 18 : 10)) * oscRange;
+  const revealH = Math.max(0.0001, progress * objBox.h);
+  const revealY = objBox.y + objBox.h - revealH;
+  const nozzleY = Math.max(78, revealY - 6);
+  const layerSpacing = 6;
+  const layersDone = Math.floor(progress * (objBox.h / layerSpacing));
+  const uid = item?.id || 'item';
+  const clipId = `printclip-${uid}`;
+
+  return (
+    <svg viewBox="0 0 280 240" width="100%" style={{ display:'block' }} aria-label="3D tiskárna při tisku">
+      <defs>
+        <linearGradient id="printerFrame" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stopColor="#3a3128" />
+          <stop offset="1" stopColor="#27201a" />
+        </linearGradient>
+        <linearGradient id="bedGrad" x1="0" x2="0" y1="0" y2="1">
+          <stop offset="0" stopColor="#FFFCF6" />
+          <stop offset="1" stopColor="#E8DFCD" />
+        </linearGradient>
+        <clipPath id={clipId}>
+          <rect x={objBox.x - 4} y={revealY} width={objBox.w + 8} height={revealH + 1} />
+        </clipPath>
+      </defs>
+      <ellipse cx="140" cy="225" rx="100" ry="6" fill="rgba(41,34,26,.10)" />
+      <rect x="34"  y="30" width="10" height="170" rx="4" fill="url(#printerFrame)" />
+      <rect x="236" y="30" width="10" height="170" rx="4" fill="url(#printerFrame)" />
+      <rect x="34"  y="22" width="212" height="14" rx="6" fill="url(#printerFrame)" />
+      <rect x="200" y="45" width="40" height="26" rx="5" fill="#1c1612" />
+      <rect x="204" y="49" width="32" height="18" rx="3" fill={layerColor} opacity=".5" />
+      <text x="220" y="61" textAnchor="middle" fontFamily="JetBrains Mono, monospace" fontSize="9" fill="#FFF8E7" fontWeight="600">
+        {Math.round(progress * 100)}%
+      </text>
+      <rect x="44" y="62" width="192" height="6" rx="3" fill="#1c1612" />
+      {item && (
+        <g opacity=".18">
+          <text x={objBox.x + objBox.w/2} y={objBox.y + objBox.h - 4}
+                fontSize={objBox.h * 0.95} textAnchor="middle"
+                style={{ filter: 'grayscale(1)' }}>
+            {item.emoji}
+          </text>
+        </g>
+      )}
+      {item && (
+        <g clipPath={`url(#${clipId})`}>
+          <text x={objBox.x + objBox.w/2} y={objBox.y + objBox.h - 4}
+                fontSize={objBox.h * 0.95} textAnchor="middle">
+            {item.emoji}
+          </text>
+          <rect x={objBox.x - 4} y={objBox.y - 4} width={objBox.w + 8} height={objBox.h + 8}
+                fill={layerColor} opacity=".22" style={{ mixBlendMode: 'multiply' }} />
+          {Array.from({ length: layersDone + 1 }).map((_, i) => (
+            <line key={i}
+                  x1={objBox.x - 4} x2={objBox.x + objBox.w + 4}
+                  y1={objBox.y + objBox.h - i * layerSpacing}
+                  y2={objBox.y + objBox.h - i * layerSpacing}
+                  stroke={layerColor}
+                  strokeWidth={speed === 'fast' ? 1.4 : 0.6}
+                  opacity={speed === 'fast' ? 0.55 : 0.28} />
+          ))}
+        </g>
+      )}
+      {running && progress > 0.02 && (
+        <line x1={nozzleX} y1={nozzleY + 6} x2={nozzleX} y2={revealY + 1}
+              stroke={layerColor} strokeWidth="1.6" opacity=".85" strokeLinecap="round" />
+      )}
+      <g transform={`translate(${nozzleX} ${Math.max(0, nozzleY - 50)})`}>
+        <rect x="-12" y="0"  width="24" height="36" rx="4" fill="#1c1612" />
+        <rect x="-9"  y="4"  width="18" height="6"  rx="2" fill={layerColor} />
+        <polygon points="-6,36 6,36 0,50" fill="#1c1612" />
+        <circle cx="0" cy="50" r="2.2" fill={layerColor} />
+      </g>
+      <rect x="50" y="195" width="180" height="8" rx="2" fill="#2a221c" />
+      <rect x="56" y="190" width="168" height="6" rx="2" fill="url(#bedGrad)" />
+      <g fontFamily="JetBrains Mono, monospace" fontSize="8" fill="rgba(255,248,231,.45)">
+        <text x="20" y="200">0</text>
+        <text x="20" y="100">vrch</text>
+      </g>
+      <g fontFamily="JetBrains Mono, monospace" fontSize="8" fill="rgba(255,248,231,.55)">
+        <text x="260" y="200" textAnchor="end">
+          {infill === 'hollow' ? 'dutá 0–1%' : infill === 'medium' ? 'střední 15%' : 'plná 100%'}
+        </text>
+      </g>
+    </svg>
+  );
+}
+
+Object.assign(window, { Vrstvicka, VrstvickaMini, Printer3D });
+  </script>
+
+  <!-- data -->
+  <script type="text/babel">
+
+const GROUPS = [
+  {
+    id: 'hracky', icon: '🎮', title: 'Hračky a hry', sub: 'Pro radost a zábavu',
+    accent: 'coral',
+    items: [
+      { id:'kachnicka', name:'Gumová kachnička', emoji:'🦆', sub:'Měkká hračka', desc:'Hračka pro malé dítě. Musí být měkká a ohebná!', hint:'TPU se natáhne až 5× délky. Je jako opravdová guma!', optimal:{ material:'TPU', infill:'medium', speed:'slow' } },
+      { id:'pohar', name:'Pohár pro vítěze', emoji:'🏆', sub:'Hladký povrch', desc:'Hezký pohár na polici. Krásný povrch je důležitý!', hint:'PLA dává nejhladší povrchy. Dutá výplň ušetří materiál.', optimal:{ material:'PLA', infill:'hollow', speed:'slow' } },
+      { id:'terc', name:'Terč na šipky', emoji:'🎯', sub:'Vydrží nárazy', desc:'Pevný terč na zeď. Musí vydržet šipky i nárazy!', hint:'Pevnost = vysoká výplň + silný materiál.', optimal:{ material:'PETG', infill:'full', speed:'slow' } },
+      { id:'loutka', name:'Loutka na prst', emoji:'🎪', sub:'Pohodlná, pružná', desc:'Maňásek na divadlo. Musí být pohodlný na prstu a trochu pružný!', hint:'Na prstech chceme pružný materiál, ne tvrdý plast.', optimal:{ material:'TPU', infill:'hollow', speed:'slow' } },
+      { id:'kostka', name:'Herní kostka', emoji:'🎲', sub:'Přesná a pevná', desc:'Kostka na deskovou hru. Musí být přesná a pevná!', hint:'Přesnost = hezký tisk. Pevnost = velká výplň.', optimal:{ material:'PETG', infill:'full', speed:'slow' } },
+    ],
+  },
+  {
+    id: 'domacnost', icon: '🏠', title: 'Domácnost', sub: 'Pomocníci do bytu',
+    accent: 'sage',
+    items: [
+      { id:'kvetinac', name:'Květináč na parapet', emoji:'🪴', sub:'Lehký, dekorativní', desc:'Hezký květináč na okno. Lehký a dekorativní!', hint:'Dekorace = PLA + pomalý tisk + dutá výplň.', optimal:{ material:'PLA', infill:'hollow', speed:'slow' } },
+      { id:'stojanek-tel', name:'Stojánek na telefon', emoji:'📱', sub:'Stabilní, drží', desc:'Stojánek na stůl. Musí pevně držet telefon a být stabilní!', hint:'Stabilita = dostatečná výplň. PETG lépe odolá tlaku.', optimal:{ material:'PETG', infill:'medium', speed:'slow' } },
+      { id:'vesak', name:'Věšák na klíče', emoji:'🔑', sub:'Unese klíče', desc:'Věšák na zeď. Musí unést klíče a být pevně přišroubovaný!', hint:'Pevnost je klíčová – klíče jsou těžké!', optimal:{ material:'PETG', infill:'full', speed:'slow' } },
+      { id:'mydlo', name:'Dávkovač na mýdlo', emoji:'🧴', sub:'Voděodolný', desc:'Náhradní pumpa na tekuté mýdlo. Musí být voděodolná a pevná!', hint:'PETG lépe odolá vodě a chemikáliím než PLA.', optimal:{ material:'PETG', infill:'full', speed:'slow' } },
+      { id:'svicen', name:'Svícen na čajovou svíčku', emoji:'🕯️', sub:'Krásný vzhled', desc:'Hezký svícen na stůl. Důležitý je krásný vzhled!', hint:'PLA + pomalý tisk = nejhezčí dekorativní výsledek.', optimal:{ material:'PLA', infill:'hollow', speed:'slow' } },
+    ],
+  },
+  {
+    id: 'skola', icon: '🏫', title: 'Škola a věda', sub: 'Do třídy a laborky',
+    accent: 'amber',
+    items: [
+      { id:'stojanek', name:'Stojánek na tužky', emoji:'✏️', sub:'Stabilní, hezký', desc:'Stojánek na psací potřeby do školy. Musí být stabilní a hezký!', hint:'Stabilita = střední výplň. PLA pro hezký vzhled.', optimal:{ material:'PLA', infill:'medium', speed:'slow' } },
+      { id:'zkumavky', name:'Držák na zkumavky', emoji:'🔬', sub:'Pevný, odolný', desc:'Stojánek do školní laboratoře. Musí pevně držet zkumavky!', hint:'Laboratoř = pevnost a odolnost. PETG odolá chemikáliím!', optimal:{ material:'PETG', infill:'full', speed:'slow' } },
+      { id:'puzzle', name:'Puzzle', emoji:'🗺️', sub:'Lehké, hezké', desc:'Část vzdělávacího puzzle světadílů. Lehký a hezký!', hint:'Puzzle = PLA + dutá výplň + pomalu pro detaily.', optimal:{ material:'PLA', infill:'hollow', speed:'slow' } },
+      { id:'pravitko', name:'Pravítko s milimetry', emoji:'📏', sub:'Přesné, pevné', desc:'Přesné pravítko na rýsování. Musí mít přesné mm!', hint:'Přesnost = pomalý tisk + tvrdý materiál.', optimal:{ material:'PETG', infill:'full', speed:'slow' } },
+      { id:'raketka', name:'Raketka na zeď', emoji:'🚀', sub:'Lehká dekorace', desc:'Dekorace do třídy. Musí být krásná a lehká!', hint:'Pro krásné dekorace: PLA + pomalý tisk + malá výplň!', optimal:{ material:'PLA', infill:'hollow', speed:'slow' } },
+    ],
+  },
+  {
+    id: 'priroda', icon: '🌿', title: 'Příroda', sub: 'Ven do zahrady',
+    accent: 'sage',
+    items: [
+      { id:'krmitko', name:'Krmítko pro ptáky', emoji:'🪺', sub:'Odolné dešti', desc:'Venkovní krmítko. Musí odolat dešti a mrazu!', hint:'Venkovní předměty potřebují materiál odolný vlhkosti.', optimal:{ material:'PETG', infill:'full', speed:'slow' } },
+      { id:'visacka', name:'Visačka na rostlinu', emoji:'🌱', sub:'UV, vodě odolná', desc:'Štítek do záhonu. Lehký, hezký, odolný venku.', hint:'Nejde o pevnost, ale o odolnost vůči UV záření a vlhkosti.', optimal:{ material:'PETG', infill:'hollow', speed:'slow' } },
+      { id:'hmyz', name:'Domeček pro hmyz', emoji:'🐛', sub:'Pevný, venkovní', desc:'Hotel pro užitečný hmyz do zahrady. Musí být pevný a odolný!', hint:'Příroda potřebuje materiál, který dlouho vydrží venku.', optimal:{ material:'PETG', infill:'full', speed:'slow' } },
+      { id:'leknin', name:'Plovoucí leknín', emoji:'🌊', sub:'Plave, ohýbá se', desc:'Dekorativní květ na vodní hladinu. Musí plavat a ohýbat se!', hint:'Plovoucí předmět potřebuje lehký a vodě odolný materiál.', optimal:{ material:'TPU', infill:'hollow', speed:'slow' } },
+      { id:'seminka', name:'Zásobník na semínka', emoji:'🌰', sub:'Pevný, voděodolný', desc:'Dávkovač semínek pro zahradníky. Musí být pevný a voděodolný!', hint:'Kontakt s vlhkostí a zemí = potřebujeme odolný materiál.', optimal:{ material:'PETG', infill:'full', speed:'slow' } },
+    ],
+  },
+  {
+    id: 'technika', icon: '🤖', title: 'Technika', sub: 'Užitečné gadgety',
+    accent: 'coral',
+    items: [
+      { id:'pouzdro', name:'Pouzdro na telefon', emoji:'📱', sub:'Tlumí nárazy', desc:'Ochranné pouzdro. Musí tlumit nárazy a přesně pasovat!', hint:'Ochrana = pružnost. Tuhý plast náraz nepohltí.', optimal:{ material:'TPU', infill:'medium', speed:'slow' } },
+      { id:'kabely', name:'Organizér kabelů', emoji:'🔌', sub:'Pružný klip', desc:'Klip na uspořádání kabelů na stole. Pružný, aby kabely přidržel!', hint:'Klip musí být dost pružný, aby se rozevřel, ale dost pevný, aby držel.', optimal:{ material:'TPU', infill:'medium', speed:'slow' } },
+      { id:'mys', name:'Podložka pod zápěstí', emoji:'🖱️', sub:'Měkká, pohodlná', desc:'Ergonomická podložka k myši. Měkká a pohodlná!', hint:'Pohodlí = pružný materiál, který se přizpůsobí tvaru zápěstí.', optimal:{ material:'TPU', infill:'hollow', speed:'slow' } },
+      { id:'ozubeni', name:'Ozubené kolečko', emoji:'⚙️', sub:'Přesné, pevné', desc:'Náhradní díl do mechanismu. Musí být přesný a pevný!', hint:'Ozubení potřebuje přesný tvar a tuhý materiál – jinak se brzy opotřebí.', optimal:{ material:'PETG', infill:'full', speed:'slow' } },
+      { id:'vypinac', name:'Kryt vypínače', emoji:'💡', sub:'Hladký, přesný', desc:'Dekorativní kryt na světelný vypínač. Hezký a pevný!', hint:'Kryt potřebuje hladký povrch a přesné rozměry pro montáž.', optimal:{ material:'PLA', infill:'medium', speed:'slow' } },
+    ],
+  },
+];
+
+const MATERIALS = [
+  { id: 'PLA',  name: 'Tvrdý plast', code: 'PLA',  color: 'oklch(0.72 0.10 235)', desc: 'Snadno se tiskne, je pevný, ale lehce praskne.' },
+  { id: 'PETG', name: 'Silný plast', code: 'PETG', color: 'oklch(0.72 0.13 145)', desc: 'Pružnější, vydrží náraz a tah. Hodí se na věci, co se táhnou.' },
+  { id: 'TPU',  name: 'Gumový',      code: 'TPU',  color: 'oklch(0.74 0.14 50)',  desc: 'Měkký a ohebný — vrátí se do tvaru, když ho zmačkneš.' },
+];
+
+const INFILLS = [
+  { id:'hollow', name:'Dutá',    label:'0–1 %',   desc:'Skoro prázdná. Lehká, ale ohne se.' },
+  { id:'medium', name:'Střední', label:'15–20 %', desc:'Lehká a přitom drží tvar.' },
+  { id:'full',   name:'Plná',    label:'100 %',   desc:'Těžká a nejpevnější. Tiskne se déle.' },
+];
+
+const SPEEDS = [
+  { id:'slow', name:'Pomalu', label:'hezčí',  desc:'Hladké vrstvy, krásný povrch.' },
+  { id:'fast', name:'Rychle', label:'hrubší', desc:'Vidět vrstvičky, hrubší povrch.' },
+];
+
+const PREDICTIONS = [
+  { id:'works',   label:'Bude to fungovat',     icon:'🎯' },
+  { id:'unsure',  label:'Nejsem si jistý/á',    icon:'🤔' },
+  { id:'explore', label:'Zkouším, co se stane', icon:'💡' },
+];
+
+const REFLECTIONS = [
+  { id:'surprise', label:'Překvapilo mě to', icon:'😮' },
+  { id:'expected', label:'Čekal/a jsem to',  icon:'✅' },
+  { id:'unsure',   label:'Nevím',            icon:'🤔' },
+  { id:'next',     label:'Příště jinak',     icon:'💡' },
+];
+
+function evaluatePrint(item, config) {
+  const o = item.optimal;
+  const hits = ['material','infill','speed'].filter(k => o[k] === config[k]).length;
+  if (hits === 3) return { score:3, kind:'great', title:'Skvěle! Vyšlo to.', body:'Všechno sedí — materiál, výplň i rychlost. Tisk je pevný a hezký.' };
+  if (hits === 2) return { score:2, kind:'ok',    title:'Funguje to, ale jde to líp.', body:'Skoro! Jedna věc se ještě dá vylepšit.' };
+  if (hits === 1) return { score:1, kind:'meh',   title:'Hmm, není to ono.', body:'Funkce kulhá. Zkus změnit nastavení a porovnat.' };
+  return                  { score:0, kind:'fail', title:'Tohle se nepovedlo.', body:'Tiskárna sice tiskne, ale výsledek nesedí. Zkus to jinak.' };
+}
+
+const matLabel    = id => MATERIALS.find(m => m.id === id)?.code  || '—';
+const matFull     = id => MATERIALS.find(m => m.id === id)?.name  || '—';
+const infillLabel = id => INFILLS.find(i => i.id === id)?.name    || '—';
+const speedLabel  = id => SPEEDS.find(s => s.id === id)?.name     || '—';
+const matColor    = id => MATERIALS.find(m => m.id === id)?.color || '#ccc';
+
+const TIPS = {
+  kachnicka:'TPU se natáhne až 5× délky a vrátí se zpět. Skvělý na měkké hračky.',
+  pohar:    'PLA vzniká z kukuřičného škrobu. 🌽 A dává nejhladší povrchy.',
+  terc:     'Plná výplň + PETG = pevný terč, který šipky nezdolají.',
+  loutka:   'Na prstu chceme pružnost — TPU se přizpůsobí prstu jako rukavice.',
+  kostka:   'Pomalý tisk = ostré číslice. Plná výplň = nedeformuje se při dopadu.',
+  kvetinac: 'Dutá výplň = lehký květináč. Parapet ti za to poděkuje.',
+  'stojanek-tel':'PETG je tužší než PLA — telefon stojí pevně.',
+  vesak:    'Plná výplň zpevní stěny kolem šroubu. Klíče nepadají.',
+  mydlo:    'PETG odolá vodě a mýdlu. PLA by časem nasákl vlhkost.',
+  svicen:   'PLA + pomalu = krásné detaily a hladký povrch dekorace.',
+  stojanek: 'Střední výplň drží stabilitu, ale neutáhne stůl tíhou.',
+  zkumavky: 'PETG odolá chemikáliím — laborka mu nedá. PLA by reagoval.',
+  puzzle:   'Pomalý tisk = přesné okraje. Dílky pak hezky pasují.',
+  pravitko: 'Pomalu tištěné dílky = přesné mm. Tužší materiál se neprohne.',
+  raketka:  'Dekorace nic nenese — dutá výplň ušetří plast i čas.',
+  krmitko:  'PETG vydrží mráz i déšť. PLA by venku za zimu zvlhl a praskl.',
+  visacka:  'PETG nežloutne na slunci. Hodí se na cokoli ven.',
+  hmyz:     'Plná výplň + PETG = roky venku bez prasklin.',
+  leknin:   'TPU plave a vlní se s vodou. Skvěle imituje skutečný leknín.',
+  seminka:  'PETG drží suchá semínka i ve vlhkém skleníku.',
+  pouzdro:  'TPU pohlcuje nárazy. Telefon pád přežije.',
+  kabely:   'TPU se rozevře a zase zacvakne — ideální pro klipy.',
+  mys:      'TPU se přizpůsobí zápěstí. Po hodině práce nic nebolí.',
+  ozubeni:  'Pomalu = přesný tvar zubu. PETG se brzy neopotřebí.',
+  vypinac:  'PLA dává hladký povrch a přesné rozměry pro šrouby.',
+};
+
+Object.assign(window, {
+  GROUPS, MATERIALS, INFILLS, SPEEDS, PREDICTIONS, REFLECTIONS, TIPS,
+  evaluatePrint, matLabel, matFull, infillLabel, speedLabel, matColor,
+});
+  </script>
+
+  <!-- screens -->
+  <script type="text/babel">
+
+const { useState, useEffect, useRef } = React;
+
+function HeroScreen({ onStart, onDiary, attempts }) {
+  return (
+    <section className="hero" style={{ paddingTop: 56, paddingBottom: 80 }}>
+      <div style={{ display:'grid', gridTemplateColumns:'1.15fr 1fr', gap: 48, alignItems:'center' }} className="hero-grid">
+        <div className="fade-up">
+          <span className="chip chip--coral" style={{ marginBottom: 22 }}>
+            ✦ Badatelská dílna 3D tisku
+          </span>
+          <h1 style={{ marginTop: 14 }}>
+            Nauč se nastavit{' '}
+            <span style={{ fontStyle:'italic', color:'var(--coral-ink)', fontFamily:'var(--display)' }}>tiskárnu</span>{' '}
+            jako profík.
+          </h1>
+          <p style={{ fontSize: 19, color:'var(--ink-2)', marginTop: 22, maxWidth: 560 }}>
+            Vyber si předmět, zvol materiál, výplň a rychlost — pak se podívej,
+            jak ho Vrstvička vytiskne. Hraj, zkoušej a objevuj, co funguje.
+          </p>
+          <div style={{ display:'flex', gap: 12, marginTop: 30, flexWrap:'wrap' }}>
+            <button className="btn btn--primary btn--lg" onClick={onStart}>
+              🔍 Začít průzkum
+            </button>
+            <button className="btn btn--ghost btn--lg" onClick={onDiary}>
+              📓 Badatelský deník
+              {attempts > 0 && (
+                <span style={{ marginLeft: 4, background:'var(--coral)', color:'#fff', fontSize: 12, fontWeight: 700, padding:'2px 8px', borderRadius: 999, fontFamily:'var(--mono)' }}>{attempts}</span>
+              )}
+            </button>
+          </div>
+          <div style={{ display:'flex', gap: 26, marginTop: 38, flexWrap:'wrap', color:'var(--ink-2)' }}>
+            <FeatureLine icon="🎓" title="3.–9. třída" sub="Pro děti 9–14 let" />
+            <FeatureLine icon="🌐" title="V prohlížeči" sub="Bez instalace" />
+            <FeatureLine icon="💛" title="Zdarma" sub="Žádná registrace" />
+          </div>
+        </div>
+
+        <div className="fade-up fade-up--delay-2" style={{ position:'relative', justifySelf:'center' }}>
+          <div style={{ background:'var(--paper)', border:'1px solid var(--line)', borderRadius:'var(--r-2xl)', padding: 36, boxShadow:'var(--shadow-3)', position:'relative', overflow:'hidden' }}>
+            <div style={{ position:'absolute', inset: 0, background:'radial-gradient(circle at 30% 20%, var(--coral-soft), transparent 60%), radial-gradient(circle at 80% 90%, var(--sage-soft), transparent 55%)', opacity: .9, pointerEvents:'none' }} />
+            <div style={{ position:'relative', textAlign:'center' }}>
+              <Vrstvicka size={260} tone="green" />
+              <div style={{ marginTop: 14, fontFamily:'var(--mono)', fontSize: 11, letterSpacing:'.08em', textTransform:'uppercase', color:'var(--ink-3)' }}>
+                AHOJ, JÁ JSEM <span style={{ color:'var(--coral-ink)', fontWeight:700 }}>VRSTVIČKA</span>
+              </div>
+            </div>
+          </div>
+          <span className="chip chip--sage" style={{ position:'absolute', top: -10, left: -14, transform:'rotate(-6deg)' }}>vrstva 1</span>
+          <span className="chip chip--amber" style={{ position:'absolute', bottom: 30, right: -22, transform:'rotate(5deg)' }}>100 % výplň</span>
+          <span className="chip chip--coral" style={{ position:'absolute', top: 80, right: -26, transform:'rotate(8deg)' }}>🐢 pomalu</span>
+        </div>
+      </div>
+      <style>{`@media (max-width: 880px) { .hero-grid { grid-template-columns: 1fr !important; } }`}</style>
+    </section>
+  );
+}
+
+function FeatureLine({ icon, title, sub }) {
+  return (
+    <div style={{ display:'flex', gap: 12, alignItems:'center' }}>
+      <div style={{ width: 44, height: 44, borderRadius: 14, background: 'var(--bg-soft)', display:'flex', alignItems:'center', justifyContent:'center', fontSize: 20 }}>{icon}</div>
+      <div>
+        <div style={{ fontWeight: 600, color:'var(--ink)' }}>{title}</div>
+        <div style={{ fontSize: 13, color:'var(--ink-3)' }}>{sub}</div>
+      </div>
+    </div>
+  );
+}
+
+function StepHeader({ step }) {
+  const labels = ['Předmět','Nastavení','Predikce','Tisk','Reflexe'];
+  return (
+    <div style={{ display:'flex', justifyContent:'center', marginBottom: 36 }}>
+      <div className="steps">
+        {labels.map((label, i) => {
+          const active = i === step;
+          const done = i < step;
+          return (
+            <span key={label} className={`step ${active ? 'step--active' : ''} ${done ? 'step--done' : ''}`}>
+              <span className="step__num">{done ? '✓' : i + 1}</span>
+              {label}
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function DidYouKnow({ entries }) {
+  const [idx, setIdx] = useState(0);
+
+  // Collect unique unlocked tips from diary entries (preserve discovery order, newest first)
+  const unlocked = [];
+  const seen = new Set();
+  [...entries].forEach(e => {
+    const tip = TIPS[e.item.id];
+    if (tip && !seen.has(e.item.id)) {
+      seen.add(e.item.id);
+      unlocked.push({ tip, item: e.item });
+    }
+  });
+
+  const total = unlocked.length;
+  const safeIdx = total > 0 ? idx % total : 0;
+  const current = unlocked[safeIdx];
+
+  const prev = () => setIdx(i => (i - 1 + total) % total);
+  const next = () => setIdx(i => (i + 1) % total);
+
+  return (
+    <div style={{ marginTop: 52 }}>
+      <div style={{ display:'flex', alignItems:'center', gap: 12, marginBottom: 18 }}>
+        <span className="chip chip--amber">✦ Víš, že…</span>
+        {total > 0 && (
+          <span style={{ fontFamily:'var(--mono)', fontSize: 11, color:'var(--ink-3)', letterSpacing:'.04em' }}>
+            {total} odemčeno z {Object.keys(TIPS).length}
+          </span>
+        )}
+      </div>
+
+      {total === 0 ? (
+        <div className="card fade-up" style={{ padding: 32, display:'flex', gap: 24, alignItems:'center', background:'var(--paper)' }}>
+          <div style={{ fontSize: 48, flexShrink: 0 }}>🔒</div>
+          <div>
+            <div style={{ fontFamily:'var(--display)', fontWeight: 600, fontSize: 20, color:'var(--ink)' }}>
+              Zatím žádné zajímavosti
+            </div>
+            <p style={{ color:'var(--ink-2)', marginTop: 6, fontSize: 15 }}>
+              Prozkoumej první předmět a odemkneš první zajímavost o 3D tisku.
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div className="card fade-up" style={{ padding: 28, position:'relative', overflow:'hidden' }}>
+          <div style={{
+            position:'absolute', inset:0,
+            background:'radial-gradient(500px 300px at 90% 110%, var(--amber-soft), transparent 60%)',
+            pointerEvents:'none',
+          }} />
+          <div style={{ position:'relative', display:'grid', gridTemplateColumns:'1fr auto', gap: 20, alignItems:'center' }}>
+            <div>
+              <div style={{ display:'flex', alignItems:'center', gap: 10, marginBottom: 12 }}>
+                <div style={{
+                  width: 40, height: 40, borderRadius: 12, background:'var(--bg-soft)',
+                  display:'flex', alignItems:'center', justifyContent:'center', fontSize: 20, flexShrink: 0,
+                }}>{current.item.emoji}</div>
+                <span style={{ fontFamily:'var(--mono)', fontSize: 11, color:'var(--ink-3)', letterSpacing:'.06em', textTransform:'uppercase' }}>
+                  {current.item.name}
+                </span>
+              </div>
+              <p style={{ fontSize: 17, color:'var(--ink)', lineHeight: 1.55, fontWeight: 500 }}>
+                {current.tip}
+              </p>
+            </div>
+            {total > 1 && (
+              <div style={{ display:'flex', flexDirection:'column', alignItems:'center', gap: 8, flexShrink: 0 }}>
+                <button className="btn btn--ghost btn--sm" onClick={prev}
+                        style={{ padding:'8px 12px', fontSize: 18, lineHeight: 1 }}>‹</button>
+                <span style={{ fontFamily:'var(--mono)', fontSize: 11, color:'var(--ink-3)', whiteSpace:'nowrap' }}>
+                  {safeIdx + 1} / {total}
+                </span>
+                <button className="btn btn--ghost btn--sm" onClick={next}
+                        style={{ padding:'8px 12px', fontSize: 18, lineHeight: 1 }}>›</button>
+              </div>
+            )}
+          </div>
+          {total > 1 && (
+            <div style={{ display:'flex', gap: 5, marginTop: 18, justifyContent:'center' }}>
+              {unlocked.map((_, i) => (
+                <button key={i} onClick={() => setIdx(i)}
+                        style={{
+                          width: i === safeIdx ? 20 : 6, height: 6, borderRadius: 999, border: 0, padding: 0, cursor:'pointer',
+                          background: i === safeIdx ? 'var(--amber-ink)' : 'var(--line)',
+                          transition:'width .2s ease, background .2s ease',
+                        }} />
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PickerScreen({ onPick, onBack, entries }) {
+  const [groupId, setGroupId] = useState(GROUPS[0].id);
+  const group = GROUPS.find(g => g.id === groupId);
+
+  return (
+    <section className="pad-top" style={{ paddingBottom: 80 }}>
+      <StepHeader step={0} />
+      <div className="fade-up" style={{ textAlign:'center', maxWidth: 640, margin:'0 auto 32px' }}>
+        <h2>Co chceš dnes prozkoumat?</h2>
+        <p style={{ fontSize: 17, color:'var(--ink-2)', marginTop: 12 }}>Vyber skupinu a v ní si zvol předmět, který tě zajímá.</p>
+      </div>
+      <div className="fade-up fade-up--delay-1" style={{ display:'flex', gap:10, justifyContent:'center', flexWrap:'wrap', marginBottom: 26 }}>
+        {GROUPS.map(g => {
+          const active = g.id === groupId;
+          return (
+            <button key={g.id} onClick={() => setGroupId(g.id)} className="btn btn--ghost"
+                    style={{ background: active ? 'var(--ink)' : 'var(--paper)', color: active ? '#FFF8E7' : 'var(--ink)', borderColor: active ? 'var(--ink)' : 'var(--line)' }}>
+              <span style={{ fontSize: 18 }}>{g.icon}</span>{g.title}
+            </button>
+          );
+        })}
+      </div>
+      <div className="grid-3 fade-up fade-up--delay-2">
+        {group.items.map(item => (
+          <button key={item.id} className="choice" onClick={() => onPick(group, item)}>
+            <div style={{ height: 130, borderRadius: 'var(--r-md)', background: 'var(--bg-soft)', display:'flex', alignItems:'center', justifyContent:'center', fontSize: 64, position:'relative', overflow:'hidden' }}>
+              <div style={{ position:'absolute', inset:0, background: `radial-gradient(120px 80px at 50% 60%, var(--${group.accent}-soft), transparent 70%)` }} />
+              <span style={{ position:'relative', filter:'drop-shadow(0 4px 8px rgba(41,34,26,.15))' }}>{item.emoji}</span>
+            </div>
+            <div className="choice__hd" style={{ marginTop: 6 }}>
+              <span className="choice__name">{item.name}</span>
+              <span className={`chip chip--${group.accent}`}>{item.sub}</span>
+            </div>
+            <div className="choice__desc">{item.desc}</div>
+          </button>
+        ))}
+      </div>
+
+      <DidYouKnow entries={entries} />
+
+      <div style={{ textAlign:'center', marginTop: 32 }}>
+        <button className="btn btn--ghost btn--sm" onClick={onBack}>← Zpět na úvod</button>
+      </div>
+    </section>
+  );
+}
+
+function SectionLabel({ num, title, sub }) {
+  return (
+    <div style={{ display:'flex', alignItems:'baseline', gap: 14 }}>
+      <span style={{ fontFamily:'var(--mono)', fontSize: 11, color:'var(--ink-3)', letterSpacing:'.08em' }}>0{num}</span>
+      <h3 style={{ fontSize: 24 }}>{title}</h3>
+      <span style={{ color:'var(--ink-3)', fontSize: 14 }}>{sub}</span>
+    </div>
+  );
+}
+
+function InfillIcon({ kind }) {
+  const size = 22;
+  return (
+    <svg width={size} height={size} viewBox="0 0 22 22">
+      <rect x="1.5" y="1.5" width="19" height="19" rx="4" fill="none" stroke="var(--ink)" strokeWidth="1.5" />
+      {kind === 'medium' && (
+        <g stroke="var(--ink)" strokeWidth="1.2" opacity=".6">
+          <line x1="2" y1="11" x2="20" y2="11" />
+          <line x1="11" y1="2" x2="11" y2="20" />
+        </g>
+      )}
+      {kind === 'full' && <rect x="3.5" y="3.5" width="15" height="15" rx="2" fill="var(--ink)" opacity=".75" />}
+    </svg>
+  );
+}
+
+function PreviewRow({ label, value, dot }) {
+  return (
+    <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', padding:'8px 0', borderBottom:'1px dashed var(--line-2)' }}>
+      <span style={{ fontFamily:'var(--mono)', fontSize: 11, letterSpacing:'.06em', textTransform:'uppercase', color:'var(--ink-3)' }}>{label}</span>
+      <span style={{ fontWeight: 600, display:'inline-flex', alignItems:'center', gap: 8 }}>
+        {dot && <span className="dot" style={{ background: dot, width:10, height:10 }} />}
+        {value}
+      </span>
+    </div>
+  );
+}
+
+function ConfigPreview({ item, group, config }) {
+  return (
+    <div className="card" style={{ padding: 20, position:'relative', overflow:'hidden' }}>
+      <div style={{ position:'absolute', inset:0, background: `radial-gradient(180px 120px at 80% 0%, var(--${group.accent}-soft), transparent 60%)`, pointerEvents:'none' }} />
+      <div style={{ position:'relative' }}>
+        <div style={{ fontFamily:'var(--mono)', fontSize: 11, letterSpacing:'.08em', textTransform:'uppercase', color:'var(--ink-3)' }}>Tiskneme</div>
+        <div style={{ display:'flex', alignItems:'center', gap: 14, marginTop: 8 }}>
+          <div style={{ width: 56, height: 56, borderRadius: 16, background: 'var(--bg-soft)', display:'flex', alignItems:'center', justifyContent:'center', fontSize: 28 }}>{item.emoji}</div>
+          <div>
+            <div style={{ fontFamily:'var(--display)', fontWeight: 600, fontSize: 22 }}>{item.name}</div>
+            <div style={{ color:'var(--ink-3)', fontSize: 13 }}>{item.sub}</div>
+          </div>
+        </div>
+        <hr className="divider" style={{ margin:'18px 0' }} />
+        <PreviewRow label="Materiál" value={config.material ? `${matFull(config.material)} · ${matLabel(config.material)}` : '—'} dot={config.material ? matColor(config.material) : null} />
+        <PreviewRow label="Výplň"    value={config.infill ? infillLabel(config.infill) : '—'} />
+        <PreviewRow label="Rychlost" value={config.speed ? speedLabel(config.speed) : '—'} />
+        <div style={{ marginTop: 16, padding: 14, borderRadius: 14, background:'var(--bg-soft)' }}>
+          <div style={{ display:'flex', alignItems:'center', gap: 8, fontSize: 12, color:'var(--ink-3)', fontFamily:'var(--mono)', textTransform:'uppercase', letterSpacing:'.06em' }}>
+            <VrstvickaMini size={20} /> Vrstvička pozoruje
+          </div>
+          <p style={{ marginTop: 8, fontSize: 14, color:'var(--ink-2)' }}>
+            {!config.material ? 'Začni výběrem materiálu — to je úplně první rozhodnutí.' :
+             !config.infill ?   'Materiál máš. Teď zvol, kolik plastu bude uvnitř.' :
+             !config.speed ?    'Skvělé. Zbývá zvolit rychlost.' :
+             'Máš všechno. Pojď zkusit, jestli to vyjde!'}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ConfigScreen({ group, item, config, setConfig, onNext, onBack }) {
+  const ready = config.material && config.infill && config.speed;
+  return (
+    <section className="pad-top" style={{ paddingBottom: 80 }}>
+      <StepHeader step={1} />
+      <div className="fade-up" style={{ display:'grid', gridTemplateColumns: '1fr 320px', gap: 36, alignItems:'flex-start' }} id="config-grid">
+        <div>
+          <div style={{ display:'flex', gap: 12, alignItems:'center', marginBottom: 8 }}>
+            <span className={`chip chip--${group.accent}`}>{group.title}</span>
+            <span style={{ fontSize: 12, color:'var(--ink-3)', fontFamily:'var(--mono)' }}>•</span>
+            <span style={{ fontSize: 12, color:'var(--ink-3)', fontFamily:'var(--mono)' }}>vyber všechna 3 nastavení</span>
+          </div>
+          <h2>Jak to vytiskneš, <span style={{ fontStyle:'italic', color:'var(--coral-ink)' }}>{item.name.toLowerCase()}</span>?</h2>
+          <p style={{ fontSize: 16, color:'var(--ink-2)', marginTop: 10, maxWidth: 560 }}>Vrstvička pozoruje. <strong>{item.desc}</strong></p>
+
+          <div style={{ marginTop: 36 }}>
+            <SectionLabel num="1" title="Materiál" sub="Jaký plast zvolíš?" />
+            <div className="grid-3" style={{ marginTop: 14 }}>
+              {MATERIALS.map(m => (
+                <button key={m.id} className="choice" aria-pressed={config.material === m.id}
+                        onClick={() => setConfig({ ...config, material: m.id })}>
+                  <div style={{ display:'flex', alignItems:'center', gap: 12 }}>
+                    <span className="dot" style={{ background: m.color, width: 18, height: 18 }} />
+                    <div style={{ display:'flex', flexDirection:'column' }}>
+                      <span className="choice__name" style={{ fontSize: 18 }}>{m.name}</span>
+                      <span className="choice__sub">{m.code}</span>
+                    </div>
+                  </div>
+                  <div className="choice__desc">{m.desc}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ marginTop: 36 }}>
+            <SectionLabel num="2" title="Výplň" sub="Kolik plastu má být uvnitř?" />
+            <div className="grid-3" style={{ marginTop: 14 }}>
+              {INFILLS.map(inf => (
+                <button key={inf.id} className="choice" aria-pressed={config.infill === inf.id}
+                        onClick={() => setConfig({ ...config, infill: inf.id })}>
+                  <div style={{ display:'flex', alignItems:'center', gap: 12 }}>
+                    <InfillIcon kind={inf.id} />
+                    <div style={{ display:'flex', flexDirection:'column' }}>
+                      <span className="choice__name" style={{ fontSize: 18 }}>{inf.name}</span>
+                      <span className="choice__sub">{inf.label}</span>
+                    </div>
+                  </div>
+                  <div className="choice__desc">{inf.desc}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ marginTop: 36 }}>
+            <SectionLabel num="3" title="Rychlost" sub="Pomalu, nebo rychle?" />
+            <div className="grid-2" style={{ marginTop: 14 }}>
+              {SPEEDS.map(s => (
+                <button key={s.id} className="choice" aria-pressed={config.speed === s.id}
+                        onClick={() => setConfig({ ...config, speed: s.id })}>
+                  <div style={{ display:'flex', alignItems:'center', gap: 12 }}>
+                    <span style={{ fontSize: 26 }}>{s.id === 'slow' ? '🐢' : '🐇'}</span>
+                    <div style={{ display:'flex', flexDirection:'column' }}>
+                      <span className="choice__name" style={{ fontSize: 18 }}>{s.name}</span>
+                      <span className="choice__sub">{s.label}</span>
+                    </div>
+                  </div>
+                  <div className="choice__desc">{s.desc}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div style={{ display:'flex', justifyContent:'space-between', marginTop: 40, gap: 12, flexWrap:'wrap' }}>
+            <button className="btn btn--ghost" onClick={onBack}>← Vybrat jiný předmět</button>
+            <button className="btn btn--primary btn--lg" onClick={onNext} disabled={!ready}
+                    style={{ opacity: ready ? 1 : .4, cursor: ready ? 'pointer' : 'not-allowed' }}>
+              Pokračovat na predikci →
+            </button>
+          </div>
+        </div>
+        <aside style={{ position:'sticky', top: 90 }}>
+          <ConfigPreview item={item} group={group} config={config} />
+        </aside>
+      </div>
+      <style>{`@media (max-width: 920px){ #config-grid { grid-template-columns: 1fr !important; } #config-grid aside { position: static !important; } }`}</style>
+    </section>
+  );
+}
+
+function PredictScreen({ item, group, config, prediction, setPrediction, onNext, onBack }) {
+  return (
+    <section className="pad-top" style={{ paddingBottom: 80 }}>
+      <StepHeader step={2} />
+      <div className="fade-up" style={{ maxWidth: 760, margin:'0 auto', textAlign:'center' }}>
+        <Vrstvicka size={120} tone={group.accent} mood="happy" />
+        <h2 style={{ marginTop: 8 }}>Co myslíš, že se stane?</h2>
+        <p style={{ fontSize: 17, color:'var(--ink-2)', marginTop: 10 }}>
+          Tipni si, jestli ti tahle kombinace pro <strong>{item.name.toLowerCase()}</strong> bude fungovat.
+          Žádný strach — i špatný tip nás něco naučí.
+        </p>
+      </div>
+      <div className="fade-up fade-up--delay-1" style={{ marginTop: 30, display:'flex', justifyContent:'center', flexWrap:'wrap', gap: 14 }}>
+        {PREDICTIONS.map(p => (
+          <button key={p.id} aria-pressed={prediction === p.id} className="choice"
+                  onClick={() => setPrediction(p.id)}
+                  style={{ width: 220, alignItems:'center', textAlign:'center' }}>
+            <div style={{ fontSize: 40 }}>{p.icon}</div>
+            <div className="choice__name" style={{ fontSize: 18 }}>{p.label}</div>
+          </button>
+        ))}
+      </div>
+      <div style={{ display:'flex', justifyContent:'space-between', marginTop: 50, gap: 12, maxWidth: 760, margin:'40px auto 0' }}>
+        <button className="btn btn--ghost" onClick={onBack}>← Upravit nastavení</button>
+        <button className="btn btn--coral btn--lg" onClick={onNext} disabled={!prediction}
+                style={{ opacity: prediction ? 1 : .4, cursor: prediction ? 'pointer' : 'not-allowed' }}>
+          🖨️ Tisknout!
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function ProgressBar({ progress, color }) {
+  return (
+    <div>
+      <div style={{ display:'flex', justifyContent:'space-between', fontFamily:'var(--mono)', fontSize: 11, letterSpacing:'.06em', textTransform:'uppercase', color:'var(--ink-3)' }}>
+        <span>Průběh tisku</span>
+        <span style={{ color:'var(--ink)' }}>{Math.round(progress * 100)} %</span>
+      </div>
+      <div style={{ height: 10, background:'var(--bg-soft)', borderRadius: 999, marginTop: 8, overflow:'hidden' }}>
+        <div style={{ height:'100%', width: `${progress * 100}%`, background: color, borderRadius: 999, transition: 'width 80ms linear' }} />
+      </div>
+    </div>
+  );
+}
+
+function Stat({ label, value, dot }) {
+  return (
+    <div>
+      <div style={{ fontFamily:'var(--mono)', fontSize: 10, letterSpacing:'.08em', textTransform:'uppercase', color:'var(--ink-3)' }}>{label}</div>
+      <div style={{ marginTop: 4, fontWeight: 600, fontSize: 14, display:'flex', alignItems:'center', gap: 8 }}>
+        {dot && <span className="dot" style={{ background: dot }} />}
+        {value}
+      </div>
+    </div>
+  );
+}
+
+function PrintScreen({ item, group, config, onDone, onCancel }) {
+  const [progress, setProgress] = useState(0);
+  const [running, setRunning]   = useState(true);
+  const startedAt = useRef(performance.now());
+  const total = config.speed === 'fast' ? 4500 : 7000;
+
+  useEffect(() => {
+    if (!running) return;
+    let raf;
+    const tick = () => {
+      const t = (performance.now() - startedAt.current) / total;
+      const p = Math.min(1, t);
+      setProgress(p);
+      if (p < 1) raf = requestAnimationFrame(tick);
+      else setTimeout(() => onDone(), 600);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
+  }, [running]);
+
+  const pct = Math.round(progress * 100);
+
+  return (
+    <section className="pad-top" style={{ paddingBottom: 80 }}>
+      <StepHeader step={3} />
+      <div style={{ display:'grid', gridTemplateColumns:'1.1fr 1fr', gap: 36, alignItems:'center' }} id="print-grid">
+        <div className="card fade-up" style={{ padding: 24, position:'relative', overflow:'hidden', background: '#1c1612' }}>
+          <div style={{ position:'absolute', inset:0, background:'radial-gradient(circle at 50% 30%, rgba(255,200,150,.18), transparent 60%)' }} />
+          <div style={{ position:'relative' }}>
+            <Printer3D progress={progress} material={config.material} infill={config.infill} speed={config.speed} running={running} item={item} />
+            <div style={{ display:'flex', justifyContent:'space-between', alignItems:'center', marginTop: 10, color:'#FFF8E7', fontFamily:'var(--mono)', fontSize: 12, letterSpacing:'.06em' }}>
+              <span style={{ display:'inline-flex', alignItems:'center', gap: 8 }}>
+                <span style={{ width:8, height:8, borderRadius:999, background: matColor(config.material), animation:'pulseDot 1.2s infinite' }} />
+                VRSTVIČKA 3000 — TISK PROBÍHÁ
+              </span>
+              <span>{pct}%</span>
+            </div>
+          </div>
+        </div>
+        <div className="fade-up fade-up--delay-1">
+          <span className={`chip chip--${group.accent}`}>{item.name}</span>
+          <h2 style={{ marginTop: 14 }}>Tiskneme!</h2>
+          <p style={{ fontSize: 16, color:'var(--ink-2)', marginTop: 10 }}>Tiskárna pokládá vrstvu po vrstvě. Pomalu — nebo rychle, podle tvého nastavení.</p>
+          <div className="card" style={{ padding: 18, marginTop: 24 }}>
+            <ProgressBar progress={progress} color={matColor(config.material)} />
+            <div style={{ display:'grid', gridTemplateColumns:'repeat(3, 1fr)', gap: 12, marginTop: 18 }}>
+              <Stat label="Materiál"  value={`${matFull(config.material)} · ${matLabel(config.material)}`} dot={matColor(config.material)} />
+              <Stat label="Výplň"     value={infillLabel(config.infill)} />
+              <Stat label="Rychlost"  value={speedLabel(config.speed)} />
+            </div>
+          </div>
+          <div style={{ display:'flex', gap: 10, marginTop: 18 }}>
+            <button className="btn btn--ghost btn--sm" onClick={onCancel}>⏹ Zastavit</button>
+            <button className="btn btn--ghost btn--sm" onClick={() => { startedAt.current = performance.now(); setProgress(0); }}>↻ Znovu</button>
+          </div>
+        </div>
+      </div>
+      <style>{`@media (max-width: 920px){ #print-grid { grid-template-columns: 1fr !important; } }`}</style>
+    </section>
+  );
+}
+
+function CompareRow({ label, picked, ok, optimal }) {
+  return (
+    <div style={{ padding: 12, borderRadius: 12, background:'var(--bg-soft)', border:'1px solid var(--line-2)' }}>
+      <div style={{ fontFamily:'var(--mono)', fontSize: 10, letterSpacing:'.08em', textTransform:'uppercase', color:'var(--ink-3)' }}>{label}</div>
+      <div style={{ marginTop: 4, fontWeight: 600, display:'flex', justifyContent:'space-between', alignItems:'center', gap: 6 }}>
+        <span>{picked}</span>
+        {ok === true  && <span style={{ color:'var(--sage-ink)', fontSize: 13 }}>✓</span>}
+        {ok === false && <span style={{ color:'var(--coral-ink)', fontSize: 11 }}>↳ {optimal}</span>}
+      </div>
+    </div>
+  );
+}
+
+function ResultScreen({ item, group, config, prediction, onSave, onAgain, onHome }) {
+  const result = evaluatePrint(item, config);
+  const [reflection, setReflection] = useState(null);
+  const tone = result.score === 3 ? 'sage' : result.score === 2 ? 'amber' : 'coral';
+  const tip = TIPS[item.id];
+
+  const save = () => {
+    onSave({ item, group, config, prediction, result, reflection, when: Date.now() });
+  };
+
+  return (
+    <section className="pad-top" style={{ paddingBottom: 80 }}>
+      <StepHeader step={4} />
+      <div className="fade-up" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap: 36, alignItems:'flex-start' }} id="res-grid">
+        <div className="card" style={{ padding: 28, position:'relative', overflow:'hidden' }}>
+          <div style={{ position:'absolute', inset:0, background: `radial-gradient(220px 160px at 100% 0%, var(--${tone}-soft), transparent 60%)` }} />
+          <div style={{ position:'relative' }}>
+            <span className={`chip chip--${tone}`} style={{ marginBottom: 12 }}>
+              {result.score === 3 ? '★ ★ ★ skvělé' : result.score === 2 ? '★ ★ ☆ dobré' : result.score === 1 ? '★ ☆ ☆ jde to lépe' : '☆ ☆ ☆ zkus jinak'}
+            </span>
+            <h2 style={{ marginTop: 6 }}>{result.title}</h2>
+            <p style={{ marginTop: 10, fontSize: 16, color:'var(--ink-2)' }}>{result.body}</p>
+            <div style={{ marginTop: 24, display:'grid', gridTemplateColumns:'1fr 1fr', gap: 14 }}>
+              <CompareRow label="Materiál"  picked={matLabel(config.material)} ok={item.optimal.material === config.material} optimal={matLabel(item.optimal.material)} />
+              <CompareRow label="Výplň"     picked={infillLabel(config.infill)} ok={item.optimal.infill === config.infill} optimal={infillLabel(item.optimal.infill)} />
+              <CompareRow label="Rychlost"  picked={speedLabel(config.speed)} ok={item.optimal.speed === config.speed} optimal={speedLabel(item.optimal.speed)} />
+              <CompareRow label="Tvůj tip"  picked={PREDICTIONS.find(p => p.id === prediction)?.label || '—'} ok={null} optimal="" />
+            </div>
+            <div style={{ marginTop: 24, padding: 16, borderRadius: 16, background: 'var(--bg-soft)', border:'1px dashed var(--line)' }}>
+              <div style={{ display:'flex', alignItems:'center', gap: 10, color:'var(--ink-3)', fontFamily:'var(--mono)', fontSize: 11, letterSpacing:'.08em', textTransform:'uppercase' }}>✦ Víš, že…</div>
+              <p style={{ marginTop: 8 }}>{tip}</p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <h3>🔍 Jak to dopadlo?</h3>
+          <p style={{ color:'var(--ink-2)', marginTop: 8 }}>Krátké zamyšlení nakonec — co tě překvapilo, co bys změnil/a?</p>
+          <div style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap: 12, marginTop: 18 }}>
+            {REFLECTIONS.map(r => (
+              <button key={r.id} aria-pressed={reflection === r.id} className="choice"
+                      onClick={() => setReflection(r.id)}
+                      style={{ flexDirection:'row', alignItems:'center', gap: 12, padding: 14 }}>
+                <span style={{ fontSize: 28 }}>{r.icon}</span>
+                <span className="choice__name" style={{ fontSize: 16 }}>{r.label}</span>
+              </button>
+            ))}
+          </div>
+          <div style={{ display:'flex', gap: 10, marginTop: 26, flexWrap:'wrap' }}>
+            <button className="btn btn--primary btn--lg" disabled={!reflection}
+                    style={{ opacity: reflection ? 1 : .4, cursor: reflection ? 'pointer' : 'not-allowed' }}
+                    onClick={save}>
+              📓 Zapsat do deníku
+            </button>
+            <button className="btn btn--ghost" onClick={onAgain}>↻ Zkusit jinak</button>
+            <button className="btn btn--ghost" onClick={onHome}>Prozkoumat něco jiného →</button>
+          </div>
+        </div>
+      </div>
+      <style>{`@media (max-width: 920px){ #res-grid { grid-template-columns: 1fr !important; } }`}</style>
+    </section>
+  );
+}
+
+function DiaryCard({ e, index }) {
+  const tone = e.result.score === 3 ? 'sage' : e.result.score === 2 ? 'amber' : 'coral';
+  const time = new Date(e.when).toLocaleString('cs-CZ', { dateStyle: 'short', timeStyle: 'short' });
+  return (
+    <div className="card" style={{ padding: 22, position:'relative', overflow:'hidden' }}>
+      <div style={{ position:'absolute', top: 0, right: 0, padding:'8px 14px', background: `var(--${tone}-soft)`, color: `var(--${tone}-ink)`, borderBottomLeftRadius: 14, fontFamily:'var(--mono)', fontSize: 11, letterSpacing:'.06em' }}>
+        #{String(index).padStart(2, '0')}
+      </div>
+      <div style={{ display:'flex', alignItems:'center', gap: 12 }}>
+        <div style={{ width: 52, height: 52, borderRadius: 14, background:'var(--bg-soft)', display:'flex', alignItems:'center', justifyContent:'center', fontSize: 26 }}>{e.item.emoji}</div>
+        <div>
+          <div style={{ fontFamily:'var(--display)', fontWeight: 600, fontSize: 20 }}>{e.item.name}</div>
+          <div style={{ fontFamily:'var(--mono)', fontSize: 11, color:'var(--ink-3)', letterSpacing:'.06em' }}>{time}</div>
+        </div>
+      </div>
+      <div style={{ display:'flex', gap: 6, marginTop: 14, flexWrap:'wrap' }}>
+        <span className="chip"><span className="dot" style={{ background: matColor(e.config.material) }} />{matLabel(e.config.material)}</span>
+        <span className="chip">{infillLabel(e.config.infill)}</span>
+        <span className="chip">{speedLabel(e.config.speed)}</span>
+      </div>
+      <p style={{ marginTop: 12, fontWeight: 600 }}>{e.result.title}</p>
+      <p style={{ color:'var(--ink-2)', fontSize: 14, marginTop: 4 }}>{e.result.body}</p>
+      <div style={{ display:'flex', gap: 10, marginTop: 14, fontSize: 13, color:'var(--ink-3)' }}>
+        <span>Tip: <strong style={{ color:'var(--ink-2)' }}>{PREDICTIONS.find(p => p.id === e.prediction)?.label}</strong></span>
+        <span>·</span>
+        <span>Reflexe: <strong style={{ color:'var(--ink-2)' }}>{REFLECTIONS.find(r => r.id === e.reflection)?.label || '—'}</strong></span>
+      </div>
+    </div>
+  );
+}
+
+function DiaryScreen({ entries, onClear, onStart }) {
+  return (
+    <section className="pad-top" style={{ paddingBottom: 80 }}>
+      <div className="fade-up" style={{ display:'flex', justifyContent:'space-between', alignItems:'flex-end', flexWrap:'wrap', gap: 16 }}>
+        <div>
+          <span className="chip chip--sage">📓 Badatelský deník</span>
+          <h2 style={{ marginTop: 14 }}>Co jsi už zkusil/a?</h2>
+          <p style={{ marginTop: 8, color:'var(--ink-2)', maxWidth: 560 }}>Každý pokus se sem zapíše. Můžeš se k němu vracet, porovnávat s novými a dívat se, co se podařilo.</p>
+        </div>
+        <div style={{ display:'flex', gap: 10 }}>
+          <button className="btn btn--coral" onClick={onStart}>🔍 Nový pokus</button>
+          {entries.length > 0 && <button className="btn btn--ghost btn--sm" onClick={onClear}>Vyčistit</button>}
+        </div>
+      </div>
+      {entries.length === 0 ? (
+        <div className="card fade-up fade-up--delay-1" style={{ marginTop: 36, padding: 56, textAlign:'center' }}>
+          <Vrstvicka size={140} tone="sage" mood="wink" />
+          <h3 style={{ marginTop: 12 }}>Zatím prázdno.</h3>
+          <p style={{ marginTop: 8, color:'var(--ink-2)' }}>Vrať se na průzkum a vyzkoušej první předmět.</p>
+          <div style={{ marginTop: 20 }}>
+            <button className="btn btn--primary" onClick={onStart}>Začít první pokus →</button>
+          </div>
+        </div>
+      ) : (
+        <div className="grid-2 fade-up fade-up--delay-1" style={{ marginTop: 28 }}>
+          {entries.map((e, i) => (
+            <DiaryCard key={i} e={e} index={entries.length - i} />
+          ))}
+        </div>
+      )}
+    </section>
+  );
+}
+  </script>
+
+  <!-- app -->
+  <script type="text/babel">
+
+const { useState: useS, useEffect: useE } = React;
+
+const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+  "palette": ["#86C44E", "#FBF7EC", "#1F2A1A"],
+  "displayFont": "Bricolage Grotesque",
+  "bodyFont": "DM Sans",
+  "mascotTone": "green"
+}/*EDITMODE-END*/;
+
+const PALETTES = [
+  ["#86C44E", "#FBF7EC", "#1F2A1A"],
+  ["#E97A4F", "#FBF5EC", "#29221A"],
+  ["#D9A24E", "#FAF3E2", "#2A2418"],
+  ["#5B8FBE", "#F2F0EA", "#1A2129"],
+];
+
+const DISPLAY_FONTS = ["Bricolage Grotesque", "Instrument Serif", "Space Grotesk", "DM Serif Display"];
+const BODY_FONTS    = ["DM Sans", "Manrope", "Public Sans", "Work Sans"];
+
+function App() {
+  const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+  useE(() => {
+    const root = document.documentElement;
+    const [accent, bg, ink] = t.palette || PALETTES[0];
+    root.style.setProperty('--coral', accent);
+    root.style.setProperty('--bg', bg);
+    root.style.setProperty('--ink', ink);
+    root.style.setProperty('--display', `'${t.displayFont}', ui-serif, Georgia, serif`);
+    root.style.setProperty('--body',    `'${t.bodyFont}', ui-sans-serif, system-ui, sans-serif`);
+  }, [t.palette, t.displayFont, t.bodyFont]);
+
+  const [route, setRoute] = useS({ name: 'home' });
+  const [group, setGroup]       = useS(null);
+  const [item, setItem]         = useS(null);
+  const [config, setConfig]     = useS({ material:null, infill:null, speed:null });
+  const [prediction, setPredict]= useS(null);
+  const [entries, setEntries]   = useS(() => {
+    try { return JSON.parse(localStorage.getItem('vrstvicka.diary') || '[]'); } catch { return []; }
+  });
+
+  const persist = (next) => {
+    setEntries(next);
+    try { localStorage.setItem('vrstvicka.diary', JSON.stringify(next)); } catch {}
+  };
+
+  const reset = () => {
+    setItem(null); setGroup(null);
+    setConfig({ material:null, infill:null, speed:null });
+    setPredict(null);
+  };
+
+  const startExplore = () => { reset(); setRoute({ name: 'picker' }); };
+
+  return (
+    <>
+      <nav className="nav">
+        <div className="wrap nav__inner">
+          <a href="#" className="brand" onClick={(e)=>{ e.preventDefault(); setRoute({ name: 'home' }); }}>
+            <VrstvickaMini size={32} />
+            <span>Vrstvička</span>
+            <span style={{ fontFamily:'var(--mono)', fontSize: 11, color:'var(--ink-3)', fontWeight: 500, marginLeft: 6, letterSpacing:'.06em', textTransform:'uppercase' }}>3D tisk</span>
+          </a>
+          <div className="nav__links">
+            <button className="nav__link" aria-current={route.name === 'home' ? 'true' : undefined} onClick={() => setRoute({ name: 'home' })}>Úvod</button>
+            <button className="nav__link" aria-current={['picker','config','predict','print','result'].includes(route.name) ? 'true' : undefined} onClick={startExplore}>🔍 Průzkum</button>
+            <button className="nav__link" aria-current={route.name === 'diary' ? 'true' : undefined} onClick={() => setRoute({ name: 'diary' })}>
+              📓 Deník
+              {entries.length > 0 && (
+                <span style={{ marginLeft: 4, background:'var(--coral)', color:'#fff', fontSize: 11, fontWeight: 700, padding:'1px 7px', borderRadius: 999, fontFamily:'var(--mono)' }}>{entries.length}</span>
+              )}
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      <main className="wrap">
+        {route.name === 'home' && <HeroScreen attempts={entries.length} onStart={startExplore} onDiary={() => setRoute({ name: 'diary' })} />}
+        {route.name === 'picker' && <PickerScreen onPick={(g, it) => { setGroup(g); setItem(it); setRoute({ name: 'config' }); }} onBack={() => setRoute({ name: 'home' })} entries={entries} />}
+        {route.name === 'config' && item && <ConfigScreen item={item} group={group} config={config} setConfig={setConfig} onNext={() => setRoute({ name: 'predict' })} onBack={() => setRoute({ name: 'picker' })} />}
+        {route.name === 'predict' && item && <PredictScreen item={item} group={group} config={config} prediction={prediction} setPrediction={setPredict} onNext={() => setRoute({ name: 'print' })} onBack={() => setRoute({ name: 'config' })} />}
+        {route.name === 'print' && item && <PrintScreen item={item} group={group} config={config} onDone={() => setRoute({ name: 'result' })} onCancel={() => setRoute({ name: 'config' })} />}
+        {route.name === 'result' && item && <ResultScreen item={item} group={group} config={config} prediction={prediction} onSave={(entry) => { const next = [entry, ...entries].slice(0, 30); persist(next); setRoute({ name: 'diary' }); }} onAgain={() => setRoute({ name: 'config' })} onHome={() => { reset(); setRoute({ name: 'picker' }); }} />}
+        {route.name === 'diary' && <DiaryScreen entries={entries} onClear={() => persist([])} onStart={startExplore} />}
+      </main>
+
+      <footer style={{ borderTop:'1px solid var(--line-2)', padding:'34px 0 50px', marginTop: 40, color:'var(--ink-3)' }}>
+        <div className="wrap" style={{ display:'flex', justifyContent:'space-between', alignItems:'center', flexWrap:'wrap', gap: 14, fontSize: 14 }}>
+          <span style={{ display:'inline-flex', alignItems:'center', gap: 10 }}>
+            <VrstvickaMini size={26} />
+            <span style={{ fontFamily:'var(--display)', fontWeight: 600, color:'var(--ink-2)' }}>Vrstvička</span>
+            <span>· Badatelská dílna 3D tisku</span>
+          </span>
+          <span>Vyrobeno s ♥ pro zvídavé děti — © 2026</span>
+        </div>
+      </footer>
+
+      <TweaksPanel>
+        <TweakSection label="Vzhled" />
+        <TweakColor label="Paleta (akcent / podklad / inkoust)" value={t.palette} options={PALETTES} onChange={(v) => setTweak('palette', v)} />
+        <TweakSelect label="Display font" value={t.displayFont} options={DISPLAY_FONTS} onChange={(v) => setTweak('displayFont', v)} />
+        <TweakSelect label="Body font" value={t.bodyFont} options={BODY_FONTS} onChange={(v) => setTweak('bodyFont', v)} />
+        <TweakSection label="Maskot" />
+        <TweakRadio label="Tón Vrstvičky" value={t.mascotTone} options={['green', 'coral', 'sage', 'amber']} onChange={(v) => setTweak('mascotTone', v)} />
+      </TweaksPanel>
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
