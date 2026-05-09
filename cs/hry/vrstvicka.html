@@ -1226,6 +1226,10 @@ function ConfigScreen({ group, item, config, setConfig, onNext, onBack }) {
           <h2>Jak vytisknout <span style={{ fontStyle:'italic', color:'var(--coral-ink)' }}>{item.name}</span>?</h2>
           <p style={{ fontSize: 16, color:'var(--ink-2)', marginTop: 10, maxWidth: 560 }}><strong>{item.desc}</strong></p>
 
+          <div className="config-preview-mobile" style={{ marginTop: 20 }}>
+            <ConfigPreview item={item} group={group} config={config} />
+          </div>
+
           <div style={{ marginTop: 36 }}>
             <SectionLabel num="1" title="Materiál" sub="Jaký plast zvolíš?" />
             <div className="grid-3" style={{ marginTop: 14 }}>
@@ -1291,11 +1295,18 @@ function ConfigScreen({ group, item, config, setConfig, onNext, onBack }) {
             </button>
           </div>
         </div>
-        <aside style={{ position:'sticky', top: 90 }}>
+        <aside className="config-preview-desktop" style={{ position:'sticky', top: 90 }}>
           <ConfigPreview item={item} group={group} config={config} />
         </aside>
       </div>
-      <style>{`@media (max-width: 920px){ #config-grid { grid-template-columns: 1fr !important; } #config-grid aside { position: static !important; order: -1; } }`}</style>
+      <style>{`
+        .config-preview-mobile { display: none; }
+        @media (max-width: 920px) {
+          #config-grid { grid-template-columns: 1fr !important; }
+          #config-grid aside { position: static !important; display: none; }
+          .config-preview-mobile { display: block; }
+        }
+      `}</style>
     </section>
   );
 }
