@@ -916,8 +916,36 @@ const TIPS = {
   vypinac:  'PLA dává hladký povrch a přesné rozměry pro šrouby.',
 };
 
+const FEEDBACK = {
+  kachnicka:    { material:'TPU se ohýbá a vrátí se zpět — hračka pro miminko musí být měkká, ne tuhý plast.',           infill:'Střední výplň kačence dá pevný tvar, ale neuděla ji zbytečně těžkou.',          speed:'Pomalý tisk = hezký hladký povrch bez viditelných linií.' },
+  pohar:        { material:'PLA dává nejhladší povrch ze všech materiálů — pohár musí vypadat krásně.',                   infill:'Dutá výplň pohár odlehčí — nic nenese, jen zdobí polici.',                       speed:'Pomalý tisk = každá vrstva sedí přesně a pohár hezky vypadá.' },
+  terc:         { material:'PETG je tužší a odolnější než PLA — terč musí vydržet opakované nárazy šipek.',              infill:'Plná výplň terč zpevní tak, aby nárazy nepraskal ani se nedeformoval.',           speed:'Pomalý tisk = pevné vrstvy a přesný tvar.' },
+  loutka:       { material:'TPU se trochu ohýbá — maňásek musí být pohodlný na prstu, ne tuhý jako kámen.',              infill:'Dutá výplň maňáska odlehčí, aby se snadno nasadil na prst.',                      speed:'Pomalý tisk zachytí drobné detaily obličeje loutky.' },
+  kostka:       { material:'PETG je tužší než PLA — kostka musí být pevná, aby se nedeformovala při házení.',            infill:'Plná výplň kostce dodá správnou váhu a pevnost.',                                 speed:'Pomalý tisk = přesné číslice, které se dobře čtou.' },
+  kvetinac:     { material:'PLA dá květináči hezký hladký povrch a krásné barvy pro dekoraci.',                          infill:'Dutá výplň = lehký květináč, který parapet udrží bez problémů.',                   speed:'Pomalý tisk = krásné detaily a hladký povrch.' },
+  'stojanek-tel':{ material:'PETG je tužší než PLA — stojánek musí pevně unést váhu telefonu.',                          infill:'Střední výplň stojánku dodá stabilitu bez zbytečného materiálu.',                  speed:'Pomalý tisk = přesnější rozměry, telefon sedí rovně.' },
+  vesak:        { material:'PETG vydrží tah klíčů lépe než PLA, které by časem prasklo.',                                infill:'Plná výplň zpevní stěny kolem šroubu — věšák klíče unese.',                       speed:'Pomalý tisk dá věšáku pevné vrstvy a hladký povrch.' },
+  mydlo:        { material:'PETG odolá vodě a mýdlu — PLA by časem nasákl vlhkost a degradoval.',                        infill:'Plná výplň pumpu zpevní, aby zvládla opakované stlačování.',                       speed:'Pomalý tisk = přesnější mechanismus, pumpa funguje správně.' },
+  svicen:       { material:'PLA dává nejhezčí dekorativní povrch — svícen musí vypadat krásně.',                         infill:'Dutá výplň svícen odlehčí — nic nenese, jen dekoruje.',                           speed:'Pomalý tisk zachytí jemné detaily a dá svícni hladký lesk.' },
+  stojanek:     { material:'PLA dá stojánku hezký vzhled a je dostupný ve spoustě barev.',                               infill:'Střední výplň stojánku dodá stabilitu, aby se nepřevrátil plný tužek.',           speed:'Pomalý tisk = přesné rozměry a hladký povrch.' },
+  zkumavky:     { material:'PETG odolá chemikáliím z laboratoře — PLA by mohl reagovat s roztoky.',                      infill:'Plná výplň drží zkumavky pevně, i když jsou těžké a plné.',                        speed:'Pomalý tisk = přesné otvory, zkumavky sedí správně.' },
+  puzzle:       { material:'PLA dá dílkům hezké barvy a hladký povrch — puzzle musí být krásné.',                        infill:'Dutá výplň dílky odlehčí — puzzle se snáze skládá.',                              speed:'Pomalý tisk = přesné okraje, dílky do sebe hezky pasují.' },
+  pravitko:     { material:'PETG je tužší — pravítko se při rýsování neprohne a milimetry jsou přesné.',                 infill:'Plná výplň zaručí, že se pravítko pod tlakem tužky neprohne.',                     speed:'Pomalý tisk = přesné milimetry, které se spolehlivě rýsují.' },
+  raketka:      { material:'PLA dá dekoraci krásný hladký povrch a vypadá nejlépe ze všech.',                            infill:'Dutá výplň dekoraci odlehčí — nic nenese, jen dekoruje třídu.',                    speed:'Pomalý tisk zachytí detaily raketky a dá jí hladký povrch.' },
+  krmitko:      { material:'PETG vydrží déšť i mráz — PLA by venku za zimu zvlhl a praskl.',                             infill:'Plná výplň krmítko zpevní, aby vydrželo nápor ptáků a počasí.',                    speed:'Pomalý tisk = pevnější vrstvy, krmítko vydrží déle venku.' },
+  visacka:      { material:'PETG nežloutne na slunci a odolá dešti — PLA by venku rychle degradoval.',                   infill:'Dutá výplň visačku odlehčí — stačí, aby byl vidět nápis.',                        speed:'Pomalý tisk = čitelný nápis s hladkými písmeny.' },
+  hmyz:         { material:'PETG vydrží roky venku bez prasklin — PLA by brzy prasklo od mrazu.',                        infill:'Plná výplň domeček zpevní, aby vydržel vítr, déšť i hmyz uvnitř.',                 speed:'Pomalý tisk = pevné vrstvy odolné povětrnosti.' },
+  leknin:       { material:'TPU plave a vlní se s vodou — PLA nebo PETG by kles ke dnu nebo praskl.',                    infill:'Dutá výplň leknín odlehčí, aby krásně plaval na hladině.',                        speed:'Pomalý tisk zachytí jemné detaily okvětních lístků.' },
+  seminka:      { material:'PETG odolá vlhkosti a zemině — PLA by ve skleníku časem degradoval.',                        infill:'Plná výplň zásobník zpevní, aby vydržel opakované plnění a vyprazdňování.',       speed:'Pomalý tisk = přesný otvor, ze kterého semínka správně padají.' },
+  pouzdro:      { material:'TPU pohlcuje nárazy — tuhý PLA nebo PETG by při pádu praskl a telefon neochránil.',          infill:'Střední výplň pouzdru dá správnou tloušťku a ochranu bez zbytečné váhy.',          speed:'Pomalý tisk = přesné rozměry, pouzdro perfektně sedí na telefon.' },
+  kabely:       { material:'TPU se rozevře a zacvakne zpět — tuhý materiál by kabel neudržel nebo praskl.',              infill:'Střední výplň klip zpevní, aby spolehlivě držel kabely pohromadě.',                speed:'Pomalý tisk = přesný tvar klipu, který dobře sedí na kabely.' },
+  mys:          { material:'TPU se přizpůsobí tvaru zápěstí — tuhý plast by bolel po hodině práce.',                     infill:'Dutá výplň podložku udělá lehkou a ještě poddajnější.',                           speed:'Pomalý tisk = hladký povrch, příjemný na dotek.' },
+  ozubeni:      { material:'PETG je tužší než PLA — zuby soukolí se brzy neopotřebí a mechanismus funguje.',             infill:'Plná výplň ozubenému kolu dodá pevnost, aby se pod zátěží nespinulo.',            speed:'Pomalý tisk = přesný tvar každého zubu, mechanismus funguje správně.' },
+  vypinac:      { material:'PLA dá krytu hladký povrch a přesné rozměry pro šrouby.',                                    infill:'Střední výplň kryt zpevní, ale neuděla ho zbytečně těžkým.',                       speed:'Pomalý tisk = přesné rozměry, kryt sedí na vypínač bez vůle.' },
+};
+
 Object.assign(window, {
-  GROUPS, MATERIALS, INFILLS, SPEEDS, PREDICTIONS, REFLECTIONS, TIPS,
+  GROUPS, MATERIALS, INFILLS, SPEEDS, PREDICTIONS, REFLECTIONS, TIPS, FEEDBACK,
   evaluatePrint, matLabel, matFull, infillLabel, speedLabel, matColor,
 });
   </script>
@@ -1449,15 +1477,16 @@ function PrintScreen({ item, group, config, onDone, onCancel }) {
   );
 }
 
-function CompareRow({ label, picked, ok, optimal }) {
+function CompareRow({ label, picked, ok, why }) {
   return (
-    <div style={{ padding: 12, borderRadius: 12, background:'var(--bg-soft)', border:'1px solid var(--line-2)' }}>
+    <div style={{ padding: 12, borderRadius: 12, background:'var(--bg-soft)', border:`1px solid ${ok === false ? 'var(--coral-soft)' : 'var(--line-2)'}` }}>
       <div style={{ fontFamily:'var(--mono)', fontSize: 10, letterSpacing:'.08em', textTransform:'uppercase', color:'var(--ink-3)' }}>{label}</div>
       <div style={{ marginTop: 4, fontWeight: 600, display:'flex', justifyContent:'space-between', alignItems:'center', gap: 6 }}>
         <span>{picked}</span>
         {ok === true  && <span style={{ color:'var(--sage-ink)', fontSize: 13 }}>✓</span>}
         {ok === false && <span style={{ color:'var(--coral-ink)', fontSize: 13 }}>✗</span>}
       </div>
+      {ok === false && why && <p style={{ marginTop: 8, fontSize: 12, color:'var(--ink-2)', lineHeight: 1.5, margin:'8px 0 0' }}>{why}</p>}
     </div>
   );
 }
@@ -1482,10 +1511,10 @@ function ResultScreen({ item, group, config, prediction, onSave, onAgain, onHome
             <h2 style={{ marginTop: 6 }}>{result.title}</h2>
             <p style={{ marginTop: 10, fontSize: 16, color:'var(--ink-2)' }}>{result.body}</p>
             <div style={{ marginTop: 24, display:'grid', gridTemplateColumns:'1fr 1fr', gap: 14 }}>
-              <CompareRow label="Materiál"  picked={matLabel(config.material)} ok={item.optimal.material === config.material} optimal={matLabel(item.optimal.material)} />
-              <CompareRow label="Výplň"     picked={infillLabel(config.infill)} ok={item.optimal.infill === config.infill} optimal={infillLabel(item.optimal.infill)} />
-              <CompareRow label="Rychlost"  picked={speedLabel(config.speed)} ok={item.optimal.speed === config.speed} optimal={speedLabel(item.optimal.speed)} />
-              <CompareRow label="Tvůj tip"  picked={PREDICTIONS.find(p => p.id === prediction)?.label || '—'} ok={null} optimal="" />
+              <CompareRow label="Materiál"  picked={matLabel(config.material)} ok={item.optimal.material === config.material} why={item.optimal.material !== config.material ? FEEDBACK[item.id]?.material : undefined} />
+              <CompareRow label="Výplň"     picked={infillLabel(config.infill)} ok={item.optimal.infill === config.infill} why={item.optimal.infill !== config.infill ? FEEDBACK[item.id]?.infill : undefined} />
+              <CompareRow label="Rychlost"  picked={speedLabel(config.speed)} ok={item.optimal.speed === config.speed} why={item.optimal.speed !== config.speed ? FEEDBACK[item.id]?.speed : undefined} />
+              <CompareRow label="Tvůj tip"  picked={PREDICTIONS.find(p => p.id === prediction)?.label || '—'} ok={null} />
             </div>
             <div style={{ marginTop: 24, padding: 16, borderRadius: 16, background: 'var(--bg-soft)', border:'1px dashed var(--line)' }}>
               <div style={{ display:'flex', alignItems:'center', gap: 10, color:'var(--ink-3)', fontFamily:'var(--mono)', fontSize: 11, letterSpacing:'.08em', textTransform:'uppercase' }}>✦ Víš, že…</div>
