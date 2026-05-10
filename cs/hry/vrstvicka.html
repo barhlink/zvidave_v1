@@ -676,7 +676,9 @@ function Vrstvicka({ size = 220, mood = 'happy', tone = 'green' }) {
 function VrstvickaMini({ size = 28 }) {
   return (
     <svg viewBox="0 0 32 36" width={size} height={size * (36/32)} aria-hidden="true">
-      <path d="M16 4 C 19 0 25 0 27 4 C 23 7 19 7 16 6 Z" fill="#52902A" />
+      <path d="M16 6 C 17 3 20 2 22 3 C 21 5 18 6 16 6 Z" fill="#52902A" />
+      <path d="M16 6 C 15 3 12 2 10 3 C 11 5 14 6 16 6 Z" fill="#3F7720" />
+      <line x1="16" y1="6" x2="16" y2="9" stroke="#3F7720" strokeWidth="1.5" strokeLinecap="round" />
       <ellipse cx="16" cy="22" rx="13" ry="13" fill="#B6E08A" />
       <ellipse cx="16" cy="24" rx="10" ry="10" fill="#86C44E" />
       <circle cx="13" cy="20" r="1.4" fill="#29221A" />
