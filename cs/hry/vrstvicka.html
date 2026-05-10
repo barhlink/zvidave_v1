@@ -1510,7 +1510,7 @@ function ResultScreen({ item, group, config, prediction, onSave, onAgain, onHome
           <div style={{ position:'relative' }}>
             <h2 style={{ marginTop: 6 }}>{result.title}</h2>
             <p style={{ marginTop: 10, fontSize: 16, color:'var(--ink-2)' }}>{result.body}</p>
-            <div style={{ marginTop: 24, display:'grid', gridTemplateColumns:'1fr 1fr', gap: 14 }}>
+            <div id="compare-rows" style={{ marginTop: 24, display:'grid', gridTemplateColumns:'1fr 1fr', gap: 14 }}>
               <CompareRow label="Materiál"  picked={matLabel(config.material)} ok={item.optimal.material === config.material} why={item.optimal.material !== config.material ? FEEDBACK[item.id]?.material : undefined} />
               <CompareRow label="Výplň"     picked={infillLabel(config.infill)} ok={item.optimal.infill === config.infill} why={item.optimal.infill !== config.infill ? FEEDBACK[item.id]?.infill : undefined} />
               <CompareRow label="Rychlost"  picked={speedLabel(config.speed)} ok={item.optimal.speed === config.speed} why={item.optimal.speed !== config.speed ? FEEDBACK[item.id]?.speed : undefined} />
@@ -1546,7 +1546,10 @@ function ResultScreen({ item, group, config, prediction, onSave, onAgain, onHome
           </div>
         </div>
       </div>
-      <style>{`@media (max-width: 920px){ #res-grid { grid-template-columns: 1fr !important; } }`}</style>
+      <style>{`
+        @media (max-width: 920px){ #res-grid { grid-template-columns: 1fr !important; } }
+        @media (max-width: 600px){ #compare-rows { grid-template-columns: 1fr !important; } }
+      `}</style>
     </section>
   );
 }
