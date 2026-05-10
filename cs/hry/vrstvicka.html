@@ -124,7 +124,8 @@
   .chip--sage { background: var(--sage-soft);  color: var(--sage-ink); }
   .chip--amber{ background: var(--amber-soft); color: var(--amber-ink); }
 
-  .wrap{ max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  .wrap{ max-width: 1180px; margin: 0 auto; padding: 0 48px; }
+  @media (max-width: 1024px){ .wrap{ padding: 0 32px; } }
   @media (max-width: 640px){ .wrap{ padding: 0 18px; } }
 
   .nav{
@@ -244,7 +245,6 @@
     }
     .nav__links.open { display: flex; }
     .nav__link { text-align: left; border-radius: 10px; padding: 11px 14px; }
-    .nav .wrap { padding-left: 20px; padding-right: 20px; }
   }
 
   /* ─── Steps — na mobilu jen čísla ─── */
@@ -1039,7 +1039,10 @@ function HeroScreen({ onStart, onDiary, attempts }) {
           <span className="chip chip--coral hero-chip-float" style={{ position:'absolute', top: 80, right: -26, transform:'rotate(8deg)' }}>🐢 pomalu</span>
         </div>
       </div>
-      <style>{`@media (max-width: 880px) { .hero-grid { grid-template-columns: 1fr !important; } }`}</style>
+      <style>{`
+        @media (max-width: 880px)  { .hero-grid { grid-template-columns: 1fr !important; } }
+        @media (min-width: 881px) and (max-width: 1100px) { .hero-grid { grid-template-columns: 1fr 1fr !important; gap: 32px !important; } }
+      `}</style>
     </section>
   );
 }
