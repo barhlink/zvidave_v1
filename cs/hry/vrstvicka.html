@@ -124,9 +124,8 @@
   .chip--sage { background: var(--sage-soft);  color: var(--sage-ink); }
   .chip--amber{ background: var(--amber-soft); color: var(--amber-ink); }
 
-  .wrap{ max-width: 1180px; margin: 0 auto; padding: 0 48px; }
-  @media (max-width: 1024px){ .wrap{ padding: 0 32px; } }
-  @media (max-width: 640px){ .wrap{ padding: 0 18px; } }
+  .wrap{ max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+  @media (max-width: 640px){ .wrap{ padding: 0 20px; } }
 
   .nav{
     position: sticky; top: 0; z-index: 30;
@@ -234,13 +233,13 @@
   .nav__hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .nav__hamburger.open span:nth-child(2) { opacity: 0; }
   .nav__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  @media (max-width: 640px) {
+  @media (max-width: 768px) {
     .nav__hamburger { display: flex; }
     .nav__links {
       display: none; position: absolute; top: 100%; left: 0; right: 0;
       flex-direction: column; align-items: stretch; gap: 2px;
       background: var(--bg); border-bottom: 1px solid var(--line-2);
-      padding: 10px 14px 16px; z-index: 50;
+      padding: 10px 20px 16px; z-index: 50;
       box-shadow: 0 8px 24px -8px rgba(31,42,26,.15);
     }
     .nav__links.open { display: flex; }
@@ -264,7 +263,7 @@
     .hero-mascot-card { padding: 20px !important; }
     .hero-mascot-card svg { max-width: 180px; height: auto; }
   }
-  @media (max-width: 640px) {
+  @media (max-width: 480px) {
     .hero-mascot-card { padding: 16px !important; }
     .hero-mascot-card svg { max-width: 140px; }
   }
