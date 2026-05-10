@@ -932,37 +932,38 @@ const SPEED_DESC = {
 };
 
 const ITEM_NEEDS = {
-  kachnicka:     { material:'hračka pro miminko ale musí být měkká a ohebná',                   infill:'hračka ale nesmí být zbytečně těžká — musí mít správný tvar',            speed:'povrch hračky ale musí být hladký a bez viditelných linií' },
-  pohar:         { material:'pohár ale musí mít co nejhladší a nejhezčí povrch',                 infill:'pohár nic nenese — záleží jen na vzhledu, ne na pevnosti',               speed:'krásný povrch ale vyžaduje, aby každá vrstvička dokonale sedla' },
-  terc:          { material:'terč ale musí vydržet opakované nárazy šipek bez prasknutí',        infill:'terč ale musí být pevný, aby se při nárazu nedeformoval',                speed:'pevné a přesné vrstvy ale vyžadují dostatek času' },
-  loutka:        { material:'maňásek na prstu ale musí být pohodlný a trochu poddajný',          infill:'maňásek ale musí být co nejlehčí, aby se snadno nasadil',               speed:'drobné detaily obličeje ale potřebují přesný pomalý tisk' },
-  kostka:        { material:'kostka ale musí být pevná a nesmí se deformovat při házení',        infill:'kostka ale musí mít správnou váhu a pevnost',                           speed:'číslice ale musí být přesné a dobře čitelné' },
-  kvetinac:      { material:'květináč ale musí mít hezký vzhled a krásný povrch',               infill:'parapet ale unese jen lehký předmět — výplň musí být minimální',         speed:'dekorativní předmět ale potřebuje hladký jemný povrch' },
-  'stojanek-tel':{ material:'stojánek ale musí pevně unést váhu telefonu',                       infill:'stojánek ale musí být stabilní — těžký telefon ho nesmí převrátit',     speed:'přesné rozměry ale zajistí, že telefon sedí rovně' },
-  vesak:         { material:'věšák ale musí unést váhu klíčů bez prasknutí',                    infill:'stěny kolem šroubu ale musí být pevné, aby věšák vydržel',              speed:'pevné vrstvy ale zvýší odolnost věšáku' },
-  mydlo:         { material:'pumpa ale přichází každý den do kontaktu s vodou a mýdlem — musí odolat vlhkosti', infill:'pumpa ale musí zvládnout opakované stlačování bez deformace', speed:'přesný mechanismus pumpy ale vyžaduje přesný tisk' },
-  svicen:        { material:'svícen je dekorace — musí ale mít co nejhezčí a nejhladší povrch', infill:'svícen nic nenese — výplň ale může být minimální',                      speed:'jemné dekorativní detaily ale potřebují pomalý přesný tisk' },
-  stojanek:      { material:'stojánek musí vypadat hezky — ale materiál musí dát pěkný povrch', infill:'plný tužek stojánek ale musí být stabilní a nepřevrátit se',            speed:'hladký povrch a přesné rozměry ale vyžadují pomalý tisk' },
-  zkumavky:      { material:'držák ale přijde do kontaktu s laboratorními chemikáliemi a musí odolat', infill:'zkumavky plné kapalin jsou těžké — držák ale musí pevně držet', speed:'přesné otvory pro zkumavky ale vyžadují pečlivý tisk' },
-  puzzle:        { material:'dílky ale musí mít hezké barvy a hladký povrch',                   infill:'dílky ale musí být lehké, aby se puzzle snadno skládalo',                speed:'okraje dílků ale musí být přesné, aby do sebe pasovaly' },
-  pravitko:      { material:'pravítko ale nesmí se pod tlakem tužky ohnout — musí být tuhé',    infill:'pravítko ale nesmí se prohnout — musí být co nejpevnější',              speed:'každý milimetr ale musí být přesný — to vyžaduje pomalý tisk' },
-  raketka:       { material:'dekorace ale musí mít hezký hladký povrch a krásné barvy',         infill:'dekorace nic nenese — výplň ale může být minimální',                    speed:'hezké detaily a hladký povrch ale potřebují pomalý tisk' },
-  krmitko:       { material:'krmítko je venku celý rok — musí ale odolat dešti, mrazu i vlhkosti', infill:'krmítko ale musí být pevné, aby odolalo tlaku ptáků i počasí',     speed:'odolné vrstvy ale potřebují dostatek času na správné přilnutí' },
-  visacka:       { material:'visačka je venku — musí ale odolat dešti, slunci i mrazu',         infill:'visačka nic nenese — stačí ale, aby byl nápis vidět',                  speed:'nápis ale musí být čitelný — to vyžaduje přesný tisk' },
-  hmyz:          { material:'domeček je venku celý rok — musí ale vydržet roky bez prasklin',   infill:'domeček ale musí být pevný, aby odolal větru a hmyzu uvnitř',           speed:'venkovní předmět ale potřebuje pevné vrstvy správně přinuté k sobě' },
-  leknin:        { material:'leknín musí plavat a vlnit se s vodou — musí ale být lehký a ohebný', infill:'leknín ale musí být lehký, aby plaval na hladině',                  speed:'jemné okvětní lístky ale potřebují přesný pomalý tisk' },
-  seminka:       { material:'zásobník přichází do kontaktu s vlhkostí a zeminou — musí ale odolat', infill:'zásobník ale musí vydržet opakované plnění a vyprazdňování',       speed:'přesný otvor pro semínka ale vyžaduje pečlivý tisk' },
-  pouzdro:       { material:'pouzdro musí pohlcovat nárazy při pádu — musí ale být pružné',     infill:'pouzdro ale musí mít správnou tloušťku pro ochranu telefonu',           speed:'pouzdro ale musí přesně pasovat na telefon' },
-  kabely:        { material:'klip se musí rozevřít a zacvaknout zpět — musí ale být pružný',    infill:'klip ale musí být dost pevný, aby spolehlivě držel kabely pohromadě',  speed:'tvar klipu ale musí přesně sedět na kabely' },
-  mys:           { material:'podložka musí být měkká a přizpůsobit se zápěstí — musí ale být poddajná', infill:'lehká výplň podložku ale ještě více změkčí',                  speed:'povrch pod zápěstím ale musí být hladký a příjemný na dotek' },
-  ozubeni:       { material:'ozubené zuby se nesmí brzy opotřebit — musí být ale z tvrdého odolného materiálu', infill:'kolo ale nesmí se pod zátěží deformovat — musí být plné', speed:'každý zub ale musí mít přesný tvar' },
-  vypinac:       { material:'kryt ale musí mít hladký povrch a přesné rozměry pro šrouby',      infill:'kryt ale musí být pevný, ale ne zbytečně těžký',                        speed:'přesné rozměry krytu ale vyžadují pomalý tisk' },
+  kachnicka:     { material:'hračka pro miminko ale musí být měkká a ohebná',                      infill:'hračka ale nesmí být zbytečně těžká — výplň musí být vyvážená',             speed:'povrch hračky ale musí být hladký a bez viditelných linií' },
+  pohar:         { material:'pohár ale musí mít co nejhladší a nejhezčí povrch',                    infill:'pohár nic nenese — záleží jen na vzhledu, ne na pevnosti',                  speed:'krásný povrch ale vyžaduje, aby každá vrstvička dokonale sedla' },
+  terc:          { material:'terč ale musí vydržet opakované nárazy šipek bez prasknutí',           infill:'terč ale musí být pevný, aby se při nárazu nedeformoval',                   speed:'pevné a přesné vrstvy ale vyžadují dostatek času' },
+  loutka:        { material:'maňásek na prst ale musí být pohodlný a trochu poddajný',              infill:'maňásek ale musí být co nejlehčí, aby se snadno nasadil',                  speed:'drobné detaily obličeje ale potřebují přesný pomalý tisk' },
+  kostka:        { material:'kostka ale musí být pevná a nesmí se deformovat při házení',           infill:'kostka ale musí mít správnou váhu a pevnost',                              speed:'číslice ale musí být přesné a dobře čitelné' },
+  kvetinac:      { material:'květináč ale musí mít hezký vzhled a krásný povrch',                  infill:'květináč ale musí být co nejlehčí — parapet unese jen lehký předmět',       speed:'dekorativní předmět ale potřebuje hladký jemný povrch' },
+  'stojanek-tel':{ material:'stojánek ale musí pevně unést váhu telefonu',                          infill:'stojánek ale musí být stabilní — těžký telefon ho nesmí převrátit',        speed:'přesné rozměry ale zajistí, že telefon sedí rovně' },
+  vesak:         { material:'věšák ale musí unést váhu klíčů bez prasknutí',                       infill:'stěny kolem šroubu ale musí být pevné, aby věšák vydržel',                 speed:'pevné vrstvy ale zvýší odolnost věšáku' },
+  mydlo:         { material:'pumpa ale každý den přichází do kontaktu s vodou a mýdlem — musí odolat vlhkosti', infill:'pumpa ale musí zvládnout opakované stlačování bez deformace', speed:'přesný mechanismus pumpy ale vyžaduje přesný tisk' },
+  svicen:        { material:'svícen je dekorace — potřebuje ale co nejhezčí a nejhladší povrch',   infill:'svícen nic nenese — výplň ale může být minimální',                         speed:'jemné dekorativní detaily ale potřebují pomalý přesný tisk' },
+  stojanek:      { material:'stojánek musí vypadat hezky — ale materiál musí zajistit pěkný povrch', infill:'stojánek plný tužek ale musí být stabilní a nepřevrátit se',             speed:'hladký povrch a přesné rozměry ale vyžadují pomalý tisk' },
+  zkumavky:      { material:'držák ale přijde do kontaktu s laboratorními chemikáliemi — musí jim odolat', infill:'zkumavky plné kapalin jsou těžké — držák je ale musí pevně držet', speed:'přesné otvory pro zkumavky ale vyžadují pečlivý tisk' },
+  puzzle:        { material:'dílky ale musí mít hezké barvy a hladký povrch',                      infill:'dílky ale musí být lehké, aby se puzzle snadno skládalo',                   speed:'okraje dílků ale musí být přesné, aby do sebe pasovaly' },
+  pravitko:      { material:'pravítko se ale nesmí pod tlakem tužky ohnout — musí být tuhé',       infill:'pravítko se ale nesmí prohnout — musí být co nejpevnější',                 speed:'každý milimetr ale musí být přesný — to vyžaduje pomalý tisk' },
+  raketka:       { material:'dekorace ale musí mít hezký hladký povrch a krásné barvy',            infill:'dekorace nic nenese — výplň ale může být minimální',                       speed:'hezké detaily a hladký povrch ale potřebují pomalý tisk' },
+  krmitko:       { material:'krmítko je venku celý rok — musí ale odolat dešti, mrazu i vlhkosti', infill:'krmítko ale musí být pevné, aby odolalo zatížení i nepřízni počasí',      speed:'odolné vrstvy ale potřebují dostatek času na správné přilnutí' },
+  visacka:       { material:'visačka je venku — musí ale odolat dešti, slunci i mrazu',            infill:'visačka nic nenese — důležité je jen, aby byl nápis vidět',                speed:'nápis ale musí být čitelný — to vyžaduje přesný tisk' },
+  hmyz:          { material:'domeček je venku celý rok — musí ale vydržet roky bez prasklin',      infill:'domeček ale musí být pevný, aby vydržel vítr i pohyb hmyzu uvnitř',        speed:'venkovní předmět ale potřebuje pevné vrstvy správně přilnuté k sobě' },
+  leknin:        { material:'leknín musí plavat a vlnit se s vodou — musí ale být lehký a ohebný', infill:'leknín ale musí být lehký, aby plaval na hladině',                         speed:'jemné okvětní lístky ale potřebují přesný pomalý tisk' },
+  seminka:       { material:'zásobník přichází do kontaktu s vlhkostí a zeminou — musí ale odolat vlhkosti', infill:'zásobník ale musí vydržet opakované plnění a vyprazdňování',    speed:'přesný otvor pro semínka ale vyžaduje pečlivý tisk' },
+  pouzdro:       { material:'pouzdro musí pohlcovat nárazy při pádu — musí ale být pružné',        infill:'pouzdro ale musí mít správnou tloušťku pro ochranu telefonu',              speed:'pouzdro ale musí přesně pasovat na telefon' },
+  kabely:        { material:'klip se musí rozevřít a zacvaknout zpět — musí ale být pružný',       infill:'klip ale musí být dost pevný, aby spolehlivě držel kabely pohromadě',     speed:'tvar klipu ale musí přesně pasovat na kabely' },
+  mys:           { material:'podložka ale musí být měkká a přizpůsobit se tvaru zápěstí',          infill:'lehká výplň podložku ale ještě více změkčí',                              speed:'povrch pod zápěstím ale musí být hladký a příjemný na dotek' },
+  ozubeni:       { material:'zuby kola se nesmí brzy opotřebit — ale musí být z tvrdého odolného materiálu', infill:'kolo se ale nesmí pod zátěží deformovat — musí být plné',      speed:'každý zub ale musí mít přesný tvar' },
+  vypinac:       { material:'kryt ale musí mít hladký povrch a přesné rozměry pro šrouby',         infill:'kryt ale musí být pevný — ne však zbytečně těžký',                        speed:'přesné rozměry krytu ale vyžadují pomalý tisk' },
 };
 
 function getParamFeedback(type, chosen, itemId) {
   const desc = { material: MAT_DESC, infill: INFILL_DESC, speed: SPEED_DESC }[type]?.[chosen] || '';
   const need = ITEM_NEEDS[itemId]?.[type];
-  return need ? `${desc} Tento předmět ${need}.` : desc;
+  if (!need) return desc;
+  return `${desc} ${need[0].toUpperCase()}${need.slice(1)}.`;
 }
 
 Object.assign(window, {
