@@ -1331,7 +1331,7 @@ function PredictScreen({ item, group, config, prediction, setPrediction, onNext,
     <section className="pad-top" style={{ paddingBottom: 80 }}>
       <StepHeader step={2} />
       <div className="fade-up" style={{ maxWidth: 760, margin:'0 auto', textAlign:'center' }}>
-        <Vrstvicka size={120} tone={group.accent} mood="happy" />
+        <Vrstvicka size={120} tone="green" mood="happy" />
         <h2 style={{ marginTop: 8 }}>Co myslíš, že se stane?</h2>
         <p style={{ fontSize: 17, color:'var(--ink-2)', marginTop: 10 }}>
           Tipni si, jestli ti tahle kombinace pro <strong>{item.name.toLowerCase()}</strong> bude fungovat.
@@ -1567,7 +1567,7 @@ function DiaryScreen({ entries, onClear, onStart }) {
       </div>
       {entries.length === 0 ? (
         <div className="card fade-up fade-up--delay-1" style={{ marginTop: 36, padding: 56, textAlign:'center' }}>
-          <Vrstvicka size={140} tone="sage" mood="wink" />
+          <Vrstvicka size={140} tone="green" mood="wink" />
           <h3 style={{ marginTop: 12 }}>Zatím prázdno.</h3>
           <p style={{ marginTop: 8, color:'var(--ink-2)' }}>Vrať se na průzkum a vyzkoušej první předmět.</p>
           <div style={{ marginTop: 20 }}>
@@ -1643,6 +1643,8 @@ function App() {
     setConfig({ material:null, infill:null, speed:null });
     setPredict(null);
   };
+
+  useE(() => { window.scrollTo({ top: 0, behavior: 'instant' }); }, [route]);
 
   const startExplore = () => { reset(); setRoute({ name: 'picker' }); };
 
