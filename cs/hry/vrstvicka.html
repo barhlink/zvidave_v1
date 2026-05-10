@@ -874,10 +874,10 @@ const REFLECTIONS = [
 function evaluatePrint(item, config) {
   const o = item.optimal;
   const hits = ['material','infill','speed'].filter(k => o[k] === config[k]).length;
-  if (hits === 3) return { score:3, kind:'great', title:'Skvěle! Vyšlo to.', body:'Všechno sedí — materiál, výplň i rychlost. Tisk je pevný a hezký.' };
-  if (hits === 2) return { score:2, kind:'ok',    title:'Funguje to, ale jde to líp.', body:'Skoro! Jedna věc se ještě dá vylepšit.' };
-  if (hits === 1) return { score:1, kind:'meh',   title:'Hmm, není to ono.', body:'Funkce kulhá. Zkus změnit nastavení a porovnat.' };
-  return                  { score:0, kind:'fail', title:'Tohle se nepovedlo.', body:'Tiskárna sice tiskne, ale výsledek nesedí. Zkus to jinak.' };
+  if (hits === 3) return { score:3, kind:'great', title:'Kombinace sedí.',           body:'Materiál, výplň i rychlost jsou pro tento předmět ideální volba.' };
+  if (hits === 2) return { score:2, kind:'ok',    title:'Výtisk proběhne.',          body:'Tiskárna vytiskne — jeden parametr by ale šel nastavit lépe.' };
+  if (hits === 1) return { score:1, kind:'meh',   title:'Výtisk proběhne.',          body:'Předmět se vytiskne, ale dva parametry by šlo nastavit lépe. Zkus jinak a porovnej.' };
+  return                  { score:0, kind:'miss',  title:'Výtisk proběhne.',          body:'Předmět se vytiskne, ale kombinace neodpovídá jeho požadavkům. Zkus jinak a porovnej.' };
 }
 
 const matLabel    = id => MATERIALS.find(m => m.id === id)?.code  || '—';
@@ -1454,7 +1454,7 @@ function CompareRow({ label, picked, ok, optimal }) {
       <div style={{ marginTop: 4, fontWeight: 600, display:'flex', justifyContent:'space-between', alignItems:'center', gap: 6 }}>
         <span>{picked}</span>
         {ok === true  && <span style={{ color:'var(--sage-ink)', fontSize: 13 }}>✓</span>}
-        {ok === false && <span style={{ color:'var(--coral-ink)', fontSize: 11 }}>↳ {optimal}</span>}
+        {ok === false && <span style={{ color:'var(--coral-ink)', fontSize: 13 }}>✗</span>}
       </div>
     </div>
   );
@@ -1477,9 +1477,6 @@ function ResultScreen({ item, group, config, prediction, onSave, onAgain, onHome
         <div className="card" style={{ padding: 28, position:'relative', overflow:'hidden' }}>
           <div style={{ position:'absolute', inset:0, background: `radial-gradient(220px 160px at 100% 0%, var(--${tone}-soft), transparent 60%)` }} />
           <div style={{ position:'relative' }}>
-            <span className={`chip chip--${tone}`} style={{ marginBottom: 12 }}>
-              {result.score === 3 ? '★ ★ ★ skvělé' : result.score === 2 ? '★ ★ ☆ dobré' : result.score === 1 ? '★ ☆ ☆ jde to lépe' : '☆ ☆ ☆ zkus jinak'}
-            </span>
             <h2 style={{ marginTop: 6 }}>{result.title}</h2>
             <p style={{ marginTop: 10, fontSize: 16, color:'var(--ink-2)' }}>{result.body}</p>
             <div style={{ marginTop: 24, display:'grid', gridTemplateColumns:'1fr 1fr', gap: 14 }}>
