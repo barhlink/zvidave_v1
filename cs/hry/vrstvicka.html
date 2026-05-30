@@ -1494,6 +1494,7 @@ function PrintScreen({ item, group, config, onDone, onCancel }) {
           <div style={{ display:'flex', gap: 10, marginTop: 18 }}>
             <button className="btn btn--ghost btn--sm" onClick={onCancel}>⏹ Zastavit</button>
             <button className="btn btn--ghost btn--sm" onClick={() => { startedAt.current = performance.now(); setProgress(0); }}>↻ Znovu</button>
+            <button className="btn btn--ghost btn--sm" onClick={() => { setProgress(1); onDone(); }}>⏭ Přeskočit tisk</button>
           </div>
         </div>
       </div>
