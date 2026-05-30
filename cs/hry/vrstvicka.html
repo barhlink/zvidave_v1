@@ -1530,7 +1530,7 @@ function ResultScreen({ item, group, config, prediction, onSave, onAgain, onHome
     <section className="pad-top" style={{ paddingBottom: 80 }}>
       <StepHeader step={4} />
       <div className="fade-up" style={{ display:'grid', gridTemplateColumns:'1fr 1fr', gap: 36, alignItems:'flex-start' }} id="res-grid">
-        <div className="card" style={{ padding: 28, position:'relative', overflow:'hidden' }}>
+        <div className="card" style={{ padding: 28, position:'relative', overflow:'hidden', background: tone !== 'sage' ? 'oklch(0.96 0.025 15)' : undefined }}>
           <div style={{ position:'absolute', inset:0, background: `radial-gradient(220px 160px at 100% 0%, var(--${tone}-soft), transparent 60%)` }} />
           <div style={{ position:'relative' }}>
             <h2 style={{ marginTop: 6 }}>{result.title}</h2>
