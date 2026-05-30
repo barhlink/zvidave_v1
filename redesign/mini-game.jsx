@@ -6,7 +6,6 @@ const MiniGame = ({ accent = "#3B82C4", playful = 0.5 }) => {
   const [round, setRound] = React.useState(0);
   const [picked, setPicked] = React.useState([]);
   const [solved, setSolved] = React.useState(false);
-  const [streak, setStreak] = React.useState(0);
 
   const target = targets[round % targets.length];
   // Generate numbers that contain a valid pair summing to target
@@ -34,7 +33,6 @@ const MiniGame = ({ accent = "#3B82C4", playful = 0.5 }) => {
   React.useEffect(() => {
     if (sum === target && picked.length >= 2) {
       setSolved(true);
-      setStreak((s) => s + 1);
       setTimeout(() => {
         setRound((r) => r + 1);
         setPicked([]);
@@ -47,12 +45,6 @@ const MiniGame = ({ accent = "#3B82C4", playful = 0.5 }) => {
     <div className="mini-game" style={{ "--accent": accent }}>
       <div className="mg-head">
         <span className="mg-label">MINI HRA · 1. STUPEŇ</span>
-        <span className="mg-streak">
-          <svg width="12" height="12" viewBox="0 0 12 12">
-            <path d="M6 1 L7.5 4.5 L11 5 L8.5 7.5 L9 11 L6 9 L3 11 L3.5 7.5 L1 5 L4.5 4.5 Z" fill={accent} />
-          </svg>
-          {streak} v řadě
-        </span>
       </div>
       <div className="mg-prompt">
         Najdi čísla, jejichž součet je <strong>{target}</strong>
@@ -85,7 +77,7 @@ const MiniGame = ({ accent = "#3B82C4", playful = 0.5 }) => {
             setSolved(false);
           }}
         >
-          Další ↻
+          Další →
         </button>
       </div>
     </div>
