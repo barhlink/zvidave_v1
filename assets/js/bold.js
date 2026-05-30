@@ -23,7 +23,6 @@
     var targets = [10, 12, 15, 8, 11, 13];
     var round = 0;
     var picked = [];
-    var streak = 0;
     var solved = false;
     var currentNumbers = [];
 
@@ -31,7 +30,6 @@
     var numbersEl = document.getElementById('mg-numbers');
     var sumEl     = document.getElementById('mg-sum-val');
     var hintEl    = document.getElementById('mg-hint');
-    var streakEl  = document.getElementById('mg-streak');
     var skipBtn   = document.getElementById('mg-skip');
 
     function getTarget() {
@@ -111,8 +109,6 @@
     function onSolved() {
       if (solved) return;
       solved = true;
-      streak++;
-      if (streakEl) streakEl.textContent = streak;
       if (numbersEl) {
         numbersEl.querySelectorAll('.mg-num.picked').forEach(function (b) {
           b.classList.add('solved');
