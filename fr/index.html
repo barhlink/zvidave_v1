@@ -1,355 +1,344 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zvídavě – hry a výukové materiály</title>
-  <meta name="description" content="Interaktivní výukové hry pro děti prvního stupně. Matematika, informatika, přírodověda. Zdarma, v prohlížeči, bez registrace.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500;1,9..144,600;1,9..144,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/assets/css/bold.css?v=3">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zvídavě.cz – petits jeux pédagogiques pour l’école primaire</title>
+<meta name="description" content="Jeux pédagogiques pour l’école primaire, conçus en classe. Gratuits, sans inscription, sans publicité et sans collecte de données sur les enfants. Essayez Vrstvička, un atelier d’investigation sur l’impression 3D.">
+<link rel="canonical" href="https://zvidave.cz/fr/">
+<link rel="alternate" hreflang="cs" href="https://zvidave.cz/cs/">
+<link rel="alternate" hreflang="en" href="https://zvidave.cz/en/">
+<link rel="alternate" hreflang="fr" href="https://zvidave.cz/fr/">
+<link rel="alternate" hreflang="uk" href="https://zvidave.cz/uk/">
+<link rel="alternate" hreflang="x-default" href="https://zvidave.cz/cs/">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#036766">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:title" content="Zvídavě.cz – petits jeux pédagogiques pour l’école primaire">
+<meta property="og:description" content="Des jeux conçus en classe. Gratuits, sans inscription, sans publicité et sans collecte de données sur les enfants.">
+<meta property="og:url" content="https://zvidave.cz/fr/">
+<link rel="stylesheet" href="../assets/css/zvidave.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "name": "Zvídavě.cz",
+      "url": "https://zvidave.cz/fr/",
+      "inLanguage": "fr",
+      "description": "Petits jeux pédagogiques pour l’école primaire, conçus en classe. Gratuits, sans inscription, sans publicité et sans collecte de données sur les enfants."
+    },
+    {
+      "@type": "LearningResource",
+      "name": "Vrstvička – atelier d’investigation sur l’impression 3D",
+      "url": "https://zvidave.cz/cs/hry/vrstvicka.html",
+      "inLanguage": "fr",
+      "learningResourceType": "Jeu",
+      "educationalLevel": "Du CE1 au CM2",
+      "timeRequired": "PT15M",
+      "about": "Comment régler une imprimante 3D",
+      "isAccessibleForFree": true,
+      "description": "Les enfants découvrent comment on règle une imprimante 3D. Ils choisissent un objet, sélectionnent les paramètres d’impression et observent le résultat. Ils notent leurs essais dans un carnet d’investigation."
+    }
+  ]
+}
+</script>
+<!-- Sem případně vlož měřicí kód analytiky. -->
 </head>
 <body>
-<div class="bv-root">
+<a class="skip" href="#obsah">Aller au contenu</a>
 
-  <!-- NAV -->
-  <header class="bv-nav">
-    <div class="bv-nav-inner">
-      <a href="#" class="bv-logo">
-        <span class="bv-logo-text"><em>Zvídavě</em><span class="bv-logo-tld">.cz</span></span>
-      </a>
-      <nav class="bv-nav-links" id="nav-links">
-        <a href="#o-projektu" data-i18n="nav_about">O PROJEKTU</a>
-        <a href="#hry" data-i18n="nav_games">HRY</a>
-        <a href="#kontakt" data-i18n="nav_contact">KONTAKT</a>
-        <div class="bv-nav-lang-mobile">
-          <button class="lang-btn" data-lang="cs" onclick="setLang('cs')">CZ</button>
-          <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
-          <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
-          <button class="lang-btn" data-lang="uk" onclick="setLang('uk')">UK</button>
-        </div>
-      </nav>
-      <div class="bv-nav-right">
-        <div class="bv-lang">
-          <button class="lang-btn active" data-lang="cs" onclick="setLang('cs')">CZ</button>
-          <button class="lang-btn" data-lang="en" onclick="setLang('en')">EN</button>
-          <button class="lang-btn" data-lang="fr" onclick="setLang('fr')">FR</button>
-          <button class="lang-btn" data-lang="uk" onclick="setLang('uk')">UK</button>
-        </div>
-        <button class="bv-hamburger" id="hamburger" aria-label="Menu">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- HERO -->
-  <section class="bv-hero" id="uvod">
-    <div class="bv-hero-blob bv-blob-1" aria-hidden="true"></div>
-    <div class="bv-hero-blob bv-blob-2" aria-hidden="true"></div>
-    <svg class="bv-hero-grid-svg" aria-hidden="true" width="100%" height="100%" preserveAspectRatio="none">
-      <pattern id="bvgrid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
-        <circle cx="1" cy="1" r="1" fill="#1A2444" opacity="0.06"></circle>
-      </pattern>
-      <rect width="100%" height="100%" fill="url(#bvgrid)"></rect>
+<header class="lista">
+  <a href="./" class="logo" id="logo" aria-label="Zvídavě.cz – accueil">
+    <svg viewBox="0 30 630 146" width="160" height="37" aria-hidden="true">
+      <path d="M40.1 154 87.3 95.6H93.4Q98.4 99.8 98.4 106.5Q98.4 109.4 97 112.2Q95.7 115 93.6 117.7L46.7 176H39.5Q37.6 174.4 36.3 171.6Q35 168.9 35 165.5Q35 162.5 36.5 159.5Q38 156.6 40.1 154ZM42.2 176 51.5 159.5H97.1Q97.9 160.8 98.6 162.9Q99.3 165 99.3 167.5Q99.3 171.9 97.4 173.9Q95.4 176 92.1 176ZM89.5 95.6 82.2 112.2H38.3Q37.5 110.8 36.8 108.8Q36.1 106.7 36.1 104.2Q36.1 99.9 38.1 97.8Q40.1 95.6 43.5 95.6ZM161.1 111.3Q165.1 111.3 167.9 113.1Q170.6 114.9 170.6 119.2Q170.6 121.5 169.2 126.5Q167.9 131.6 165.7 138.1Q163.5 144.7 160.9 151.6Q158.3 158.5 155.6 164.5Q153 170.5 150.9 174.4Q149.5 175.5 146.3 176.3Q143.2 177.2 139.3 177.2Q134.8 177.2 131.6 176Q128.3 174.8 127 172.3Q125.6 169.6 123.5 164.5Q121.4 159.5 119 153.1Q116.6 146.7 114.2 139.8Q111.9 133 109.9 126.7Q107.9 120.3 106.7 115.5Q108.4 113.8 111.1 112.6Q113.8 111.3 117 111.3Q121.1 111.3 123.7 113.1Q126.4 114.8 127.6 119.5L133.5 140.5Q134.5 144.1 135.6 147.9Q136.8 151.6 137.7 154.8Q138.7 158 139.2 160.1H139.9Q143 149.5 146.2 137.3Q149.5 125.1 152 113.5Q156 111.3 161.1 111.3ZM182.3 139.4H201.9V175.9Q200.7 176.2 198.3 176.6Q195.9 177 193.2 177Q187.5 177 184.9 175Q182.3 172.9 182.3 167.8ZM201.9 145.6H182.3V112.8Q183.6 112.5 185.9 112.1Q188.3 111.7 191.1 111.7Q196.8 111.7 199.3 113.7Q201.9 115.7 201.9 120.9ZM258.8 160.4V120.6L278.3 120.6V162.9Q278.3 166 277 168.1Q275.7 170.3 272.8 172.1Q269.2 174.4 263.5 176.2Q257.7 178 250.2 178Q239.2 178 231.3 174.3Q223.3 170.6 219 163.2Q214.7 155.7 214.7 144.6Q214.7 133 219.1 125.5Q223.5 118 231 114.4Q238.5 110.7 247.7 110.7Q252.4 110.7 256.1 111.7Q259.9 112.8 262.2 114.2V130.4Q260.3 128.8 257.3 127.5Q254.3 126.1 250.3 126.1Q245.6 126.1 242.1 128.1Q238.5 130 236.5 134.1Q234.6 138.2 234.6 144.6Q234.6 153.8 238.7 158.2Q242.9 162.5 250.1 162.5Q253 162.5 255.2 161.8Q257.4 161.1 258.8 160.4ZM278.3 124.4 258.7 124.5V90.1Q260 89.7 262.4 89.3Q264.8 88.9 267.5 88.9Q273.2 88.9 275.8 90.9Q278.3 92.8 278.3 98.1ZM319.9 163.5Q322.9 163.5 325.9 162.9Q328.8 162.3 330.2 161.4V148.8L319 149.8Q314.6 150.1 312 151.7Q309.4 153.4 309.4 156.5Q309.4 159.7 311.9 161.6Q314.3 163.5 319.9 163.5ZM319.1 110.7Q332.8 110.7 340.9 116.4Q349.1 122.1 349.1 134.2V164.2Q349.1 167.5 347.4 169.5Q345.7 171.5 343.1 173Q339.2 175.3 333.3 176.7Q327.4 178 319.9 178Q306.4 178 298.4 172.8Q290.4 167.6 290.4 157.1Q290.4 148.2 295.9 143.3Q301.5 138.5 312.4 137.4L330.1 135.6V134Q330.1 129.5 326.6 127.5Q323.1 125.5 316.6 125.5Q311.6 125.5 306.8 126.7Q301.9 127.9 298.1 129.6Q296.5 128.4 295.4 126.3Q294.3 124.1 294.3 121.8Q294.3 116.2 300.3 113.7Q304.1 112.2 309.2 111.4Q314.3 110.7 319.1 110.7ZM413.8 111.3Q417.9 111.3 420.6 113.1Q423.4 114.9 423.4 119.2Q423.4 121.5 422 126.5Q420.7 131.6 418.5 138.1Q416.3 144.7 413.7 151.6Q411 158.5 408.4 164.5Q405.8 170.5 403.7 174.4Q402.2 175.5 399.1 176.3Q395.9 177.2 392.1 177.2Q387.6 177.2 384.4 176Q381.1 174.8 379.8 172.3Q378.4 169.6 376.3 164.5Q374.2 159.5 371.8 153.1Q369.4 146.7 367 139.8Q364.7 133 362.7 126.7Q360.7 120.3 359.5 115.5Q361.2 113.8 363.9 112.6Q366.6 111.3 369.8 111.3Q373.9 111.3 376.5 113.1Q379.1 114.8 380.4 119.5L386.2 140.5Q387.3 144.1 388.4 147.9Q389.5 151.6 390.5 154.8Q391.5 158 392 160.1H392.6Q395.8 149.5 399 137.3Q402.2 125.1 404.7 113.5Q408.8 111.3 413.8 111.3ZM443.7 153.5 442.9 140.3 475.7 135.2Q475.3 131.5 472.5 128.3Q469.6 125.2 463.9 125.2Q457.9 125.2 453.9 129.2Q450 133.2 449.8 140.7L450.4 149.8Q451.6 156.9 456.6 160.1Q461.6 163.2 468.6 163.2Q474.1 163.2 479 161.6Q483.9 160.1 486.8 158.3Q488.8 159.5 490.1 161.6Q491.4 163.7 491.4 166.1Q491.4 170 488.3 172.7Q485.1 175.4 479.7 176.7Q474.2 178 467.2 178Q457 178 448.9 174.2Q440.8 170.3 436.2 162.6Q431.6 155 431.6 143.5Q431.6 135.1 434.3 128.9Q436.9 122.6 441.5 118.6Q446 114.6 451.8 112.7Q457.6 110.7 463.8 110.7Q472.9 110.7 479.6 114.3Q486.4 117.9 490.3 124.1Q494.1 130.3 494.1 138.5Q494.1 142.6 491.9 144.7Q489.7 146.8 485.7 147.3ZM500.3 169.6Q500.3 166.2 502.4 163.9Q504.6 161.6 508.1 161.6Q511.7 161.6 513.8 163.9Q515.9 166.2 515.9 169.6Q515.9 172.9 513.8 175.1Q511.7 177.4 508.1 177.4Q504.6 177.4 502.4 175.1Q500.3 172.9 500.3 169.6ZM546.4 142.1Q541.5 142.1 538 145.3Q534.5 148.4 534.5 154.5Q534.5 160.6 537.9 163.7Q541.2 166.7 546.3 166.7Q549.2 166.7 551.5 166Q553.7 165.2 555.2 164.3Q556.8 165.4 557.6 166.7Q558.4 168 558.4 169.8Q558.4 173.2 554.8 175.2Q551.2 177.3 544.9 177.3Q537.7 177.3 532.3 174.8Q526.9 172.2 524 167.1Q521 162 521 154.5Q521 146.8 524.2 141.7Q527.4 136.6 532.8 134Q538.1 131.5 544.5 131.5Q550.7 131.5 554.2 133.7Q557.8 135.9 557.8 139.3Q557.8 140.9 557.1 142.2Q556.3 143.5 555.2 144.5Q553.6 143.6 551.4 142.8Q549.2 142.1 546.4 142.1ZM572.9 176H567.6Q566.3 174.9 565.6 173.4Q564.9 171.9 564.9 170Q564.9 168.4 565.6 166.9Q566.4 165.3 567.5 163.9L593.6 132.8H598.3Q599.5 134 600.3 135.4Q601 136.9 601 138.8Q601 140.4 600.3 142Q599.5 143.5 598.4 144.9ZM595.6 132.8V143.2H566.6Q566.1 142.4 565.7 141Q565.3 139.6 565.3 138.1Q565.3 135.3 566.5 134.1Q567.8 132.8 569.8 132.8ZM571.3 176V165.6H600.6Q601.1 166.4 601.6 167.8Q602 169.2 602 170.8Q602 173.5 600.8 174.8Q599.5 176 597.4 176Z" fill="#FDF8F1"/>
+      <path class="draha" d="M 201 64 C 261 -66, 501 -126, 601 -36 C 671 34, 701 -126, 591 -106 C 421 -86, 51 -106, 201 64" fill="none" stroke="#80C9C1" stroke-width="6" stroke-linecap="round" stroke-dasharray="6 18"/>
+      <g class="vlastovka">
+        <g transform="translate(173.2 35.3) scale(0.5544)">
+          <polygon points="94.3,5.4 5.4,50.9 28.8,60.4" fill="#FDF8F1" stroke="#036766" stroke-width="6" stroke-linejoin="round" paint-order="stroke"/>
+          <polygon points="94.3,5.4 43.1,69.8 43.7,74.1 56.6,97" fill="#FDF8F1" stroke="#036766" stroke-width="6" stroke-linejoin="round" paint-order="stroke"/>
+          <polygon points="94.3,5.4 28.8,60.4 28.8,77.6 43.7,74.1 43.1,69.8" fill="#FDF8F1" stroke="#036766" stroke-width="6" stroke-linejoin="round" paint-order="stroke"/>
+        </g>
+      </g>
+      <g transform="translate(425.9 43.2) scale(0.6600)">
+        <polygon points="4.3,24.6 51.5,47.8 22,68.5" fill="#FDF8F1" stroke="#036766" stroke-width="6" stroke-linejoin="round" paint-order="stroke"/>
+        <polygon points="95.7,15.9 51.5,47.8 77.6,67.7" fill="#FDF8F1" stroke="#036766" stroke-width="6" stroke-linejoin="round" paint-order="stroke"/>
+        <polygon points="22,68.5 51.5,47.8 77.6,67.7" fill="#FDF8F1" stroke="#036766" stroke-width="6" stroke-linejoin="round" paint-order="stroke"/>
+        <polygon points="49.4,4.3 31.9,37.9 51.5,47.8 68.5,34.5" fill="#FDF8F1" stroke="#036766" stroke-width="6" stroke-linejoin="round" paint-order="stroke"/>
+      </g>
     </svg>
+    <span class="logo-oblouk" aria-hidden="true"></span>
+  </a>
 
-    <div class="bv-hero-inner">
-      <div class="bv-hero-left">
-        <img src="/assets/img/hero-fox.png" alt="Zvídavá liška" class="bv-hero-fox-mobile">
-        <div class="bv-eyebrow">
-          <span class="bv-eyebrow-diamond" aria-hidden="true">◆</span>
-          <span data-i18n="hero_eyebrow">VÝUKOVÉ HRY PRO ZVÍDAVÉ DĚTI</span>
-        </div>
-        <h1 class="bv-h1">
-          <span class="bv-h1-line">
-            <span data-i18n="hero_h1_1">Učení</span>
-            <span class="bv-h1-mark" aria-hidden="true">
-              <svg viewBox="0 0 100 20" preserveAspectRatio="none"><path d="M2 14 Q 30 4 50 12 T 98 8" stroke="#5BB1D9" stroke-width="3" fill="none" stroke-linecap="round"></path></svg>
-            </span>
-          </span>
-          <span class="bv-h1-line">
-            <span data-i18n="hero_h1_2">které <em>baví</em></span>
-            <span class="bv-h1-sparkle" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="36" height="36"><path d="M12 2 L13.5 9 L20 10.5 L13.5 12 L12 19 L10.5 12 L4 10.5 L10.5 9 Z" fill="#5BB1D9"></path></svg>
-            </span>
-          </span>
-        </h1>
-        <p class="bv-lede" data-i18n="hero_sub">Interaktivní hry a cvičení pro žáky prvního stupně. Matematika a informatika — v podobě, na kterou se děti těší.</p>
-        <div class="bv-cta-row">
-          <a href="#hry" class="bv-btn bv-btn-primary" data-i18n="hero_cta">PROZKOUMAT HRY</a>
-          <a href="#o-projektu" class="bv-btn bv-btn-ghost" data-i18n="hero_cta2">VÍCE O PROJEKTU</a>
-        </div>
-      </div>
+  <button class="menu-tlacitko" type="button" aria-expanded="false" aria-controls="navigace">
+    <span class="sr">Menu</span>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+  </button>
 
-      <div class="bv-hero-right">
-        <div class="bv-stack">
-          <div class="bv-mascot-card">
-            <div class="bv-mascot-bg" aria-hidden="true">
-              <svg width="100%" height="100%" viewBox="0 0 200 200" preserveAspectRatio="none">
-                <circle cx="100" cy="100" r="90" fill="#5BB1D9" opacity="0.08"></circle>
-                <circle cx="100" cy="100" r="70" fill="#5BB1D9" opacity="0.06"></circle>
-              </svg>
-            </div>
-            <img src="/assets/img/hero-fox.png" alt="Zvídavá liška" class="bv-mascot-img">
-          </div>
-          <div class="bv-game-floater">
-            <div class="mini-game">
-              <div class="mg-head">
-                <span class="mg-label" data-i18n="mg_label">MINI HRA · 1. STUPEŇ</span>
-                <span class="mg-streak">
-                  <svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M6 1 L7.5 4.5 L11 5 L8.5 7.5 L9 11 L6 9 L3 11 L3.5 7.5 L1 5 L4.5 4.5 Z" fill="#5BB1D9"/></svg>
-                  <span id="mg-streak">0</span> <span data-i18n="mg_streak">v řadě</span>
-                </span>
-              </div>
-              <p class="mg-prompt"><span data-i18n="mg_prompt">Najdi čísla, jejichž součet je</span> <strong id="mg-target">10</strong></p>
-              <div class="mg-numbers" id="mg-numbers"></div>
-              <div class="mg-footer">
-                <div class="mg-sum"><span data-i18n="mg_sum">Tvůj součet:</span> <strong id="mg-sum-val">0</strong><span id="mg-hint"></span></div>
-                <button class="mg-skip" id="mg-skip" data-i18n="mg_skip">Další ↻</button>
-              </div>
-            </div>
-          </div>
-          <div class="bv-stat-chip bv-stat-1" aria-hidden="true">
-            <span class="bv-stat-lbl">nové hry</span>
-            <span class="bv-stat-num">každý měsíc</span>
-          </div>
-          <div class="bv-stat-chip bv-stat-2" aria-hidden="true">
-            <span class="bv-stat-glyph">✓</span>
-            <span class="bv-stat-lbl">bez registrace</span>
-          </div>
-        </div>
-      </div>
+  <nav class="navigace" id="navigace" aria-label="Navigation principale">
+    <a href="#hrat">Jouer</a>
+    <a href="#chystam">En préparation</a>
+    <a href="#ucitele">Pour les enseignants</a>
+    <a href="#projekt">À propos</a>
+    <a href="#blog">Blog</a>
+    <div class="jazyky" role="group" aria-label="Langue du site">
+      <a href="../cs/" lang="cs" hreflang="cs" aria-label="Čeština">CZ</a>
+      <a href="../en/" lang="en" hreflang="en" aria-label="English">EN</a>
+      <a href="./" lang="fr" aria-current="true" aria-label="Français">FR</a>
+      <a href="../uk/" lang="uk" hreflang="uk" aria-label="Українська">UA</a>
     </div>
-  </section>
+  </nav>
+</header>
 
-  <!-- MARQUEE -->
-  <div class="bv-marquee" aria-hidden="true">
-    <div class="bv-marquee-track">
-      <div class="bv-marquee-set"><span>+ Matematika</span><span class="bv-marquee-dot">●</span><span>+ Informatika</span><span class="bv-marquee-dot">●</span><span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span><span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span></div>
-      <div class="bv-marquee-set"><span>+ Matematika</span><span class="bv-marquee-dot">●</span><span>+ Informatika</span><span class="bv-marquee-dot">●</span><span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span><span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span></div>
-      <div class="bv-marquee-set"><span>+ Matematika</span><span class="bv-marquee-dot">●</span><span>+ Informatika</span><span class="bv-marquee-dot">●</span><span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span><span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span></div>
-      <div class="bv-marquee-set"><span>+ Matematika</span><span class="bv-marquee-dot">●</span><span>+ Informatika</span><span class="bv-marquee-dot">●</span><span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span><span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span></div>
-      <div class="bv-marquee-set"><span>+ Matematika</span><span class="bv-marquee-dot">●</span><span>+ Informatika</span><span class="bv-marquee-dot">●</span><span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span><span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span></div>
-      <div class="bv-marquee-set"><span>+ Matematika</span><span class="bv-marquee-dot">●</span><span>+ Informatika</span><span class="bv-marquee-dot">●</span><span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span><span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span></div>
-      <div class="bv-marquee-set"><span>+ Matematika</span><span class="bv-marquee-dot">●</span><span>+ Informatika</span><span class="bv-marquee-dot">●</span><span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span><span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span></div>
-      <div class="bv-marquee-set"><span>+ Matematika</span><span class="bv-marquee-dot">●</span><span>+ Informatika</span><span class="bv-marquee-dot">●</span><span>+ Pracovní listy</span><span class="bv-marquee-dot">●</span><span>+ Pro tabuli</span><span class="bv-marquee-dot">●</span></div>
+<main id="obsah">
+
+<section class="uvod obal">
+  <div class="uvod-text">
+    <p class="stitek-sekce svetly">Petits jeux pour la classe de primaire</p>
+    <h1>Des jeux nés en classe</h1>
+    <p class="perex">Je les teste avec les enfants pendant mes cours d’informatique et de mathématiques, et je ne les publie ici qu’une fois qu’ils ont fait leurs preuves en classe.</p>
+    <div class="tlacitka">
+      <a class="tl tl-ruzove" href="../cs/hry/vrstvicka.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z"/></svg>Jouer à Vrstvička</a>
+      <a class="tl-odkaz" href="#chystam">En préparation</a>
+    </div>
+    <ul class="vyhody">
+      <li>Sans inscription</li>
+      <li>Sans publicité</li>
+      <li>Aucune donnée collectée sur les enfants</li>
+    </ul>
+  </div>
+  <div class="uvod-obrazek">
+    <div class="kruh">
+      <img src="../assets/img/liska-lupa.webp" width="520" height="481" alt="Une renarde avec une loupe, la guide de Zvídavě">
     </div>
   </div>
+</section>
 
-  <!-- HOW IT WORKS -->
-  <section class="bv-how" id="o-projektu">
-    <div class="bv-section-head">
-      <span class="bv-section-eyebrow"><span class="bv-eyebrow-bar"></span><span data-i18n="how_eyebrow">JAK TO FUNGUJE</span></span>
-      <h2 class="bv-h2" data-i18n="how_title">Tři kroky, žádné <em>překážky</em></h2>
-    </div>
-    <div class="bv-steps">
-      <div class="bv-step" style="--step-color:#5BB1D9">
-        <div class="bv-step-num"><span>01</span></div>
-        <div class="bv-step-illust" aria-hidden="true">
-          <svg viewBox="0 0 80 80" width="64" height="64">
-            <rect x="8" y="20" width="64" height="6" rx="3" fill="#5BB1D9"></rect>
-            <rect x="16" y="36" width="48" height="6" rx="3" fill="#5BB1D9" opacity="0.5"></rect>
-            <rect x="24" y="52" width="32" height="6" rx="3" fill="#5BB1D9" opacity="0.3"></rect>
-            <circle cx="20" cy="23" r="6" fill="white" stroke="#5BB1D9" stroke-width="2"></circle>
-            <circle cx="50" cy="39" r="6" fill="white" stroke="#5BB1D9" stroke-width="2" opacity="0.5"></circle>
-            <circle cx="36" cy="55" r="6" fill="white" stroke="#5BB1D9" stroke-width="2" opacity="0.3"></circle>
-          </svg>
-        </div>
-        <h3 data-i18n="step1_h">Vyber předmět</h3>
-        <p data-i18n="step1_p">Filtry podle ročníku, předmětu a tématu. Najdeš za 30 vteřin to, co potřebuješ.</p>
-      </div>
-      <div class="bv-step" style="--step-color:#C9A961">
-        <div class="bv-step-num"><span>02</span></div>
-        <div class="bv-step-illust" aria-hidden="true">
-          <svg viewBox="0 0 80 80" width="64" height="64">
-            <path d="M22 28 L40 40 M58 28 L40 40 M40 40 L40 56" stroke="#C9A961" stroke-width="2.5" fill="none" stroke-linecap="round"></path>
-            <circle cx="22" cy="28" r="9" fill="#C9A961" opacity="0.4"></circle>
-            <circle cx="58" cy="28" r="9" fill="#C9A961" opacity="0.7"></circle>
-            <circle cx="40" cy="40" r="9" fill="#C9A961"></circle>
-            <circle cx="40" cy="60" r="9" fill="#C9A961" opacity="0.5"></circle>
-          </svg>
-        </div>
-        <h3 data-i18n="step2_h">Sdílej se třídou</h3>
-        <p data-i18n="step2_p">Pošli odkaz dětem nebo promítni hru přímo na interaktivní tabuli. Funguje i offline po prvním načtení.</p>
-      </div>
-      <div class="bv-step" style="--step-color:#7DA87A">
-        <div class="bv-step-num"><span>03</span></div>
-        <div class="bv-step-illust" aria-hidden="true">
-          <svg viewBox="0 0 80 80" width="64" height="64">
-            <circle cx="40" cy="40" r="32" fill="#7DA87A"></circle>
-            <path d="M32 26 L56 40 L32 54 Z" fill="white"></path>
-          </svg>
-        </div>
-        <h3 data-i18n="step3_h">Pusť se do hry</h3>
-        <p data-i18n="step3_p">Bez registrace, bez stahování, bez reklam. Spustíš v prohlížeči.</p>
-      </div>
-    </div>
-  </section>
+<section class="obal predmety" aria-label="Matières">
+  <a class="karta predmet" href="#hrat"><img src="../assets/img/ikona-informatika.webp" width="48" height="46" alt=""><span><strong>Informatique</strong><small>1 jeu à essayer</small></span></a>
+  <a class="karta predmet" href="#chystam"><img src="../assets/img/ikona-matematika.webp" width="48" height="46" alt=""><span><strong>Mathématiques</strong><small>3 jeux en préparation</small></span></a>
+  <a class="karta predmet" href="#chystam"><img src="../assets/img/ikona-priroda.webp" width="48" height="48" alt=""><span><strong>Découverte du monde</strong><small>1 jeu en préparation</small></span></a>
+</section>
 
-  <!-- GAMES -->
-  <section class="bv-games" id="hry">
-    <div class="bv-games-head">
-      <div>
-        <span class="bv-section-eyebrow"><span class="bv-eyebrow-bar"></span><span data-i18n="games_eyebrow">KATALOG</span></span>
-        <h2 class="bv-h2" data-i18n="games_title"><em>Hry</em> testované<br>ve třídě</h2>
+<section class="obal sekce" id="hrat" aria-labelledby="hrat-nadpis">
+  <div class="hlavicka-sekce">
+    <p class="stitek-sekce">À essayer</p>
+    <h2 id="hrat-nadpis">Vrstvička – atelier d’investigation sur l’impression 3D</h2>
+  </div>
+  <div class="dve-casti">
+    <div class="vrstvicka-obraz">
+      <ul class="stitky">
+        <li>Informatique</li>
+        <li>Du CE1 au CM2</li>
+        <li>environ 15 minutes</li>
+        <li>en tchèque</li>
+      </ul>
+      <img src="../assets/img/koala-tiskarna.webp" width="494" height="338" alt="" loading="lazy">
+    </div>
+    <div class="vrstvicka-text">
+      <p class="velky">Les enfants découvrent comment on règle une imprimante 3D. Ils choisissent un objet, sélectionnent les paramètres d’impression et observent le résultat. Quand l’impression échoue, ils modifient les réglages et recommencent. Peu à peu, ils comprennent l’effet de chaque paramètre.</p>
+      <h3>Comment l’intégrer à une séance</h3>
+      <ol class="kroky">
+        <li>Les enfants commencent par prédire à quoi ressemblera l’objet imprimé.</li>
+        <li>Ils vérifient leur hypothèse dans le jeu et notent le résultat dans leur carnet d’investigation.</li>
+        <li>En fin de séance, vous discutez ensemble des hypothèses qui se sont vérifiées.</li>
+      </ol>
+      <div class="tlacitka">
+        <a class="tl tl-zelene" href="../cs/hry/vrstvicka.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5Z"/></svg>Jouer à Vrstvička</a>
+        <span class="pozn">La fiche pédagogique est en préparation.</span>
       </div>
-      <p class="bv-games-lede" data-i18n="games_lede">Každá hra projde testováním ve třídě. Žádné reklamy, žádné mikrotransakce — jen čisté učení.</p>
     </div>
-    <div class="bv-filters">
-      <button class="bv-filter active" data-filter="all" data-i18n="filter_all">Vše</button>
-      <button class="bv-filter" data-filter="Matematika">Matematika</button>
-      <button class="bv-filter" data-filter="Informatika">Informatika</button>
-      <button class="bv-filter" data-filter="Přírodověda">Přírodověda</button>
-    </div>
-    <div class="bv-game-grid" id="game-grid">
-      <a href="/cs/hry/vrstvicka.html" class="bv-game-card" style="--card-color:#3B82C4" data-subject="Informatika" target="_blank" rel="noopener">
-        <div class="bv-game-cover">
-          <div class="bv-game-shapes" aria-hidden="true">
-            <span class="bv-game-shape bv-shape-0">◐</span>
-            <span class="bv-game-shape bv-shape-1">◐</span>
-            <span class="bv-game-shape bv-shape-2">◐</span>
-          </div>
-          <span class="bv-game-glyph" aria-hidden="true">◐</span>
-          <span class="bv-game-grade">2.–5. tř.</span>
-          <span class="bv-game-beta-badge">BETA</span>
-        </div>
-        <div class="bv-game-meta">
-          <div class="bv-game-row">
-            <span class="bv-game-subj">Informatika</span>
-            <span class="bv-game-time">⏱ 15 min</span>
-          </div>
-          <h3>Vrstvička</h3>
-          <div class="bv-game-play" data-i18n="game_play">Hrát teď <span>→</span></div>
-        </div>
-      </a>
-      <article class="bv-game-card" style="--card-color:#5BB1D9" data-subject="Matematika">
-        <div class="bv-game-cover">
-          <div class="bv-game-shapes" aria-hidden="true">
-            <span class="bv-game-shape bv-shape-0">½</span>
-            <span class="bv-game-shape bv-shape-1">½</span>
-            <span class="bv-game-shape bv-shape-2">½</span>
-          </div>
-          <span class="bv-game-glyph" aria-hidden="true">½</span>
-          <span class="bv-game-grade">5. tř.</span>
-        </div>
-        <div class="bv-game-meta">
-          <div class="bv-game-row">
-            <span class="bv-game-subj">Matematika</span>
-            <span class="bv-game-time">⏱ 30 min</span>
-          </div>
-          <h3>Zlomková zoo 1 <span class="bv-wip-badge" data-i18n="badge_wip">v přípravě</span></h3>
-          <div class="bv-game-play" data-i18n="game_play">Hrát teď <span>→</span></div>
-        </div>
-      </article>
-      <article class="bv-game-card" style="--card-color:#5BB1D9" data-subject="Matematika">
-        <div class="bv-game-cover">
-          <div class="bv-game-shapes" aria-hidden="true">
-            <span class="bv-game-shape bv-shape-0">⅓</span>
-            <span class="bv-game-shape bv-shape-1">⅓</span>
-            <span class="bv-game-shape bv-shape-2">⅓</span>
-          </div>
-          <span class="bv-game-glyph" aria-hidden="true">⅓</span>
-          <span class="bv-game-grade">5. tř.</span>
-        </div>
-        <div class="bv-game-meta">
-          <div class="bv-game-row">
-            <span class="bv-game-subj">Matematika</span>
-            <span class="bv-game-time">⏱ 30 min</span>
-          </div>
-          <h3>Zlomková zoo 2 <span class="bv-wip-badge" data-i18n="badge_wip">v přípravě</span></h3>
-          <div class="bv-game-play" data-i18n="game_play">Hrát teď <span>→</span></div>
-        </div>
-      </article>
-      <article class="bv-game-card bv-game-soon" style="--card-color:#5BB1D9" data-subject="soon">
-        <div class="bv-game-cover">
-          <div class="bv-game-shapes" aria-hidden="true">
-            <span class="bv-game-shape bv-shape-0">+</span>
-            <span class="bv-game-shape bv-shape-1">+</span>
-            <span class="bv-game-shape bv-shape-2">+</span>
-          </div>
-          <span class="bv-game-glyph" aria-hidden="true">+</span>
-          <span class="bv-game-soon-badge" data-i18n="badge_soon">JIŽ BRZY</span>
-        </div>
-        <div class="bv-game-meta">
-          <h3 data-i18n="game_coming">Připravujeme</h3>
-          <div class="bv-game-soon-note" data-i18n="game_soon_note">Nová hra ve výrobě.</div>
-        </div>
-      </article>
-    </div>
-  </section>
+  </div>
+</section>
 
-  <!-- TEACHERS -->
-  <section class="bv-teachers" id="ucitele">
-    <div class="bv-teachers-grid">
-      <div class="bv-teachers-text">
-        <span class="bv-section-eyebrow"><span class="bv-eyebrow-bar"></span><span data-i18n="teachers_eyebrow">PRO UČITELE</span></span>
-        <h2 class="bv-h2" data-i18n="teachers_title">Hotový materiál do <em>hodiny</em></h2>
-        <p data-i18n="teachers_p">Každá hra obsahuje stručný metodický list — co procvičuje, jak ji zařadit do výuky, návrhy zadání pro různé úrovně.</p>
-        <ul class="bv-checklist">
-          <li><span class="bv-check">✓</span> <span data-i18n="check1">Bez registrace pro děti</span></li>
-          <li><span class="bv-check">✓</span> <span data-i18n="check2">Funguje na školních tabletech</span></li>
-          <li><span class="bv-check">✓</span> <span data-i18n="check3">RVP-kompatibilní zadání</span></li>
-          <li><span class="bv-check">✓</span> <span data-i18n="check4">Tisknutelné pracovní listy</span></li>
-        </ul>
-        <a href="#" class="bv-btn bv-btn-primary">
-          <span data-i18n="teachers_btn">Stáhnout metodiku</span>
-          <span class="bv-btn-arrow">↓</span>
-        </a>
-        <p class="bv-wip-note"><span class="bv-wip-badge" data-i18n="badge_wip">v přípravě</span> <span data-i18n="teachers_wip">Metodické listy jsou momentálně v přípravě.</span></p>
+<section class="obal sekce" aria-labelledby="hra-nadpis">
+  <div class="karta minihra">
+    <div class="minihra-text">
+      <p class="stitek-sekce">Un aperçu</p>
+      <h2 id="hra-nadpis">Trouve des nombres dont la somme fait 10</h2>
+      <p class="tlumeny">Ici, pas de chronomètre ni de points. L’enfant peut réfléchir aussi longtemps qu’il en a besoin.</p>
+      <img src="../assets/img/liska-cisla.webp" width="357" height="294" alt="" loading="lazy">
+    </div>
+    <div class="minihra-plocha">
+      <div class="dlazdice" id="dlazdice" role="group" aria-label="Nombres"></div>
+      <div class="soucet">
+        <span class="tlumeny maly">Ta somme</span>
+        <span class="soucet-cislo"><span id="soucet">0</span> / 10</span>
       </div>
-      <div class="bv-teachers-art">
-        <div class="bv-mock-stack">
-          <div class="bv-mock-sheet bv-mock-back">
-            <div class="bv-mock-bar bv-mock-bar-lg"></div>
-            <div class="bv-mock-bar"></div>
-            <div class="bv-mock-bar bv-mock-bar-md"></div>
-          </div>
-          <div class="bv-mock-sheet bv-mock-front">
-            <div class="bv-mock-tag">METODICKÝ LIST</div>
-            <div class="bv-mock-title">Násobilka v lese</div>
-            <div class="bv-mock-sub">2.–3. třída · 10 min</div>
-            <div class="bv-mock-grid">
-              <div class="bv-mock-cell"><span>1×1</span><strong>1</strong></div>
-              <div class="bv-mock-cell"><span>2×2</span><strong>4</strong></div>
-              <div class="bv-mock-cell"><span>3×3</span><strong>9</strong></div>
-              <div class="bv-mock-cell"><span>4×4</span><strong>16</strong></div>
-              <div class="bv-mock-cell"><span>5×5</span><strong>25</strong></div>
-              <div class="bv-mock-cell"><span>6×6</span><strong>36</strong></div>
-            </div>
-            <div class="bv-mock-foot">
-              <div class="bv-mock-progress"><div style="width:68%"></div></div>
-            </div>
-          </div>
-        </div>
+      <div class="pruh" role="progressbar" aria-label="Somme" aria-valuemin="0" aria-valuemax="10" aria-valuenow="0" id="pruh"><div id="pruh-vypln"></div></div>
+      <div class="minihra-dole">
+        <span class="stav" id="stav" aria-live="polite">Choisis des nombres.</span>
+        <button class="tl tl-obrys" type="button" id="dalsi">Un autre défi</button>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- FOOTER -->
-  <footer class="bv-footer" id="kontakt">
-    <div class="bv-footer-inner">
-      <span class="bv-footer-rule"></span>
-      <h2 class="bv-footer-h" data-i18n="feedback_title">Zpětná vazba</h2>
-      <p class="bv-footer-lede" data-i18n="feedback_text">Každý názor je pro mě cenný — ať už jste učitel, rodič nebo dítě, které si hru vyzkoušelo. Moc si vaší zpětné vazby vážím a pomáhá mi hry zlepšovat.</p>
-      <a href="mailto:barborah@skolavela.cz" class="bv-footer-btn">
-        <span data-i18n="feedback_btn">NAPSAT ZPRÁVU</span>
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="3" y="5" width="18" height="14" rx="2"></rect>
-          <path d="M3 7l9 6 9-6"></path>
+<section class="obal sekce" id="chystam" aria-labelledby="chystam-nadpis">
+  <div class="hlavicka-sekce">
+    <p class="stitek-sekce">En préparation</p>
+    <h2 id="chystam-nadpis">Jeux en cours</h2>
+    <p class="velky tlumeny">Je travaille sur ces jeux et j’en teste déjà certains avec les enfants en classe. Je les ajouterai ici quand ils auront fait leurs preuves.</p>
+  </div>
+  <div class="listy">
+    <article class="list">
+      <span class="zalozka zalozka-mat">Mathématiques</span>
+      <span class="razitko" style="--natoceni:-6deg">En développement</span>
+      <h3>Zlomková zoo 1</h3>
+      <p class="tlumeny">Dans différents contextes, les enfants découvrent ce qu’est une fraction et ce que signifient le numérateur et le dénominateur.</p>
+    </article>
+    <article class="list">
+      <span class="zalozka zalozka-mat">Mathématiques</span>
+      <span class="razitko" style="--natoceni:4deg">En développement</span>
+      <h3>Zlomková zoo 2</h3>
+      <p class="tlumeny">Les enfants apprennent à additionner et à soustraire des fractions.</p>
+    </article>
+    <article class="list">
+      <span class="zalozka zalozka-priroda">Découverte du monde</span>
+      <span class="razitko" style="--natoceni:-3deg">En développement</span>
+      <h3>Listy</h3>
+      <p class="tlumeny">Lecture syllabe par syllabe, avec de courtes histoires sur la nature, la technique et les mathématiques. Les textes peuvent être imprimés ou affichés sur des tablettes. Les textes sont en tchèque.</p>
+    </article>
+    <article class="list list-napad">
+      <span class="zalozka zalozka-mat">Mathématiques</span>
+      <span class="razitko razitko-sede" style="--natoceni:5deg">Ébauche</span>
+      <h3>Nombres décimaux</h3>
+      <p class="tlumeny">Un jeu sur les nombres décimaux, où un chinchilla, un ornithorynque et un guépard accompagnent les enfants.</p>
+    </article>
+  </div>
+  <div class="pozvanka">
+    <img src="../assets/img/plamenak-dalekohled.webp" width="240" height="166" alt="" loading="lazy">
+    <div>
+      <h3>Vous aimeriez essayer l’un de ces jeux avec votre classe ?</h3>
+      <p class="tlumeny">Je cherche des enseignantes et des enseignants prêts à les utiliser en classe et à me dire ce qui leur a manqué.</p>
+    </div>
+    <a class="tl tl-zelene" href="#kontakt">Me contacter</a>
+  </div>
+</section>
+
+<section class="obal sekce dve-casti dve-casti-ucitele" id="ucitele" aria-labelledby="ucitele-nadpis">
+  <div class="hlavicka-sekce">
+    <p class="stitek-sekce">Pour les enseignants</p>
+    <h2 id="ucitele-nadpis">Le jeu n’est qu’une partie de la séance</h2>
+    <p class="velky tlumeny">C’est pourquoi je prépare pour chaque jeu des supports qui vous permettent d’en faire une séance complète.</p>
+    <img class="liska-ucitele" src="../assets/img/liska-zkouma.webp" width="352" height="297" alt="" loading="lazy">
+  </div>
+  <div class="sesit-obal">
+    <img class="koala-sesit" src="../assets/img/koala-sazenice.webp" width="260" height="260" alt="" loading="lazy">
+    <div class="sesit">
+      <h3>Déjà en place</h3>
+      <ul class="seznam hotovo">
+        <li>Les élèves n’ont pas besoin de s’inscrire</li>
+        <li>Les jeux ne collectent aucune donnée</li>
+        <li>Ils fonctionnent sur ordinateur, tablette et tableau interactif</li>
+      </ul>
+      <h3>En préparation</h3>
+      <ul class="seznam pripravuji">
+        <li>Une fiche pédagogique pour chaque jeu</li>
+        <li>Des fiches d’exercices à imprimer</li>
+        <li>Des activités débranchées en groupe</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="obal sekce dve-casti dve-casti-projekt" id="projekt" aria-labelledby="projekt-nadpis">
+  <div class="hlavicka-sekce">
+    <p class="stitek-sekce">À propos</p>
+    <h2 id="projekt-nadpis">Qui crée les jeux</h2>
+    <p class="velky tlumeny">J’enseigne l’informatique et les mathématiques dans une école tchèque et je suis aussi graphiste. Je crée les jeux de Zvídavě parce que je ne trouvais pas ceux dont j’avais besoin pour mes cours.</p>
+    <p class="podpis">– Baru</p>
+  </div>
+  <div class="pravidla">
+    <p class="tlumeny maly tucne">Les principes de mes jeux</p>
+    <ol>
+      <li><span class="cislo c1" aria-hidden="true">1</span><div><h3>Pas de classement</h3><p class="tlumeny">Les jeux ne mesurent pas le temps, ne comptent pas de points et les enfants ne s’y affrontent pas. Chacun avance à son rythme.</p></div></li>
+      <li><span class="cislo c2" aria-hidden="true">2</span><div><h3>L’erreur est permise</h3><p class="tlumeny">Au lieu d’une croix rouge, l’enfant voit ce qui s’est passé et peut réessayer.</p></div></li>
+      <li><span class="cislo c3" aria-hidden="true">3</span><div><h3>Un design apaisé</h3><p class="tlumeny">Une bonne réponse ne déclenche ni confettis ni animations clignotantes, ce qui permet aux enfants de se concentrer sur la tâche elle-même.</p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="obal sekce dve-casti dve-casti-blog" id="blog" aria-labelledby="blog-nadpis">
+  <div class="hlavicka-sekce">
+    <p class="stitek-sekce">Blog</p>
+    <h2 id="blog-nadpis">Comment naissent les jeux</h2>
+    <p class="velky tlumeny">J’écris sur ce que j’essaie avec les enfants en classe et j’explique pourquoi les jeux sont faits ainsi.</p>
+  </div>
+  <!-- BLOG: doplň odkaz, datum, název a perex článku -->
+  <a class="karta clanek" href="#">
+    <img src="../assets/img/liska-cte.webp" width="385" height="301" alt="" loading="lazy">
+    <span class="clanek-text">
+      <span class="tlumeny maly tucne">Article · [date]</span>
+      <span class="clanek-nazev">[Titre de l’article]</span>
+      <span class="tlumeny">[Une ou deux phrases sur l’article.]</span>
+      <span class="clanek-odkaz">Lire l’article →</span>
+    </span>
+  </a>
+</section>
+
+<section class="obal sekce" id="kontakt" aria-labelledby="kontakt-nadpis">
+  <div class="kontakt">
+    <div class="kontakt-text">
+      <h2 id="kontakt-nadpis">Écrivez-moi</h2>
+      <p class="velky">Vous avez essayé l’un des jeux en classe ou à la maison ? Je serais ravie de savoir comment cela s’est passé pour vous et pour les enfants. Vos retours m’aident à améliorer les jeux. Je réponds en tchèque ou en anglais.</p>
+      <div class="tlacitka">
+        <a class="tl tl-zelene" href="mailto:barborah@skolavela.cz"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M4 7l8 6 8-6"/></svg>Envoyer un message</a>
+        <span class="tucne">barborah@skolavela.cz</span>
+      </div>
+    </div>
+    <div class="dira papir" aria-hidden="true">
+      <img src="../assets/img/plamenak-tanci.webp" width="224" height="266" alt="" loading="lazy">
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="paticka obal">
+  <div class="paticka-vlevo">
+    <a href="./" class="logo-paticka" aria-label="Zvídavě.cz – accueil">
+      <svg viewBox="0 30 630 146" width="129" height="30" aria-hidden="true">
+        <path d="M40.1 154 87.3 95.6H93.4Q98.4 99.8 98.4 106.5Q98.4 109.4 97 112.2Q95.7 115 93.6 117.7L46.7 176H39.5Q37.6 174.4 36.3 171.6Q35 168.9 35 165.5Q35 162.5 36.5 159.5Q38 156.6 40.1 154ZM42.2 176 51.5 159.5H97.1Q97.9 160.8 98.6 162.9Q99.3 165 99.3 167.5Q99.3 171.9 97.4 173.9Q95.4 176 92.1 176ZM89.5 95.6 82.2 112.2H38.3Q37.5 110.8 36.8 108.8Q36.1 106.7 36.1 104.2Q36.1 99.9 38.1 97.8Q40.1 95.6 43.5 95.6ZM161.1 111.3Q165.1 111.3 167.9 113.1Q170.6 114.9 170.6 119.2Q170.6 121.5 169.2 126.5Q167.9 131.6 165.7 138.1Q163.5 144.7 160.9 151.6Q158.3 158.5 155.6 164.5Q153 170.5 150.9 174.4Q149.5 175.5 146.3 176.3Q143.2 177.2 139.3 177.2Q134.8 177.2 131.6 176Q128.3 174.8 127 172.3Q125.6 169.6 123.5 164.5Q121.4 159.5 119 153.1Q116.6 146.7 114.2 139.8Q111.9 133 109.9 126.7Q107.9 120.3 106.7 115.5Q108.4 113.8 111.1 112.6Q113.8 111.3 117 111.3Q121.1 111.3 123.7 113.1Q126.4 114.8 127.6 119.5L133.5 140.5Q134.5 144.1 135.6 147.9Q136.8 151.6 137.7 154.8Q138.7 158 139.2 160.1H139.9Q143 149.5 146.2 137.3Q149.5 125.1 152 113.5Q156 111.3 161.1 111.3ZM182.3 139.4H201.9V175.9Q200.7 176.2 198.3 176.6Q195.9 177 193.2 177Q187.5 177 184.9 175Q182.3 172.9 182.3 167.8ZM201.9 145.6H182.3V112.8Q183.6 112.5 185.9 112.1Q188.3 111.7 191.1 111.7Q196.8 111.7 199.3 113.7Q201.9 115.7 201.9 120.9ZM258.8 160.4V120.6L278.3 120.6V162.9Q278.3 166 277 168.1Q275.7 170.3 272.8 172.1Q269.2 174.4 263.5 176.2Q257.7 178 250.2 178Q239.2 178 231.3 174.3Q223.3 170.6 219 163.2Q214.7 155.7 214.7 144.6Q214.7 133 219.1 125.5Q223.5 118 231 114.4Q238.5 110.7 247.7 110.7Q252.4 110.7 256.1 111.7Q259.9 112.8 262.2 114.2V130.4Q260.3 128.8 257.3 127.5Q254.3 126.1 250.3 126.1Q245.6 126.1 242.1 128.1Q238.5 130 236.5 134.1Q234.6 138.2 234.6 144.6Q234.6 153.8 238.7 158.2Q242.9 162.5 250.1 162.5Q253 162.5 255.2 161.8Q257.4 161.1 258.8 160.4ZM278.3 124.4 258.7 124.5V90.1Q260 89.7 262.4 89.3Q264.8 88.9 267.5 88.9Q273.2 88.9 275.8 90.9Q278.3 92.8 278.3 98.1ZM319.9 163.5Q322.9 163.5 325.9 162.9Q328.8 162.3 330.2 161.4V148.8L319 149.8Q314.6 150.1 312 151.7Q309.4 153.4 309.4 156.5Q309.4 159.7 311.9 161.6Q314.3 163.5 319.9 163.5ZM319.1 110.7Q332.8 110.7 340.9 116.4Q349.1 122.1 349.1 134.2V164.2Q349.1 167.5 347.4 169.5Q345.7 171.5 343.1 173Q339.2 175.3 333.3 176.7Q327.4 178 319.9 178Q306.4 178 298.4 172.8Q290.4 167.6 290.4 157.1Q290.4 148.2 295.9 143.3Q301.5 138.5 312.4 137.4L330.1 135.6V134Q330.1 129.5 326.6 127.5Q323.1 125.5 316.6 125.5Q311.6 125.5 306.8 126.7Q301.9 127.9 298.1 129.6Q296.5 128.4 295.4 126.3Q294.3 124.1 294.3 121.8Q294.3 116.2 300.3 113.7Q304.1 112.2 309.2 111.4Q314.3 110.7 319.1 110.7ZM413.8 111.3Q417.9 111.3 420.6 113.1Q423.4 114.9 423.4 119.2Q423.4 121.5 422 126.5Q420.7 131.6 418.5 138.1Q416.3 144.7 413.7 151.6Q411 158.5 408.4 164.5Q405.8 170.5 403.7 174.4Q402.2 175.5 399.1 176.3Q395.9 177.2 392.1 177.2Q387.6 177.2 384.4 176Q381.1 174.8 379.8 172.3Q378.4 169.6 376.3 164.5Q374.2 159.5 371.8 153.1Q369.4 146.7 367 139.8Q364.7 133 362.7 126.7Q360.7 120.3 359.5 115.5Q361.2 113.8 363.9 112.6Q366.6 111.3 369.8 111.3Q373.9 111.3 376.5 113.1Q379.1 114.8 380.4 119.5L386.2 140.5Q387.3 144.1 388.4 147.9Q389.5 151.6 390.5 154.8Q391.5 158 392 160.1H392.6Q395.8 149.5 399 137.3Q402.2 125.1 404.7 113.5Q408.8 111.3 413.8 111.3ZM443.7 153.5 442.9 140.3 475.7 135.2Q475.3 131.5 472.5 128.3Q469.6 125.2 463.9 125.2Q457.9 125.2 453.9 129.2Q450 133.2 449.8 140.7L450.4 149.8Q451.6 156.9 456.6 160.1Q461.6 163.2 468.6 163.2Q474.1 163.2 479 161.6Q483.9 160.1 486.8 158.3Q488.8 159.5 490.1 161.6Q491.4 163.7 491.4 166.1Q491.4 170 488.3 172.7Q485.1 175.4 479.7 176.7Q474.2 178 467.2 178Q457 178 448.9 174.2Q440.8 170.3 436.2 162.6Q431.6 155 431.6 143.5Q431.6 135.1 434.3 128.9Q436.9 122.6 441.5 118.6Q446 114.6 451.8 112.7Q457.6 110.7 463.8 110.7Q472.9 110.7 479.6 114.3Q486.4 117.9 490.3 124.1Q494.1 130.3 494.1 138.5Q494.1 142.6 491.9 144.7Q489.7 146.8 485.7 147.3ZM500.3 169.6Q500.3 166.2 502.4 163.9Q504.6 161.6 508.1 161.6Q511.7 161.6 513.8 163.9Q515.9 166.2 515.9 169.6Q515.9 172.9 513.8 175.1Q511.7 177.4 508.1 177.4Q504.6 177.4 502.4 175.1Q500.3 172.9 500.3 169.6ZM546.4 142.1Q541.5 142.1 538 145.3Q534.5 148.4 534.5 154.5Q534.5 160.6 537.9 163.7Q541.2 166.7 546.3 166.7Q549.2 166.7 551.5 166Q553.7 165.2 555.2 164.3Q556.8 165.4 557.6 166.7Q558.4 168 558.4 169.8Q558.4 173.2 554.8 175.2Q551.2 177.3 544.9 177.3Q537.7 177.3 532.3 174.8Q526.9 172.2 524 167.1Q521 162 521 154.5Q521 146.8 524.2 141.7Q527.4 136.6 532.8 134Q538.1 131.5 544.5 131.5Q550.7 131.5 554.2 133.7Q557.8 135.9 557.8 139.3Q557.8 140.9 557.1 142.2Q556.3 143.5 555.2 144.5Q553.6 143.6 551.4 142.8Q549.2 142.1 546.4 142.1ZM572.9 176H567.6Q566.3 174.9 565.6 173.4Q564.9 171.9 564.9 170Q564.9 168.4 565.6 166.9Q566.4 165.3 567.5 163.9L593.6 132.8H598.3Q599.5 134 600.3 135.4Q601 136.9 601 138.8Q601 140.4 600.3 142Q599.5 143.5 598.4 144.9ZM595.6 132.8V143.2H566.6Q566.1 142.4 565.7 141Q565.3 139.6 565.3 138.1Q565.3 135.3 566.5 134.1Q567.8 132.8 569.8 132.8ZM571.3 176V165.6H600.6Q601.1 166.4 601.6 167.8Q602 169.2 602 170.8Q602 173.5 600.8 174.8Q599.5 176 597.4 176Z" fill="#036766"/>
+        <g transform="translate(173.2 35.3) scale(0.5544)">
+          <polygon points="94.3,5.4 5.4,50.9 28.8,60.4" fill="#036766" stroke="#F9F7F0" stroke-width="6" stroke-linejoin="round" paint-order="stroke"/>
+          <polygon points="94.3,5.4 43.1,69.8 43.7,74.1 56.6,97" fill="#036766" stroke="#F9F7F0" stroke-width="6" stroke-linejoin="round" paint-order="stroke"/>
+          <polygon points="94.3,5.4 28.8,60.4 28.8,77.6 43.7,74.1 43.1,69.8" fill="#036766" stroke="#F9F7F0" stroke-width="6" stroke-linejoin="round" paint-order="stroke"/>
+        </g>
+        <g transform="translate(425.9 43.2) scale(0.6600)">
+          <polygon points="4.3,24.6 51.5,47.8 22,68.5" fill="#036766" stroke="#F9F7F0" stroke-width="6" stroke-linejoin="round" paint-order="stroke"/>
+          <polygon points="95.7,15.9 51.5,47.8 77.6,67.7" fill="#036766" stroke="#F9F7F0" stroke-width="6" stroke-linejoin="round" paint-order="stroke"/>
+          <polygon points="22,68.5 51.5,47.8 77.6,67.7" fill="#036766" stroke="#F9F7F0" stroke-width="6" stroke-linejoin="round" paint-order="stroke"/>
+          <polygon points="49.4,4.3 31.9,37.9 51.5,47.8 68.5,34.5" fill="#036766" stroke="#F9F7F0" stroke-width="6" stroke-linejoin="round" paint-order="stroke"/>
+        </g>
+      </svg>
+    </a>
+    <nav class="paticka-odkazy" aria-label="Liens de pied de page">
+      <a href="#hrat">Jouer</a>
+      <a href="#chystam">En préparation</a>
+      <a href="#ucitele">Pour les enseignants</a>
+      <a href="#projekt">À propos</a>
+      <a href="#blog">Blog</a>
+      <a href="#kontakt">Contact</a>
+    </nav>
+  </div>
+  <div class="paticka-vpravo">
+    <div class="pristav">
+      <div class="hladina" aria-hidden="true"></div>
+      <button class="lodicka vpravo" type="button" aria-label="Envoyer le bateau sur l’autre rive">
+        <svg viewBox="0 0 64 40" width="64" height="40" aria-hidden="true">
+          <polygon points="2,22 62,22 52,38 12,38" fill="#036766" stroke="#F9F7F0" stroke-width="2" stroke-linejoin="round"/>
+          <polygon points="32,2 32,22 12,22" fill="#FDF8F1" stroke="#036766" stroke-width="2" stroke-linejoin="round"/>
+          <polygon points="32,2 32,22 50,22" fill="#80C9C1" stroke="#036766" stroke-width="2" stroke-linejoin="round"/>
         </svg>
-      </a>
-      <p class="bv-footer-note" data-i18n="feedback_note">Odpovídám co nejdříve.</p>
+      </button>
     </div>
-    <div class="bv-footer-bar">
-      <span class="bv-footer-logo"><em>Zvídavě</em><span>.cz</span></span>
-      <span class="bv-footer-meta" data-i18n="footer_copy">© 2026 Zvídavě · Vše zdarma · Vyrobeno s <span class="bv-heart">♥</span> pro zvídavé děti</span>
-    </div>
-  </footer>
+    <p class="copyright">© 2026 Zvídavě · Des jeux pour les enfants curieux</p>
+  </div>
+</footer>
 
-</div>
-<script src="/assets/js/main.js"></script>
-<script src="/assets/js/bold.js?v=3"></script>
+<script src="../assets/js/zvidave.js" defer></script>
 </body>
 </html>
